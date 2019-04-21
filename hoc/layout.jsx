@@ -1,34 +1,71 @@
-import React from 'react';
-import Link from 'next/link';
-import Head from 'next/head';
+import React from 'react'
+import Link from 'next/link'
+import Head from 'next/head'
 
 // eslint-disable-next-line react/prefer-stateless-function
 class Layout extends React.Component {
-  sidebarToggle() {
-    document.querySelector(`body`).classList.toggle('sidebar-active');
+  sidebarToggle () {
+    document.querySelector(`body`).classList.toggle('sidebar-active')
   }
-  render() {
+  render () {
     return (
       <React.Fragment>
         <Head>
-          <title>Pranaa Whole Food</title>
-          <link rel="icon" href="/static/favicon.ico" />
-          <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1.0"
+          <title>Arvind Narayan | Developer & Designer</title>
+          <link rel='icon' href='/static/favicon.ico' />
+          <link
+            href='https://fonts.googleapis.com/css?family=Oxygen:400,700|Zilla+Slab:700'
+            rel='stylesheet'
           />
+          <meta name='title' content='Arvind Narayan | Developer & Desinger' />
+          <meta
+            name='description'
+            content='Arvind Narayan Full-stack Develope and freelance UX Designer from Bengaluru, India. I specialise in React, Redux, Node js and sketch. I build Apps.'
+          />
+          <meta
+            name='keywords'
+            content='arvind narayan, thearvindnarayan ,fullstack developer, bengaluru, bangalore, ux designer, react js, node js, react developer, react india, node india, react developer india, node developer india, indian developers'
+          />
+          <meta name='robots' content='index, follow' />
+          <meta httpEquiv='Content-Type' content='text/html; charset=utf-8' />
+          <meta name='language' content='English' />
+
+          <meta
+            name='viewport'
+            content='width=device-width, initial-scale=1.0'
+          />
+          <meta
+            property='og:site_name'
+            content='Arvind Narayan | Developer & Designer'
+          />
+          <meta property='og:url' content='https://www.pranaafood.com/' />
+          <meta
+            property='og:title'
+            name='title'
+            content='Arvind Narayan | Developer & Designer'
+          />
+          <meta name='twitter:url' content='https://www.pranaafood.com/' />
+          <meta
+            name='twitter:title'
+            content='Arvind Narayan | Developer & Designer'
+          />
+          <meta
+            name='twitter:site'
+            content='Arvind Narayan | Developer & Designer'
+          />
+          <meta name='twitter:creator' content='Arvind Narayan' />
+          <meta property='og:type' content='website' />
+          <meta name='theme-color' content='#3c4040' />
         </Head>
         <style jsx global>{`
           body {
             margin: 0;
           }
         `}</style>
-        <nav>head</nav>
         {this.props.children}
-        <footer>footer</footer>
       </React.Fragment>
-    );
+    )
   }
 }
 
-export default Layout;
+export default Layout
