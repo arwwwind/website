@@ -337,3 +337,104 @@ a.links.linkedin {
   color: #1c1e1e;
   margin-top: 1em;
 }
+
+@media only screen and (max-width: 600px) {
+  .dev {
+    width: 250px;
+    height: 180px;
+  }
+
+  .content-title {
+    margin-top: 14em !important;
+
+    h1 {
+      font-size: 50px !important;
+    }
+
+    h3 {
+      font-size: 30px !important;
+    }
+  }
+
+  .react-reveal.outline.outline-1 {
+    top: -200px;
+    right: -12vw;
+  }
+
+  .react-reveal.circle.circle-1 {
+    top: -200px;
+    right: -12vw;
+  }
+
+  .react-reveal.outline.outline-2 {
+    top: 110px;
+    left: -64vw;
+  }
+
+  .react-reveal.circle.circle-2 {
+    top: 110px;
+    left: -64vw;
+  }
+
+  .react-reveal.outline.outline-3 {
+    top: 230px;
+    right: -69vw;
+  }
+
+  .react-reveal.circle.circle-3 {
+    top: 230px;
+    right: -69vw;
+  }
+
+  .container {
+    width: 100vw;
+    overflow-x: hidden;
+  }
+
+  .content-body {
+    font-size: 14px;
+  }
+
+  a.links {
+    font-size: 21px;
+  }
+
+  .content-body {
+    font-size: 14px;
+  }
+
+  a.links {
+    font-size: 21px;
+  }
+
+  .tech-logo.bg-assets {
+    width: 56px;
+    height: 36px;
+    justify-content: space-between;
+    margin-bottom: 1.2em;
+  }
+
+  a.bg {
+    width: 289px;
+    max-height: 300px;
+  }
+
+  .image {
+    width: 231px;
+    height: 234px;
+  }
+
+  .p-title {
+    font-size: 15.6px;
+  }
+
+  .p-desc {
+    font-size: 13.2px;
+  }
+
+  .react-reveal.post {
+    width: 289px;
+    margin: auto;
+    margin-bottom: 3em;
+  }
+}

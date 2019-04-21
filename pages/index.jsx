@@ -239,10 +239,13 @@ class Index extends React.Component {
             <span className='sidenote'>
               Hosted in
               <a href='https://surge.sh/' target='_blank'>
-                <b>Surge</b>
+                <b>&nbsp;Surge</b>
               </a>
-              . Code is licensed under <b>MIT</b> and available at Github. All
-              images/graphics are licensed under <b>CC BY-SA</b>
+              . Code is licensed under <b>MIT</b> and available at
+              <a href='https://github.com/TheArvindNarayan/website' target='_blank'>
+                <b>&nbsp;Github</b>
+              </a>
+              . All images/graphics are licensed under <b>CC BY-SA</b>
             </span>
             <span className='copy'>©2019 Arvind Narayan</span>
           </div>
