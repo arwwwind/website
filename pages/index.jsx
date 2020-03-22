@@ -1,17 +1,32 @@
-import React from 'react'
-import '../style/style.scss'
-import Layout from '../hoc/layout'
-import Post from './../components/post'
-import Zoom from 'react-reveal/Zoom'
-import Slide from 'react-reveal/Slide'
+import React from 'react';
+import '../style/style.scss';
+import Layout from '../hoc/layout';
+import Post from './../components/post';
+import Zoom from 'react-reveal/Zoom';
+import globe from 'vanta/dist/vanta.globe.min';
 
 class Index extends React.Component {
-  constructor () {
-    super()
+  constructor() {
+    super();
     this.state = {
       posts: [
         {
-          title: 'Oath Gemini Ad Platform ( Yahoo )',
+          title: 'Pranaa | Whole Food Delivery',
+          desc:
+            'Pranaa is a exclusive food delivery app that is the online storefront of exclusive food products pranaa which is a based on Plant Based Whole Food which prootes wellness and healthy living',
+          url: 'https://www.pranaafood.com',
+          image: '/static/pranaa1.png',
+          class: 'green'
+        },
+        {
+          title: 'Ad Builder by Verzon Media (yahoo!)',
+          desc: `A desktop and PWA that is powering SMB's with advertisments and campaigns. This application makes creation of ads as easy and intuitive as possible.`,
+          url: 'http://ad.com',
+          image: '/static/bitmap.png',
+          class: 'red'
+        },
+        {
+          title: 'Verizon Media Native (yahoo!)',
           desc:
             'A Hybrid App built on Android, iOS and as well as a PWA. This app helps advertisers with their Campaigns',
           url:
@@ -20,24 +35,17 @@ class Index extends React.Component {
           class: 'blue'
         },
         {
-          title: 'ad.com by Verizon media ( Yahoo )',
-          desc: `A desktop and PWA that is powering SMB's with advertisments and campaigns. A minimalistic approach for advertisments.`,
-          url: 'http://stg.ad.com',
-          image: '/static/Bitmap.png',
-          class: 'red'
-        },
-        {
           title: 'Apollo Construct by Katerra',
-          desc: `Apollo is a mega tool used by construction giant katerra is managing constuction projects.`,
+          desc: `Apollo is a suite of applications designed to support building projects and teams from beginning to end.`,
           url: 'https://apollo.katerra.com/',
-          image: '/static/3.png',
+          image: '/static/3.jpg',
           class: 'green'
         },
         {
           title: 'Reeltime Coaching',
-          desc: `ReelTime Coaching is the elite athlete development platform that connects athletes with top coaches on demand.`,
-          url: 'http://app.reeltimecoaching.com',
-          image: '/static/4.png',
+          desc: `ReelTime Coaching is the elite athlete development platform that connects athletes with top coaches on demand. Thats right we worked with Icecube!`,
+          url: 'http://beta.reeltimecoaching.com',
+          image: '/static/4.jpg',
           class: 'yellow'
         },
         {
@@ -46,90 +54,80 @@ class Index extends React.Component {
           url: 'https://mypalava.in',
           image: '/static/5.png',
           class: 'blue'
-        },
-        {
-          title: 'Pocketbits',
-          desc: `PocketBits is professional crypto-platforms in India. whichprovide a digital asset trading platform built on ultra-modern services for digital currency traders and global liquidity providers.`,
-          url: 'https://pocketbits.in',
-          image: '/static/pb.png',
-          class: 'red'
         }
       ]
-    }
+    };
+    this.vantaRef = React.createRef();
   }
 
-  render () {
+  componentDidMount() {
+    this.vantaRef = globe({
+      el: this.vantaRef.current,
+      mouseControls: true,
+      touchControls: true,
+      minHeight: 550.0,
+      minWidth: 550.0,
+      scale: 1.0,
+      scaleMobile: 1.0,
+      color: 0x3b28ca,
+      color2: 0xe63a45,
+      size: 1.7,
+      backgroundColor: 0xf0f0f0
+    });
+  }
+
+  componentWillUnmount() {
+    if (this.vantaEffect) this.vantaEffect.destroy();
+  }
+
+  render() {
     return (
       <Layout>
         <div className='container'>
-          <Slide top cascade>
-            <div className='circle circle-1' />
-          </Slide>
-          <Slide left cascade>
-            <div className='circle circle-2' />
-          </Slide>
-          <Slide right cascade>
-            <div className='circle circle-3' />
-          </Slide>
-          <Slide bottom cascade>
-            <div className='outline outline-1' />
-          </Slide>
-          <Slide right cascade>
-            <div className='outline outline-2' />
-          </Slide>
-          <Slide left cascade>
-            <div className='outline outline-3' />
-          </Slide>
           <div className='nav-head'>
             <Zoom right cascade>
               <span className='logo bg-assets' />
             </Zoom>
           </div>
-          <div className='infographic'>
-            <Zoom right cascade>
-              <span className='bg-assets dev' />
-            </Zoom>
-          </div>
+          <div className='infographic' ref={this.vantaRef}></div>
           <div className='content-title'>
             <Zoom right cascade>
-              <h1>I’m Arvind,</h1>
+              <h1>Hello, I’m Arvind</h1>
             </Zoom>
             <Zoom right cascade>
-              <h3>Fullstack Developer & Freelance UX Designer</h3>
+              <h3>Product Developer & UX Designer</h3>
             </Zoom>
           </div>
-          <Zoom bottom>
+          <Zoom right>
             <div className='content-body'>
-              I build apps end to end aka Design - Front-end - Backend and a
-              little bit of Dev-Ops. <br />
-              I’m from most coolest places on Earth aka Bengaluru. I have close
-              to 3.5 years of experience in building truly scalable products.
-              You can see me mostly working on Javascript in all forms and
-              sizes. I’m in love with React JS and have a love and hate
-              relationship with Angular (first choice). I deal with massive SASS
-              style sheets and colossal Redux architecture. I also love creating
-              keyframe animation purely using CSS Keyframes.
-              <br />I prefer to work on super fast Node JS in backend with
-              databases like MongoDB, Postgres, Redis and ElasticSearch and also
-              consume services like kafka, Docker, Sentry and Nginix. My current
-              curiosity with Architecting Microservices has shed some light on
-              services like AWS / GCP and building at scale. I’m a recent fan of
-              Serverless services.
+              I architect solutions to products for a living👨🏽‍💻. Also cause
+              building a well architected app gets me good sleep at night😴.
               <br />
-              I also consult firms on UX design. The Sketch is my choice of
-              weapon, Sometimes I work with Illustrator and Photoshop for the
-              finishing touches. I’m a fan on negative spaces and minimalist UI.
+              I call bangalore home🏠 and bagpack🗺️ when I'm not home. For the
+              greater part of 3.5+ years⌛ I've built / hacked a ton of products
+              and solutions. You can see me mostly working on Javascript in all
+              forms and sizes. React and Node are the most important tools🧰 in
+              my arsenal. I architect🦾 solutions and lead a team👥 of engineers
+              as my day job.
+              <br />I prefer to work on databases like MongoDB, Postgres, Redis
+              and ElasticSearch. I use AWS, kafka, Docker, Sentry etc., to
+              maintain my sanity while my applications scale📐 like no tomorrow.
+              <br />I work💼 as Senior Software Engineer at{' '}
+              <a href='upgrad.com'>upGrad</a>
+              <br />I consult various clients regarding UX, Product and
+              Development. You should check out my dribbble!
               <br />
-              I’m keen on delivering the best User Experience on the products I
-              work on that is my professional mission!
-              <br />I currently work at Cognitveclouds and a SDE-2. Feel free
+              I've been coding👨🏻‍💻 since my 4th grade ⏳, designing for the past 5
+              years and now I'm all about building🏗️ products and maintaing
+              sanity😌.
+              <br /> Feel free{' '}
               <a
                 href='mailto:thearvindnarayan@gmail.com?Subject=Hey%20Arvind'
                 className='mail'
               >
-                &nbsp; Slide in a Mail &nbsp;
-              </a>
-              regarding new opportunuties
+                Slide in a Mail📧
+              </a>{' '}
+              If you want to reach out for anything.
             </div>
           </Zoom>
           <Zoom bottom cascade>
@@ -239,20 +237,23 @@ class Index extends React.Component {
             <span className='sidenote'>
               Hosted in
               <a href='https://surge.sh/' target='_blank'>
-                <b>&nbsp;Surge</b>
+                <b>&nbspSurge</b>
               </a>
               . Code is licensed under <b>MIT</b> and available at
-              <a href='https://github.com/TheArvindNarayan/website' target='_blank'>
-                <b>&nbsp;Github</b>
+              <a
+                href='https://github.com/TheArvindNarayan/website'
+                target='_blank'
+              >
+                <b>&nbspGithub</b>
               </a>
               . All images/graphics are licensed under <b>CC BY-SA</b>
             </span>
-            <span className='copy'>©2019 Arvind Narayan</span>
+            <span className='copy'>©2020 Arvind Narayan</span>
           </div>
         </div>
       </Layout>
-    )
+    );
   }
 }
 
-export default Index
+export default Index;

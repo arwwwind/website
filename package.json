@@ -1,5 +1,5 @@
 {
-  "name": "pranaa",
+  "name": "arvind-narayan-portfolio",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -10,11 +10,6 @@
     "eslint:fix": "eslint . --ext .js --ignore-pattern node_modules --fix",
     "eslint:watch": "esw config --color --watch"
   },
-  "husky": {
-    "hooks": {
-      "pre-push": "npm run lint"
-    }
-  },
   "dependencies": {
     "@zeit/next-css": "^1.0.1",
     "@zeit/next-sass": "^1.0.1",
@@ -23,7 +18,7 @@
     "bootstrap": "^4.3.1",
     "lodash": "^4.17.11",
     "next": "^8.0.4",
-    "node-sass": "^4.11.0",
+    "node-sass": "^4.13.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-redux": "^5.0.1",
@@ -31,6 +26,7 @@
     "redux": "^3.6.0",
     "redux-thunk": "^2.1.0",
     "uuid": "^3.3.2",
+    "vanta": "^0.5.10",
     "webpack": "^4.30.0"
   },
   "license": "ISC",
