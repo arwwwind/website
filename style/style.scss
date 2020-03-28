@@ -39,13 +39,13 @@ div#root {
 .logo {
   height: 43px;
   width: 80px;
-  background: url('/static/mlogo.svg');
+  background: url('/public/static/mlogo.svg');
 }
 
 .dev {
   width: 587px;
   height: 336px;
-  background: url('/static/dev.svg');
+  background: url('/public/static/dev.svg');
   margin: auto;
 }
 
@@ -55,57 +55,57 @@ div#root {
 }
 
 a.react {
-  background: url('/static/React.js_logo-512.svg');
+  background: url('/public/static/React.js_logo-512.svg');
 }
 
 a.redux {
-  background: url('/static/logo.svg');
+  background: url('/public/static/logo.svg');
 }
 
 a.angular {
-  background: url('/static/angular.svg');
+  background: url('/public/static/angular.svg');
 }
 
 a.js {
-  background: url('/static/1200px-Unofficial_JavaScript_logo_2.svg.svg');
+  background: url('/public/static/1200px-Unofficial_JavaScript_logo_2.svg.svg');
 }
 
 a.sass {
-  background: url('/static/seal-color-aef0354c.svg');
+  background: url('/public/static/seal-color-aef0354c.svg');
 }
 
 a.node {
-  background: url('/static/nodejs-logo-FBE122E377-seeklogo.com.svg');
+  background: url('/public/static/nodejs-logo-FBE122E377-seeklogo.com.svg');
 }
 
 a.boot {
-  background: url('/static/bootstrap.svg');
+  background: url('/public/static/bootstrap.svg');
 }
 
 a.redis {
-  background: url('/static/redis.svg');
+  background: url('/public/static/redis.svg');
 }
 
 a.sketch {
-  background: url('/static/sketch-2-logo-png-transparent.svg');
+  background: url('/public/static/sketch-2-logo-png-transparent.svg');
 }
 
 a.mongo {
-  background: url('/static/mongodb.svg');
+  background: url('/public/static/mongodb.svg');
 }
 
 a.elastic {
-  background: url('/static/elasticsearch-logo-760x490_Mry7NW8.svg');
+  background: url('/public/static/elasticsearch-logo-760x490_Mry7NW8.svg');
 }
 
 a.pg {
-  background: url('/static/540px-Postgresql_elephant.svg.svg');
+  background: url('/public/static/540px-Postgresql_elephant.svg.svg');
 }
 
 .mine {
   width: 100px;
   height: 100px;
-  background: url('/static/mine.png');
+  background: url('/public/static/mine.png');
   margin: auto;
   margin-bottom: 1em;
 }

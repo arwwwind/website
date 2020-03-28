@@ -15,14 +15,14 @@ class Index extends React.Component {
           desc:
             'Pranaa is a exclusive food delivery app that is the online storefront of exclusive food products pranaa which is a based on Plant Based Whole Food which prootes wellness and healthy living',
           url: 'https://www.pranaafood.com',
-          image: '/static/pranaa1.png',
+          image: '/public/static/pranaa1.png',
           class: 'green'
         },
         {
           title: 'Ad Builder by Verzon Media (yahoo!)',
           desc: `A desktop and PWA that is powering SMB's with advertisments and campaigns. This application makes creation of ads as easy and intuitive as possible.`,
           url: 'http://ad.com',
-          image: '/static/bitmap.png',
+          image: '/public/static/bitmap.png',
           class: 'red'
         },
         {
@@ -31,28 +31,28 @@ class Index extends React.Component {
             'A Hybrid App built on Android, iOS and as well as a PWA. This app helps advertisers with their Campaigns',
           url:
             'https://play.google.com/store/apps/details?id=com.yahoo.mobile.client.android.gemini',
-          image: '/static/2.png',
+          image: '/public/static/2.png',
           class: 'blue'
         },
         {
           title: 'Apollo Construct by Katerra',
           desc: `Apollo is a suite of applications designed to support building projects and teams from beginning to end.`,
           url: 'https://apollo.katerra.com/',
-          image: '/static/3.jpg',
+          image: '/public/static/3.jpg',
           class: 'green'
         },
         {
           title: 'Reeltime Coaching',
           desc: `ReelTime Coaching is the elite athlete development platform that connects athletes with top coaches on demand. Thats right we worked with Icecube!`,
           url: 'http://beta.reeltimecoaching.com',
-          image: '/static/4.jpg',
+          image: '/public/static/4.jpg',
           class: 'yellow'
         },
         {
           title: 'Palava Resident Portal',
           desc: `A Resident Portal for Lodha's my palava built as a PWA. This app helps residents with day to day stuff in and around palava`,
           url: 'https://mypalava.in',
-          image: '/static/5.png',
+          image: '/public/static/5.png',
           class: 'blue'
         }
       ]
