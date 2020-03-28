@@ -55,8 +55,8 @@ class Layout extends React.Component {
           <meta name='twitter:creator' content='Arvind Narayan' />
           <meta property='og:type' content='website' />
           <meta name='theme-color' content='#3c4040' />
-          <meta property="og:image" content="https://avatars1.githubusercontent.com/u/26936172">
-          <meta property="twitter:image" content="https://avatars1.githubusercontent.com/u/26936172">
+          <meta property="og:image" content="https://avatars1.githubusercontent.com/u/26936172" />>
+          <meta property="twitter:image" content="https://avatars1.githubusercontent.com/u/26936172" />
           <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/110/three.js"></script>
         </Head>
         <style jsx global>{`

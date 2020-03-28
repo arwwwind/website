@@ -39,13 +39,13 @@ div#root {
 .logo {
   height: 43px;
   width: 80px;
-  background: url('/public/static/mlogo.svg');
+  background: url('/static/mlogo.svg');
 }
 
 .dev {
   width: 587px;
   height: 336px;
-  background: url('/public/static/dev.svg');
+  background: url('/static/dev.svg');
   margin: auto;
 }
 
@@ -55,59 +55,60 @@ div#root {
 }
 
 a.react {
-  background: url('/public/static/React.js_logo-512.svg');
+  background: url('/static/React.js_logo-512.svg');
 }
 
 a.redux {
-  background: url('/public/static/logo.svg');
+  background: url('/static/logo.svg');
 }
 
 a.angular {
-  background: url('/public/static/angular.svg');
+  background: url('/static/angular.svg');
 }
 
 a.js {
-  background: url('/public/static/1200px-Unofficial_JavaScript_logo_2.svg.svg');
+  background: url('/static/1200px-Unofficial_JavaScript_logo_2.svg.svg');
 }
 
 a.sass {
-  background: url('/public/static/seal-color-aef0354c.svg');
+  background: url('/static/seal-color-aef0354c.svg');
 }
 
 a.node {
-  background: url('/public/static/nodejs-logo-FBE122E377-seeklogo.com.svg');
+  background: url('/static/nodejs-logo-FBE122E377-seeklogo.com.svg');
 }
 
 a.boot {
-  background: url('/public/static/bootstrap.svg');
+  background: url('/static/bootstrap.svg');
 }
 
 a.redis {
-  background: url('/public/static/redis.svg');
+  background: url('/static/redis.svg');
 }
 
 a.sketch {
-  background: url('/public/static/sketch-2-logo-png-transparent.svg');
+  background: url('/static/sketch-2-logo-png-transparent.svg');
 }
 
 a.mongo {
-  background: url('/public/static/mongodb.svg');
+  background: url('/static/mongodb.svg');
 }
 
 a.elastic {
-  background: url('/public/static/elasticsearch-logo-760x490_Mry7NW8.svg');
+  background: url('/static/elasticsearch-logo-760x490_Mry7NW8.svg');
 }
 
 a.pg {
-  background: url('/public/static/540px-Postgresql_elephant.svg.svg');
+  background: url('/static/540px-Postgresql_elephant.svg.svg');
 }
 
 .mine {
   width: 100px;
   height: 100px;
-  background: url('/public/static/mine.png');
+  background: url('https://avatars1.githubusercontent.com/u/26936172');
   margin: auto;
   margin-bottom: 1em;
+  border-radius: 50%;
 }
 
 .foot {
@@ -304,7 +305,6 @@ a.links.linkedin {
 .bg {
   width: 400px;
   height: 400px;
-  opacity: 0.73;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
   display: flex;
 }
@@ -362,7 +362,6 @@ a.links.linkedin {
 }
 
 @media only screen and (max-width: 600px) {
-
   .content-title {
     margin-top: 36em !important;
 
@@ -451,7 +450,8 @@ a.links.linkedin {
     margin-bottom: 3em;
   }
 
-  .image, .bg {
+  .image,
+  .bg {
     transform: translate(0px, 0px) scale(1);
   }
 

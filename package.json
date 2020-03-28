@@ -50,5 +50,11 @@
     "redux-devtools-extension": "^2.13.2",
     "stylelint": "^9.10.1",
     "stylelint-config-standard": "^18.2.0"
-  }
+  },
+  "browserslist": [
+    ">1%",
+    "last 4 versions",
+    "Firefox ESR",
+    "not ie < 9"
+  ]
 }
