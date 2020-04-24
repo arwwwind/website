@@ -16,14 +16,14 @@ class Index extends React.Component {
             'Pranaa is a exclusive food delivery app that is the online storefront of exclusive food products pranaa which is a based on Plant Based Whole Food which prootes wellness and healthy living',
           url: 'https://www.pranaafood.com',
           image: '/static/pranaa1.png',
-          class: 'green'
+          class: 'green',
         },
         {
           title: 'Ad Builder by Verzon Media (yahoo!)',
           desc: `A desktop and PWA that is powering SMB's with advertisments and campaigns. This application makes creation of ads as easy and intuitive as possible.`,
           url: 'http://ad.com',
           image: '/static/bitmap.png',
-          class: 'red'
+          class: 'red',
         },
         {
           title: 'Verizon Media Native (yahoo!)',
@@ -32,30 +32,30 @@ class Index extends React.Component {
           url:
             'https://play.google.com/store/apps/details?id=com.yahoo.mobile.client.android.gemini',
           image: '/static/2.png',
-          class: 'blue'
+          class: 'blue',
         },
         {
           title: 'Apollo Construct by Katerra',
           desc: `Apollo is a suite of applications designed to support building projects and teams from beginning to end.`,
           url: 'https://apollo.katerra.com/',
           image: '/static/3.jpg',
-          class: 'green'
+          class: 'green',
         },
         {
           title: 'Reeltime Coaching',
           desc: `ReelTime Coaching is the elite athlete development platform that connects athletes with top coaches on demand. Thats right we worked with Icecube!`,
           url: 'http://beta.reeltimecoaching.com',
           image: '/static/4.jpg',
-          class: 'yellow'
+          class: 'yellow',
         },
         {
           title: 'Palava Resident Portal',
           desc: `A Resident Portal for Lodha's my palava built as a PWA. This app helps residents with day to day stuff in and around palava`,
           url: 'https://mypalava.in',
           image: '/static/5.png',
-          class: 'blue'
-        }
-      ]
+          class: 'blue',
+        },
+      ],
     };
     this.vantaRef = React.createRef();
   }
@@ -72,8 +72,24 @@ class Index extends React.Component {
       color: 0x3b28ca,
       color2: 0xe63a45,
       size: 1.7,
-      backgroundColor: 0xf0f0f0
+      backgroundColor: 0xf0f0f0,
     });
+    var firebaseConfig = {
+      apiKey: 'AIzaSyAzs3k3_AiJm9g5qEX2sy4Da0VqfYvLsGs',
+      authDomain: 'thearvindnarayan-website.firebaseapp.com',
+      databaseURL: 'https://thearvindnarayan-website.firebaseio.com',
+      projectId: 'thearvindnarayan-website',
+      storageBucket: 'thearvindnarayan-website.appspot.com',
+      messagingSenderId: '250245693073',
+      appId: '1:250245693073:web:bf238fc577b12d99d08930',
+      measurementId: 'G-7WLY43XFNL',
+    };
+    if (window.firebase) {
+      window.firebase.initializeApp(firebaseConfig);
+      console.log(window.firebase)
+      window.firebase.analytics();
+      var perf = firebase.performance();
+    }
   }
 
   componentWillUnmount() {
@@ -251,6 +267,18 @@ class Index extends React.Component {
             <span className='copy'>©2020 Arvind Narayan</span>
           </div>
         </div>
+        <script
+          async
+          src='https://www.gstatic.com/firebasejs/7.13.2/firebase-analytics.js'
+        ></script>
+        <script
+          async
+          src='https://www.gstatic.com/firebasejs/7.13.2/firebase-app.js'
+        ></script>
+        <script
+          async
+          src='https://www.gstatic.com/firebasejs/7.13.2/firebase-performance-standalone.js'
+        ></script>
       </Layout>
     );
   }

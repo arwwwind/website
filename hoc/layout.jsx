@@ -10,7 +10,7 @@ class Layout extends React.Component {
           <title>Arvind Narayan | Developer, UX and Product Strategy</title>
           <link rel='icon' href='/static/favicon.ico' />
           <link
-            href='https://fonts.googleapis.com/css?family=Oxygen:400,700|Zilla+Slab:700'
+            href='https://fonts.googleapis.com/css?family=Oxygen:400,700|Zilla+Slab:700&display=swap'
             rel='stylesheet'
           />
           <meta
