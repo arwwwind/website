@@ -334,9 +334,7 @@ a.links.linkedin {
   height: 390px;
   width: 390px;
   margin: auto;
-  background-size: contain;
-  background-position: 50% 50%;
-  background-repeat: no-repeat;
+  object-fit: cover;
   transform: translate(-10%, 10%);
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
 }

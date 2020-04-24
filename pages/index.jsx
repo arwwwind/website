@@ -74,22 +74,6 @@ class Index extends React.Component {
       size: 1.7,
       backgroundColor: 0xf0f0f0,
     });
-    var firebaseConfig = {
-      apiKey: 'AIzaSyAzs3k3_AiJm9g5qEX2sy4Da0VqfYvLsGs',
-      authDomain: 'thearvindnarayan-website.firebaseapp.com',
-      databaseURL: 'https://thearvindnarayan-website.firebaseio.com',
-      projectId: 'thearvindnarayan-website',
-      storageBucket: 'thearvindnarayan-website.appspot.com',
-      messagingSenderId: '250245693073',
-      appId: '1:250245693073:web:bf238fc577b12d99d08930',
-      measurementId: 'G-7WLY43XFNL',
-    };
-    if (window.firebase) {
-      window.firebase.initializeApp(firebaseConfig);
-      console.log(window.firebase)
-      window.firebase.analytics();
-      var perf = firebase.performance();
-    }
   }
 
   componentWillUnmount() {
