@@ -14,6 +14,10 @@ class Layout extends React.Component {
             rel='stylesheet'
           />
           <meta
+            name='google-site-verification'
+            content='hktiAE2S5msO9nPXh34N9oMi9QhwJ8vcw62WdkWwSLg'
+          />
+          <meta
             name='title'
             content='Arvind Narayan | Developer, UX and Product Strategy'
           />
