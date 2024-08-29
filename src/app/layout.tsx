@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     url: 'https://arwwwind.com',
     title: 'arwwwind | Software Developer, Problem Solver, Human and Dog Dad',
     description: `I’m a Senior Software Engineer and Solutions Architect with a strong specialization in frontend and backend development. I bring years of experience working with large enterprises, small businesses, and startups, delivering high-impact, scalable solutions tailored to business needs. My expertise includes modern technologies such as React, Next.js, Python, Node.js, Django, Flask, Express, and AWS. Whether it's developing robust web applications, API integration, or cloud-based solutions, I’m committed to creating efficient, scalable, and maintainable systems that drive business success.`,
-    images: '/cover.png',
+    images: ['/cover.png'],
   },
 };
 
@@ -57,7 +57,7 @@ export default function RootLayout({
               className='items-center justify-between hidden w-full md:flex md:w-auto md:order-1'
               id='navbar-sticky'
             >
-              <ul className='flex flex-col p-4 md:p-0 mt-4 font-medium border md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0'>
+              {/* <ul className='flex flex-col p-4 md:p-0 mt-4 font-medium border md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0'>
                 <li>
                   <a
                     href='#timeline'
@@ -83,7 +83,7 @@ export default function RootLayout({
                     Posts
                   </a>
                 </li>
-              </ul>
+              </ul> */}
             </div>
           </div>
         </nav>
