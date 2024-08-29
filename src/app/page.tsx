@@ -93,7 +93,7 @@ export default function Home() {
           <h2 className='text-3xl'>
             <FlipWords words={does} />
           </h2>
-          <p className='p-2 pt-8 w-[60%] font-normal text-sm tracking-wide leading-relaxed'>
+          <p className='p-2 pt-8 w-[60%] font-normal text-sm text-gray-300 tracking-wide leading-relaxed'>
             I’m an engineer with six years in backend and frontend development,
             wrangling code and leading teams to build cool stuff. I’ve
             turbocharged upGrad’s Learning Management System and revived Yahoo’s
