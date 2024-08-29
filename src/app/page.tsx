@@ -20,7 +20,7 @@ export default function Home() {
           <CardContainer>
             <CardItem translateZ='100' className='w-full mt-4'>
               <img
-                className='inline-block h-[200px] w-[auto] md:h-[400px] rounded-full ring-[3px] ring-red-600'
+                className='inline-block h-[200px] w-[auto] md:h-[300px] rounded-full ring-[3px] ring-red-600'
                 src='/avatar.png'
                 alt='Arvind Narayan'
               />
@@ -105,75 +105,75 @@ export default function Home() {
             a quick, crafty solution? I’m your guy, bringing skills and a
             sprinkle of humor to the table.
           </p>
-        </div>
-      </div>
-      <div className='flex flex-col w-[100%] p-4 items-center'>
-        <h4 className='text-center text-3xl font-bold'>Current Stack</h4>
-        <div className='flex py-4'>
-          <a href='https://www.typescriptlang.org/'>
-            <div
-              style={{ backgroundImage: 'url("/ts.svg")' }}
-              className='stack-item w-[50px] h-[50px] bg-contain bg-center saturate-0 hover:saturate-100 bg-no-repeat m-2'
-            >
-              <span className='hidden'>Typescript</span>
+          <div className='flex flex-col w-[100%] p-4 items-start mt-4'>
+            <h4 className='text-center text-3xl font-bold'>Current Stack</h4>
+            <div className='flex py-4 m-[-2]'>
+              <a href='https://www.typescriptlang.org/'>
+                <div
+                  style={{ backgroundImage: 'url("/ts.svg")' }}
+                  className='stack-item w-[50px] h-[50px] bg-contain bg-center saturate-0 hover:saturate-100 bg-no-repeat m-2'
+                >
+                  <span className='hidden'>Typescript</span>
+                </div>
+              </a>
+              <a href='https://www.python.org/'>
+                <div
+                  style={{ backgroundImage: 'url("/py.png")' }}
+                  className='stack-item w-[50px] h-[50px] bg-contain bg-center saturate-0 hover:saturate-100 bg-no-repeat m-2'
+                >
+                  <span className='hidden'>Python</span>
+                </div>
+              </a>
+              <a href='https://www.react.dev/'>
+                <div
+                  style={{ backgroundImage: 'url("/react.png")' }}
+                  className='stack-item w-[50px] h-[50px] bg-contain bg-center saturate-0 hover:saturate-100 bg-no-repeat m-2'
+                >
+                  <span className='hidden'>React</span>
+                </div>
+              </a>
+              <a href='https://nodejs.org/'>
+                <div
+                  style={{ backgroundImage: 'url("/node.png")' }}
+                  className='stack-item w-[50px] h-[50px] bg-contain bg-center saturate-0 hover:saturate-100 bg-no-repeat m-2'
+                >
+                  <span className='hidden'>Node</span>
+                </div>
+              </a>
+              <a href='https://aws.amazon.com/'>
+                <div
+                  style={{ backgroundImage: 'url("/aws.png")' }}
+                  className='stack-item w-[50px] h-[50px] bg-contain bg-center saturate-0 hover:saturate-100 bg-no-repeat m-2'
+                >
+                  <span className='hidden'>AWS</span>
+                </div>
+              </a>
+              <a href='https://www.postgresql.org/'>
+                <div
+                  style={{ backgroundImage: 'url("/pg.png")' }}
+                  className='stack-item w-[50px] h-[50px] bg-contain bg-center saturate-0 hover:saturate-100 bg-no-repeat m-2'
+                >
+                  <span className='hidden'>Postgresql</span>
+                </div>
+              </a>
+              <a href='https://redis.io/'>
+                <div
+                  style={{ backgroundImage: 'url("/redis.svg")' }}
+                  className='stack-item w-[50px] h-[50px] bg-contain bg-center saturate-0 hover:saturate-100 bg-no-repeat m-2'
+                >
+                  <span className='hidden'>Redis</span>
+                </div>
+              </a>
+              <a href='https://www.mongodb.com/'>
+                <div
+                  style={{ backgroundImage: 'url("/mongo.svg")' }}
+                  className='stack-item w-[50px] h-[50px] bg-contain bg-center saturate-0 hover:saturate-100 bg-no-repeat m-2'
+                >
+                  <span className='hidden'>Mongo</span>
+                </div>
+              </a>
             </div>
-          </a>
-          <a href='https://www.python.org/'>
-            <div
-              style={{ backgroundImage: 'url("/py.png")' }}
-              className='stack-item w-[50px] h-[50px] bg-contain bg-center saturate-0 hover:saturate-100 bg-no-repeat m-2'
-            >
-              <span className='hidden'>Python</span>
-            </div>
-          </a>
-          <a href='https://www.react.dev/'>
-            <div
-              style={{ backgroundImage: 'url("/react.png")' }}
-              className='stack-item w-[50px] h-[50px] bg-contain bg-center saturate-0 hover:saturate-100 bg-no-repeat m-2'
-            >
-              <span className='hidden'>React</span>
-            </div>
-          </a>
-          <a href='https://nodejs.org/'>
-            <div
-              style={{ backgroundImage: 'url("/node.png")' }}
-              className='stack-item w-[50px] h-[50px] bg-contain bg-center saturate-0 hover:saturate-100 bg-no-repeat m-2'
-            >
-              <span className='hidden'>Node</span>
-            </div>
-          </a>
-          <a href='https://aws.amazon.com/'>
-            <div
-              style={{ backgroundImage: 'url("/aws.png")' }}
-              className='stack-item w-[50px] h-[50px] bg-contain bg-center saturate-0 hover:saturate-100 bg-no-repeat m-2'
-            >
-              <span className='hidden'>AWS</span>
-            </div>
-          </a>
-          <a href='https://www.postgresql.org/'>
-            <div
-              style={{ backgroundImage: 'url("/pg.png")' }}
-              className='stack-item w-[50px] h-[50px] bg-contain bg-center saturate-0 hover:saturate-100 bg-no-repeat m-2'
-            >
-              <span className='hidden'>Postgresql</span>
-            </div>
-          </a>
-          <a href='https://redis.io/'>
-            <div
-              style={{ backgroundImage: 'url("/redis.svg")' }}
-              className='stack-item w-[50px] h-[50px] bg-contain bg-center saturate-0 hover:saturate-100 bg-no-repeat m-2'
-            >
-              <span className='hidden'>Redis</span>
-            </div>
-          </a>
-          <a href='https://www.mongodb.com/'>
-            <div
-              style={{ backgroundImage: 'url("/mongo.svg")' }}
-              className='stack-item w-[50px] h-[50px] bg-contain bg-center saturate-0 hover:saturate-100 bg-no-repeat m-2'
-            >
-              <span className='hidden'>Mongo</span>
-            </div>
-          </a>
+          </div>
         </div>
       </div>
     </div>
