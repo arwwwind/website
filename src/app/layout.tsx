@@ -1,15 +1,8 @@
-import { IBM_Plex_Mono } from 'next/font/google';
 import { Metadata } from 'next';
-import Head from 'next/head';
+import { IBM_Plex_Mono } from 'next/font/google';
 import './globals.scss';
 
-const ibm = IBM_Plex_Mono({
-  weight: ['300', '400', '500', '600', '700'],
-  style: ['normal', 'italic'],
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-ibm',
-});
+import 'lineicons/web-font/lineicons.css';
 
 export const metadata: Metadata = {
   title: 'arwwwind | Software Developer, Problem Solver, Human and Dog Dad',
@@ -23,6 +16,13 @@ export const metadata: Metadata = {
   },
 };
 
+const IBM = IBM_Plex_Mono({
+  weight: ['400', '500', '700'],
+  style: ['normal', 'italic'],
+  subsets: ['latin'],
+  display: 'swap',
+});
+
 const currentYear = new Date().getFullYear();
 export default function RootLayout({
   children,
@@ -30,7 +30,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang='en' className={`${ibm.variable}`}>
+    <html lang='en' className={IBM.className}>
       <body className={`dark`}>
         <nav className='backdrop-blur fixed w-full z-20 top-0 start-0 border-b border-gray-600 dark:border-gray-800'>
           <div className='max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4'>
@@ -38,7 +38,7 @@ export default function RootLayout({
               href='https://arwwwind.com/?ref=nav'
               className='flex items-center space-x-3 rtl:space-x-reverse'
             >
-              <img src='/logo.png' className='h-5 md:h-8' alt='Flowbite Logo' />
+              <img src='/logo.png' className='h-5 md:h-8' alt='arwwwind Logo' />
             </a>
             <div className='flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse'>
               <a
