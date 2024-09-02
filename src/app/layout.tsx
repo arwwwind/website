@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import { IBM_Plex_Mono } from 'next/font/google';
+import { SpeedInsights } from "@vercel/speed-insights/next"
 import './globals.scss';
 
 import 'lineicons/web-font/lineicons.css';
@@ -89,6 +90,7 @@ export default function RootLayout({
           </div>
         </nav>
         <div className='pt-[70px]'>{children}</div>
+        <SpeedInsights />
         <footer className='bg-slate-950 rounded-lg shadow m-4 dark:bg-neutral-950'>
           <div className='w-full mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-between'>
             <span className='text-sm text-gray-500 sm:text-center dark:text-gray-400 flex'>
