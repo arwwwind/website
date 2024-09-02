@@ -33,7 +33,7 @@ export default function RootLayout({
   return (
     <html lang='en' className={IBM.className}>
       <body className={`dark`}>
-        <nav className='backdrop-blur fixed w-full z-20 top-0 start-0 border-b border-gray-600 dark:border-gray-800'>
+        <nav className='backdrop-blur fixed w-full z-50 top-0 start-0 border-b border-gray-600 dark:border-gray-800'>
           <div className='max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4'>
             <a
               href='https://arwwwind.com/?ref=nav'
