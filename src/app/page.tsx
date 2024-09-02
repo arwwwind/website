@@ -93,7 +93,7 @@ export default function Home() {
           <h2 className='text-3xl'>
             <FlipWords words={does} />
           </h2>
-          <p className='p-2 pt-8 w-[60%] font-normal text-sm text-gray-300 tracking-wide leading-relaxed'>
+          <p className='p-2 pt-8 w-[80%] font-normal text-sm text-gray-300 tracking-wide leading-relaxed'>
             I’m an engineer with six years in backend and frontend development,
             wrangling code and leading teams to build cool stuff. I’ve
             turbocharged upGrad’s Learning Management System and revived Yahoo’s
@@ -107,7 +107,7 @@ export default function Home() {
           </p>
           <div className='flex flex-col w-[100%] p-4 items-start mt-4'>
             <h4 className='text-center text-3xl font-bold'>Current Stack</h4>
-            <div className='flex py-4 m-[-2]'>
+            <div className='flex py-4 m-[-2] flex-wrap'>
               <a href='https://www.typescriptlang.org/'>
                 <div
                   style={{ backgroundImage: 'url("/ts.svg")' }}

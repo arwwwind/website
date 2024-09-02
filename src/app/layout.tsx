@@ -5,14 +5,15 @@ import './globals.scss';
 import 'lineicons/web-font/lineicons.css';
 
 export const metadata: Metadata = {
-  title: 'arwwwind | Software Developer, Problem Solver, Human and Dog Dad',
-  description: `I’m a Senior Software Engineer and Solutions Architect with a strong specialization in frontend and backend development. I bring years of experience working with large enterprises, small businesses, and startups, delivering high-impact, scalable solutions tailored to business needs. My expertise includes modern technologies such as React, Next.js, Python, Node.js, Django, Flask, Express, and AWS. Whether it's developing robust web applications, API integration, or cloud-based solutions, I’m committed to creating efficient, scalable, and maintainable systems that drive business success.`,
+  title: 'arwwwind | Software Developer, Problem Solver & Dog Dad',
+  description: `Senior Software Engineer and Solutions Architect specializing in frontend/backend development. Experienced with large enterprises, SMBs, and startups, delivering scalable solutions using React, Next.js, Python, Node.js, Django, Flask, and AWS.`,
   openGraph: {
     type: 'website',
     url: 'https://arwwwind.com',
-    title: 'arwwwind | Software Developer, Problem Solver, Human and Dog Dad',
-    description: `I’m a Senior Software Engineer and Solutions Architect with a strong specialization in frontend and backend development. I bring years of experience working with large enterprises, small businesses, and startups, delivering high-impact, scalable solutions tailored to business needs. My expertise includes modern technologies such as React, Next.js, Python, Node.js, Django, Flask, Express, and AWS. Whether it's developing robust web applications, API integration, or cloud-based solutions, I’m committed to creating efficient, scalable, and maintainable systems that drive business success.`,
+    title: 'arwwwind | Software Developer, Problem Solver & Dog Dad',
+    description: `Senior Software Engineer and Solutions Architect specializing in frontend/backend development. Experienced with large enterprises, SMBs, and startups, delivering scalable solutions using React, Next.js, Python, Node.js, Django, Flask, and AWS.`,
     images: ['https://arwwwind.com/cover.png'],
+    siteName: 'arwwwind'
   },
 };
 
