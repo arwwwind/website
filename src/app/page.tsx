@@ -16,19 +16,21 @@ export default function Home() {
     'Dog Dad!',
   ];
   return (
-    <div className='min-h-[100vh] w-full dark:bg-black bg-white  dark:bg-grid-white/[0.2] bg-grid-black/[0.2] relative'>
+    <div className='min-h-[100vh] w-full dark:bg-black bg-white  dark:bg-grid-white/[0.15] bg-grid-black/[0.2] relative'>
       <Spotlight
         className='-top-40 left-[-4px] top-[-43rem] md:left-60 md:top-[-40rem]'
         fill='white'
       />
       {/* Radial gradient for the container to give a faded look */}
-      <div className='absolute pointer-events-none inset-0 flex items-center justify-center dark:bg-black bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_50%,black)]'></div>
+      <div className='absolute z-[-1] pointer-events-none inset-0 flex items-center justify-center dark:bg-black bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_50%,black)]'></div>
       <div className='py-8 p-4 grid grid-cols-1 gap-0 md:grid-cols-2 md:gap-4'>
         <div className='avatar flex flex-col items-center'>
           <CardContainer>
             <CardItem translateZ='100' className='w-full mt-4'>
-              <img
+              <Image
                 className='inline-block h-[200px] w-[auto] md:h-[300px] rounded-full ring-[3px] ring-red-600'
+                width={300}
+                height={300}
                 src='/avatar.png'
                 alt='Arvind Narayan'
               />
