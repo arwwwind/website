@@ -373,7 +373,7 @@ const exp = [
     ),
   },
   {
-    title: '2022-',
+    title: '2021-',
     content: (
       <div>
         <h2 className='text-l md:text-2xl mb-4 text-black dark:text-white max-w-4xl font-bold'>
