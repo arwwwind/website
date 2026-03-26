@@ -15,7 +15,7 @@ import { BrainCircuit, Database, FlaskConical, CloudCog } from 'lucide-react';
 export default function Home() {
   const hello = ['Hi,', 'Hello,', 'Hallo,', 'Hola!', 'Bonjour,'];
   const roles = [
-    'Senior AI/ML Engineer',
+    'Staff AI/ML Engineer',
     'RAG & Agentic Systems',
     'GNN & Molecular ML',
     'Founder @ Superscaled',
@@ -48,11 +48,12 @@ export default function Home() {
               <p className='px-2 pt-6 md:w-[92%] font-normal text-sm text-neutral-300 tracking-wide leading-relaxed'>
                 Currently building production AI at{' '}
                 <span className='text-rose-400 font-medium'>GATC Health</span> —
-                architecting a hybrid RAG + agentic research platform that became the
-                primary AI interface for scientific teams. I design systems at the
-                intersection of LLMs, retrieval, and domain-specific ML: sparse–dense
-                retrieval pipelines, LIGHT-style long-context memory, agentic tool
-                orchestration, and GNNs for molecular property prediction. Also
+                architecting a hybrid RAG + agentic research platform now used daily by
+                scientific teams for literature synthesis, compound lookups, and
+                hypothesis generation. I design systems at the intersection of LLMs,
+                retrieval, and domain-specific ML: sparse–dense retrieval pipelines,
+                long-context memory architectures, agentic tool orchestration, and GNNs
+                for molecular property prediction (F1 ≈ 0.90, AUROC ≈ 0.92). Also
                 building{' '}
                 <a href='https://superscaled.com' target='_blank' rel='noopener noreferrer' className='text-rose-400 font-medium hover:underline'>Superscaled</a>{' '}
                 as a founder. Nine years of production engineering across Yahoo, upGrad,
@@ -97,7 +98,7 @@ export default function Home() {
                   <Image
                     className='inline-block h-[200px] w-auto md:h-[320px] rounded-full ring-[3px] ring-rose-600 shadow-[0_0_40px_rgba(225,29,72,0.3)]'
                     width={320} height={320} src='/avatar.png'
-                    alt='Arvind Narayan — Senior AI/ML Engineer' priority
+                    alt='Arvind Narayan — Staff AI/ML Engineer' priority
                   />
                 </CardItem>
               </CardContainer>
@@ -156,8 +157,15 @@ export default function Home() {
         <h2 className='text-3xl md:text-4xl font-bold text-white mb-3'>
           Superscaled
         </h2>
-        <p className='text-neutral-400 text-sm mb-6 md:w-[60%]'>
-          Founder-led product. Building in public at{' '}
+        <p className='text-neutral-400 text-sm mb-2 md:w-[65%]'>
+          An early-stage AI venture I&apos;m building from the ground up. After years
+          of shipping ML infrastructure inside enterprise orgs, I started Superscaled
+          to work on AI tooling for teams that need to move faster than their
+          procurement cycles allow — the gap between &ldquo;we have a model&rdquo; and
+          &ldquo;this is in production, monitored, and trusted.&rdquo;
+        </p>
+        <p className='text-neutral-500 text-xs mb-6 md:w-[65%]'>
+          Building in public at{' '}
           <a href='https://superscaled.com' target='_blank' rel='noopener noreferrer' className='text-rose-400 hover:underline'>superscaled.com</a>.
         </p>
         <a
@@ -284,7 +292,7 @@ const exp = [
         <h3 className='text-lg md:text-2xl mb-1 text-white max-w-4xl font-bold'>
           GATC Health
         </h3>
-        <p className='text-neutral-500 text-xs mb-6 font-normal'>Senior AI/ML Engineer · Apr 2025 – Present</p>
+        <p className='text-neutral-500 text-xs mb-6 font-normal'>Senior AI/ML Engineer · GATC Health</p>
 
         {/* Project 1 */}
         <div className='mb-8 pl-4 border-l border-neutral-800'>
@@ -295,8 +303,9 @@ const exp = [
             Architected and shipped a production-grade internal AI research platform —
             functioning as an{' '}
             <span className='text-white font-medium'>enterprise Perplexity for scientific teams</span>{' '}
-            — that became the primary AI interface for lab workflows, significantly
-            boosting researcher productivity and usage across the organization.
+            — that became the primary AI interface for lab workflows, used daily across
+            the organization for literature synthesis, compound lookups, and hypothesis
+            generation within weeks of launch.
           </p>
           <p className='text-neutral-400 text-xs md:text-sm font-normal mb-3'>
             Designed a hybrid{' '}
@@ -306,12 +315,11 @@ const exp = [
             across large chemical and biological corpora.
           </p>
           <p className='text-neutral-400 text-xs md:text-sm font-normal mb-3'>
-            Built a{' '}
-            <span className='text-rose-400 font-medium'>LIGHT-style memory subsystem</span>{' '}
-            that scales to millions of tokens of conversational history using episodic
-            retrieval, structured working memory, and a compressed scratchpad —
-            enabling persistent, context-aware interactions across long multi-session
-            research workflows.
+            Built a long-context memory subsystem inspired by the{' '}
+            <span className='text-rose-400 font-medium'>LIGHT memory architecture</span>{' '}
+            — combining episodic retrieval, structured working memory, and a compressed
+            scratchpad to scale conversational context to millions of tokens across
+            multi-session research workflows without losing coherence.
           </p>
           <p className='text-neutral-400 text-xs md:text-sm font-normal mb-3'>
             Developed domain-specific agentic tools: toxicity lookup, molecular
@@ -405,7 +413,7 @@ const exp = [
         <h3 className='text-lg md:text-2xl mb-1 text-white max-w-4xl font-bold'>
           <a href='https://egen.ai/' className='hover:text-rose-400 transition-colors'>Egen.ai</a>
         </h3>
-        <p className='text-neutral-500 text-xs mb-6 font-normal'>Senior ML Engineer · Sept 2021 – Apr 2025</p>
+        <p className='text-neutral-500 text-xs mb-6 font-normal'>Senior ML Engineer · Egen.ai</p>
 
         {/* Financial Risk ML */}
         <div className='mb-8 pl-4 border-l border-neutral-800'>
@@ -417,8 +425,9 @@ const exp = [
             <span className='text-white font-medium'>financial risk and pricing products</span>{' '}
             used by enterprise customers including{' '}
             <a href='https://www.drivetime.com/' className='text-rose-400 hover:underline'>DriveTime</a>{' '}
-            and Carvana — directly impacting underwriting decisions at scale across
-            hundreds of thousands of auto loan applications.
+            and Carvana — directly influencing risk acceptance and pricing decisions
+            across hundreds of thousands of auto loan originations annually at two of
+            the largest used-car finance platforms in the US.
           </p>
           <p className='text-neutral-400 text-xs md:text-sm font-normal mb-3'>
             Designed, trained, and deployed predictive models for{' '}
@@ -497,7 +506,7 @@ const exp = [
         <h3 className='text-lg md:text-2xl mb-1 text-white max-w-4xl font-bold'>
           <a href='https://www.upgrad.com/' className='hover:text-rose-400 transition-colors'>upGrad</a>
         </h3>
-        <p className='text-neutral-500 text-xs mb-6 font-normal'>Lead Software Engineer · Dec 2019 – Sept 2021</p>
+        <p className='text-neutral-500 text-xs mb-6 font-normal'>Lead Software Engineer · upGrad</p>
 
         {/* LMS */}
         <div className='mb-8 pl-4 border-l border-neutral-800'>
@@ -510,11 +519,11 @@ const exp = [
           <p className='text-neutral-400 text-xs md:text-sm font-normal mb-3'>
             Led the full-stack rebuild of a large-scale{' '}
             <a href='https://learn.upgrad.com' className='text-rose-400 hover:underline'>Learning Management System</a>{' '}
-            serving millions of users — achieving approximately{' '}
-            <span className='text-rose-400 font-semibold'>75% improvement</span>{' '}
-            in frontend performance scores through architecture optimization, code
-            splitting, and caching strategies tailored to 2G mobile demographics
-            across India.
+            serving 3M+ active learners — achieving a{' '}
+            <span className='text-rose-400 font-semibold'>75% improvement in Core Web Vitals scores</span>{' '}
+            through code splitting, CDN caching, and mobile-first architecture tuned
+            for 2G connections across India. The performance gains directly reduced
+            load-time abandonment and supported the platform&apos;s next growth phase.
           </p>
           <div className='grid grid-cols-2 gap-4 mb-4'>
             <Image src='/lms.png' alt='upGrad LMS' width={1400} height={500} className={imgClass} />
@@ -581,7 +590,7 @@ const exp = [
         <h3 className='text-lg md:text-2xl mb-1 text-white max-w-4xl font-bold'>
           <a href='https://www.advertising.yahooinc.com/our-dsp/native' className='hover:text-rose-400 transition-colors'>Yahoo!</a>
         </h3>
-        <p className='text-neutral-500 text-xs mb-6 font-normal'>Software Engineer · Mar 2018 – Dec 2019</p>
+        <p className='text-neutral-500 text-xs mb-6 font-normal'>Software Engineer · Yahoo!</p>
 
         {/* Yahoo Ad.com */}
         <div className='mb-8 pl-4 border-l border-neutral-800'>
@@ -648,7 +657,7 @@ const exp = [
         <h3 className='text-lg md:text-2xl mb-1 text-white max-w-4xl font-bold'>
           <a href='https://www.fulfil.io/' className='hover:text-rose-400 transition-colors'>Fulfil.io</a>
         </h3>
-        <p className='text-neutral-500 text-xs mb-6 font-normal'>Engineering Intern · 2017</p>
+        <p className='text-neutral-500 text-xs mb-6 font-normal'>Engineering Intern · Fulfil.io</p>
         <p className='text-neutral-400 text-xs md:text-sm font-normal mb-3'>
           Built the CMS infrastructure for Fulfil&apos;s marketing team —
           enabling non-technical stakeholders to manage content, landing pages,
