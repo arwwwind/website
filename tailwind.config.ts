@@ -88,11 +88,33 @@ const config = {
             'transform': 'translate(-50%,-40%) scale(1)',
           },
         },
+        'gradient-shift': {
+          '0%, 100%': { backgroundPosition: '0% 50%' },
+          '50%': { backgroundPosition: '100% 50%' },
+        },
+        'aurora': {
+          '0%': { backgroundPosition: '0% 50%', transform: 'scale(1)' },
+          '50%': { backgroundPosition: '100% 50%', transform: 'scale(1.05)' },
+          '100%': { backgroundPosition: '0% 50%', transform: 'scale(1)' },
+        },
+        'meteor': {
+          '0%': { transform: 'rotate(215deg) translateX(0)', opacity: '1' },
+          '70%': { opacity: '1' },
+          '100%': { transform: 'rotate(215deg) translateX(-500px)', opacity: '0' },
+        },
+        'float': {
+          '0%, 100%': { transform: 'translateY(0px)' },
+          '50%': { transform: 'translateY(-10px)' },
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
         spotlight: 'spotlight 2s ease .75s 1 forwards',
+        'gradient-shift': 'gradient-shift 4s ease infinite',
+        'aurora': 'aurora 12s ease infinite',
+        'meteor': 'meteor 5s linear infinite',
+        'float': 'float 3s ease-in-out infinite',
       },
     },
   },
