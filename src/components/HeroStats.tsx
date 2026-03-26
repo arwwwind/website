@@ -21,7 +21,7 @@ export const HeroStats = () => {
         <span className='text-3xl font-bold text-white'>
           <AnimatedCounter to={27} suffix='B' />
         </span>
-        <span className='text-xs text-neutral-500 mt-0.5'>LLM Params Self-Hosted</span>
+        <span className='text-xs text-neutral-500 mt-0.5'>Models In Production</span>
       </div>
     </div>
   );
