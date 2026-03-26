@@ -19,9 +19,9 @@ export const HeroStats = () => {
       </div>
       <div className='flex flex-col'>
         <span className='text-3xl font-bold text-white'>
-          <AnimatedCounter to={27} suffix='B' />
+          <AnimatedCounter to={150} suffix='+' />
         </span>
-        <span className='text-xs text-neutral-500 mt-0.5'>LLM Params Self-Hosted</span>
+        <span className='text-xs text-neutral-500 mt-0.5'>ML Models Trained & Deployed</span>
       </div>
     </div>
   );
