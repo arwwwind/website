@@ -77,6 +77,22 @@ html {
   scroll-padding-top: 80px;
 }
 
+:root {
+  --brand-teal: #2dd4bf;
+  --brand-rose: #fb7185;
+}
+
+/* Inline prose links: always visible with underline, not just on hover */
+p a:not([class*="text-"]) {
+  color: var(--brand-teal);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: color 0.15s;
+}
+p a:not([class*="text-"]):hover {
+  color: #5eead4; /* teal-300 */
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;

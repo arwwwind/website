@@ -17,7 +17,7 @@ export const GradientText = ({
   return (
     <motion.span
       className={cn(
-        'inline-block bg-gradient-to-r from-rose-400 via-violet-400 to-rose-400 bg-[length:200%_auto] bg-clip-text text-transparent',
+        'inline-block bg-gradient-to-r from-teal-400 via-rose-300 to-teal-400 bg-[length:200%_auto] bg-clip-text text-transparent',
         className
       )}
       animate={{ backgroundPosition: ['0% center', '200% center'] }}

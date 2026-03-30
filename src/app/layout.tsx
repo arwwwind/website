@@ -6,6 +6,7 @@ import './globals.scss';
 import 'lineicons/web-font/lineicons.css';
 import { NavLinks } from '@/components/ui/nav-scroll';
 import { MagneticButton } from '@/components/ui/magnetic-button';
+import { BootLoader } from '@/components/ui/boot-loader';
 
 export const metadata: Metadata = {
   title: 'Arvind Narayan — Staff AI/ML Engineer',
@@ -178,6 +179,7 @@ export default function RootLayout({
   return (
     <html lang='en' className={IBM.className}>
       <body className='dark'>
+        <BootLoader />
         <script
           type='application/ld+json'
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -213,7 +215,7 @@ export default function RootLayout({
             </div>
           </div>
         </nav>
-        <div className='pt-[70px]'>{children}</div>
+        <div className='w-full max-w-none pt-[70px]'>{children}</div>
         <SpeedInsights />
         <footer className='bg-neutral-950 border-t border-neutral-800 mt-8'>
           <div className='w-full mx-auto max-w-screen-xl p-6 md:p-8'>
