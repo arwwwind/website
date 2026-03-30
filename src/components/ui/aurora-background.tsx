@@ -10,7 +10,7 @@ interface AuroraBackgroundProps {
 
 export const AuroraBackground = ({ children, className }: AuroraBackgroundProps) => {
   return (
-    <div className={cn('relative overflow-hidden', className)}>
+    <div className={cn('relative w-full overflow-hidden', className)}>
       {/* Layer 1: Rose/purple slow sweep */}
       <motion.div
         className='pointer-events-none absolute inset-0 z-0'
@@ -43,7 +43,7 @@ export const AuroraBackground = ({ children, className }: AuroraBackgroundProps)
         animate={{ opacity: [0.4, 0.8, 0.4] }}
         transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
       />
-      <div className='relative z-10'>{children}</div>
+      <div className='relative z-10 w-full'>{children}</div>
     </div>
   );
 };

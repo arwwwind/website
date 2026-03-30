@@ -52,7 +52,7 @@ export const BentoCard = ({
       />
     )}
     <div className='relative z-10 flex h-full flex-col justify-between'>
-      <div className='mb-3 text-rose-500 w-8 h-8'>{icon}</div>
+      <div className='mb-3 w-8 h-8'>{icon}</div>
       <div>
         <h3 className='mb-2 text-base md:text-lg font-bold text-white leading-tight'>
           {title}
