@@ -142,7 +142,7 @@ export default function Home() {
           />
           <BentoCard
             title='LLM Infrastructure & MLOps'
-            description='Self-hosted Qwen 2.5 27B on AWS SageMaker via SGLang for high-throughput inference. Evaluation harnesses, fine-tuned instruct models for domain alignment, and modular architectures that support drop-in model upgrades.'
+            description='Self-hosted Qwen 3.5 27B on AWS SageMaker via SGLang for high-throughput inference. Evaluation harnesses, fine-tuned instruct models for domain alignment, and modular architectures that support drop-in model upgrades.'
             icon={<CloudCog className='w-6 h-6' />}
             gradient='bg-gradient-to-br from-emerald-950/40 to-transparent'
           />
@@ -329,14 +329,14 @@ const exp = [
           </p>
           <p className='text-neutral-400 text-xs md:text-sm font-normal mb-4'>
             Self-hosted{' '}
-            <span className='text-rose-400 font-medium'>Qwen 2.5 27B on AWS SageMaker</span>{' '}
+            <span className='text-rose-400 font-medium'>Qwen 3.5 27B on AWS SageMaker</span>{' '}
             using SGLang for high-throughput, low-latency inference. Modular
             architecture supports drop-in upgrades to larger or newer models.
             Implemented evaluation harnesses and fine-tuned instruct models for
             domain-specific alignment.
           </p>
           <div className='flex flex-wrap gap-2'>
-            {['RAG', 'BM25', 'Dense Embeddings', 'Reranking', 'Agentic AI', 'LangGraph', 'Qwen 2.5', 'SGLang', 'SageMaker', 'LIGHT Memory'].map(t => (
+            {['RAG', 'BM25', 'Dense Embeddings', 'Reranking', 'Agentic AI', 'LangGraph', 'Qwen 3.5', 'SGLang', 'SageMaker', 'LIGHT Memory'].map(t => (
               <Badge key={t} variant='secondary'>{t}</Badge>
             ))}
           </div>
