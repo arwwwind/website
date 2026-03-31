@@ -228,7 +228,7 @@ export default function Home() {
         </section>
 
         {/* ── Selected Work ─────────────────────────────────── */}
-        <section
+        {/* <section
           id='work'
           aria-label='Selected work'
           className='py-12 px-4 max-w-screen-xl mx-auto border-t border-neutral-900'
@@ -244,7 +244,7 @@ export default function Home() {
             </h2>
           </div>
           <WorkCarousel />
-        </section>
+        </section> */}
 
         {/* ── Building ──────────────────────────────────────── */}
         <section
