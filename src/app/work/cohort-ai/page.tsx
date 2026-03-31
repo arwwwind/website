@@ -76,10 +76,10 @@ export default function CohortAIPage() {
           {/* Screenshot collage */}
           <div className='w-full rounded-xl overflow-hidden border border-neutral-800 mb-16 grid grid-cols-2 md:grid-cols-3 gap-2'>
             {[
-              { src: '/CohortAI_Connect_Campaign_Messages.png', alt: 'Outreach messaging' },
-              { src: '/CohortAI_Home_Job_Offer_Text_Filled.png', alt: 'Job offer creation' },
-              { src: '/CohortAI_Match_Candidates_High_Fit.png', alt: 'Candidate matching' },
-              { src: '/CohortAI_Sequence_Expanded.png', alt: 'Sourcing sequence' },
+              { src: '/CohortAI – Home – Job Offer Text – Filled.png', alt: 'Outreach messaging' },
+              { src: '/CohortAI – Match – Candidates – High Fit.png', alt: 'Job offer creation' },
+              { src: '/CohortAI – Connect – Campaign – Messages Drawer.png', alt: 'Candidate matching' },
+              { src: '/CohortAI – Sequence – Expanded.png', alt: 'Sourcing sequence' },
             ].map((img, i) => (
               <div key={i} className='aspect-square bg-black relative overflow-hidden'>
                 <Image

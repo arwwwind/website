@@ -13,7 +13,7 @@ const projects = [
     tagline: 'AI recruitment agents that source, vet, and close — top 3 candidates in 72 hours.',
     tags: ['Multi-Agent', 'NLP', 'LangGraph'],
     year: '2024',
-    image: '/CohortAI_Match_Candidates_High_Fit.png',
+    image: '/CohortAI – Match – Candidates – High Fit.png',
     gradient: 'from-violet-950 via-indigo-950 to-neutral-950',
     accent: 'text-violet-400',
     border: 'hover:border-violet-800/60',
