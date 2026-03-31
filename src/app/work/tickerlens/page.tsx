@@ -43,8 +43,8 @@ export default function TickerLensPage() {
               TickerLens
             </h1>
             <p className='text-xl text-neutral-300 mb-6 md:w-[75%] leading-relaxed'>
-              AI-powered stock screening that lets you type "find undervalued tech stocks with
-              high growth and low debt" instead of configuring 50 filters. Conversational market
+              AI-powered stock screening that lets you type &quot;find undervalued tech stocks with
+              high growth and low debt&quot; instead of configuring 50 filters. Conversational market
               intelligence backed by real-time data, predictive ML, and sentiment analysis.
             </p>
             <div className='flex flex-wrap gap-4 text-sm text-neutral-500 mb-6'>
@@ -97,13 +97,13 @@ export default function TickerLensPage() {
                 Retail investors are drowning in data but starving for signal. Every major brokerage
                 gives you 50+ technical and fundamental filters — P/E, EV/EBITDA, RSI, MACD, beta,
                 free cash flow yield. But these tools are designed for quants who already know what
-                they&apos;re looking for. A first-time investor trying to find "AI companies that are
-                actually profitable" has no idea which combination of filters maps to that concept.
+                they&apos;re looking for. A first-time investor trying to find &quot;AI companies that are
+                actually profitable&quot; has no idea which combination of filters maps to that concept.
               </p>
               <p className='text-neutral-400 leading-relaxed mb-4'>
                 On the other end of the spectrum, Bloomberg Terminal and similar institutional tools
                 require full-time analysts to extract value. There&apos;s a massive gap between
-                "I know what I want to find" and "I know how to configure the system to find it."
+                &quot;I know what I want to find&quot; and &quot;I know how to configure the system to find it.&quot;
               </p>
               <p className='text-neutral-400 leading-relaxed'>
                 TickerLens&apos;s bet: natural language is the right interface for investment research.
