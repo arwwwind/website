@@ -75,7 +75,7 @@ export default function UpgradLitePage() {
           {/* Screenshot */}
           <div className='w-full rounded-xl overflow-hidden border border-neutral-800 mb-16 relative'>
             <Image
-              src='/lms.png'
+              src='/upgrad-learn.png'
               alt='upGrad Lite learner experience'
               width={1200}
               height={600}

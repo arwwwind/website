@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Badge } from '@/components/ui/badge';
 import { SectionGridBackground } from '@/components/ui/section-grid-background';
 
@@ -70,12 +71,22 @@ export default function YuniPage() {
             </div>
           </div>
 
-          <div className='w-full h-64 rounded-xl bg-gradient-to-br from-rose-950 via-pink-950 to-black border border-rose-900/30 mb-16 flex items-center justify-center relative overflow-hidden'>
-            <div className='absolute inset-0 opacity-10' style={{backgroundImage: 'radial-gradient(ellipse at 30% 50%, #9f1239 0%, transparent 60%), radial-gradient(ellipse at 70% 50%, #831843 0%, transparent 60%)'}} />
-            <div className='text-center relative z-10'>
-              <p className='text-rose-300 text-sm font-mono tracking-widest uppercase opacity-60'>Your Data → Your Model → Your Voice</p>
-              <p className='text-neutral-600 text-xs mt-2 font-mono'>Private fine-tuning. IP stays with you.</p>
-            </div>
+          {/* Screenshot showcase */}
+          <div className='w-full rounded-xl overflow-hidden border border-neutral-800 mb-16 grid grid-cols-1 md:grid-cols-2 gap-2'>
+            {[
+              { src: '/Yuni_Desktop_Discover_Creations.png', alt: 'Discover creations' },
+              { src: '/Yuni_Desktop_Profile_Member_View_Canvas.png', alt: 'Member canvas view' },
+            ].map((img, i) => (
+              <div key={i} className='aspect-video bg-black relative overflow-hidden'>
+                <Image
+                  src={img.src}
+                  alt={img.alt}
+                  fill
+                  className='object-cover'
+                  sizes='(max-width: 768px) 100vw, 50vw'
+                />
+              </div>
+            ))}
           </div>
 
           <div className='space-y-16'>

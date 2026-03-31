@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Badge } from '@/components/ui/badge';
 import { SectionGridBackground } from '@/components/ui/section-grid-background';
 
@@ -70,12 +71,19 @@ export default function TickerLensPage() {
             </div>
           </div>
 
-          <div className='w-full h-64 rounded-xl bg-gradient-to-br from-emerald-950 via-teal-950 to-black border border-emerald-900/30 mb-16 flex items-center justify-center relative overflow-hidden'>
-            <div className='absolute inset-0 opacity-10' style={{backgroundImage: 'radial-gradient(ellipse at 40% 50%, #065f46 0%, transparent 60%), radial-gradient(ellipse at 60% 50%, #134e4a 0%, transparent 60%)'}} />
-            <div className='text-center relative z-10'>
-              <p className='text-emerald-300 text-sm font-mono tracking-widest uppercase opacity-60'>Natural Language → Market Intelligence</p>
-              <p className='text-neutral-600 text-xs mt-2 font-mono'>"Find undervalued tech stocks with strong free cash flow"</p>
-            </div>
+          {/* Screenshot gallery */}
+          <div className='w-full rounded-xl overflow-hidden border border-neutral-800 mb-16 grid grid-cols-1 md:grid-cols-3 gap-2'>
+            {[1, 2, 3, 4, 5, 6].map((i) => (
+              <div key={i} className='aspect-video bg-black relative overflow-hidden'>
+                <Image
+                  src={`/ticker-${i}.png`}
+                  alt={`TickerLens screenshot ${i}`}
+                  fill
+                  className='object-cover'
+                  sizes='(max-width: 768px) 100vw, 33vw'
+                />
+              </div>
+            ))}
           </div>
 
           <div className='space-y-16'>

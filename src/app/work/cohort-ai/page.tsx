@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Badge } from '@/components/ui/badge';
 import { SectionGridBackground } from '@/components/ui/section-grid-background';
 
@@ -72,13 +73,24 @@ export default function CohortAIPage() {
             </div>
           </div>
 
-          {/* Gradient hero banner */}
-          <div className='w-full h-64 rounded-xl bg-gradient-to-br from-violet-950 via-indigo-950 to-black border border-violet-900/30 mb-16 flex items-center justify-center overflow-hidden relative'>
-            <div className='absolute inset-0 opacity-10' style={{backgroundImage: 'radial-gradient(ellipse at 30% 50%, #7c3aed 0%, transparent 60%), radial-gradient(ellipse at 70% 50%, #4f46e5 0%, transparent 60%)'}} />
-            <div className='text-center relative z-10'>
-              <p className='text-violet-300 text-sm font-mono tracking-widest uppercase opacity-60'>SPEC Agent Pipeline</p>
-              <p className='text-neutral-600 text-xs mt-2 font-mono'>Sally → Pete → Eva → Charlie</p>
-            </div>
+          {/* Screenshot collage */}
+          <div className='w-full rounded-xl overflow-hidden border border-neutral-800 mb-16 grid grid-cols-2 md:grid-cols-3 gap-2'>
+            {[
+              { src: '/CohortAI_Connect_Campaign_Messages.png', alt: 'Outreach messaging' },
+              { src: '/CohortAI_Home_Job_Offer_Text_Filled.png', alt: 'Job offer creation' },
+              { src: '/CohortAI_Match_Candidates_High_Fit.png', alt: 'Candidate matching' },
+              { src: '/CohortAI_Sequence_Expanded.png', alt: 'Sourcing sequence' },
+            ].map((img, i) => (
+              <div key={i} className='aspect-square bg-black relative overflow-hidden'>
+                <Image
+                  src={img.src}
+                  alt={img.alt}
+                  fill
+                  className='object-cover'
+                  sizes='(max-width: 768px) 50vw, 33vw'
+                />
+              </div>
+            ))}
           </div>
 
           {/* Content */}
