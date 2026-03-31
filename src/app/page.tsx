@@ -13,6 +13,7 @@ import { GradientDescentBg } from '@/components/ui/gradient-descent-bg';
 import { SectionGridBackground } from '@/components/ui/section-grid-background';
 import Image from 'next/image';
 import { BrainCircuit, Database, FlaskConical, CloudCog } from 'lucide-react';
+import { WorkCarousel } from '@/components/ui/work-carousel';
 
 export default function Home() {
   const hello = ['Hi,', 'Hello,', 'Hallo,', 'Hola!', 'Bonjour,'];
@@ -206,6 +207,25 @@ export default function Home() {
               gradient='bg-gradient-to-br from-emerald-950/40 to-transparent'
             />
           </BentoGrid>
+        </section>
+
+        {/* ── Selected Work ─────────────────────────────────── */}
+        <section
+          id='work'
+          aria-label='Selected work'
+          className='py-12 px-4 max-w-screen-xl mx-auto border-t border-neutral-900'
+        >
+          <div className='mb-2'>
+            <span className='text-xs font-semibold tracking-widest text-teal-400 uppercase'>
+              Selected Work
+            </span>
+          </div>
+          <div className='flex items-end justify-between mb-8'>
+            <h2 className='text-3xl md:text-4xl font-bold text-white'>
+              Products &amp; Case Studies
+            </h2>
+          </div>
+          <WorkCarousel />
         </section>
 
         {/* ── Building ──────────────────────────────────────── */}
