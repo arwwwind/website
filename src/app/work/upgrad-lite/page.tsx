@@ -118,7 +118,7 @@ export default function UpgradLitePage() {
               <p className='text-neutral-400 leading-relaxed mb-4'>
                 Session analytics showed a clear pattern: learners on slow connections had 2.8×
                 higher bounce rates on lesson load, lower module completion rates, and
-                disproportionately high support tickets about "videos not loading" and "lost progress."
+                disproportionately high support tickets about &quot;videos not loading&quot; and &quot;lost progress.&quot;
                 The drop-off wasn&apos;t because the content wasn&apos;t valuable — it was because
                 the delivery mechanism failed them.
               </p>
