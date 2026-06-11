@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import Script from 'next/script';
 import { IBM_Plex_Mono } from 'next/font/google';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import './globals.scss';
@@ -9,6 +10,7 @@ import { MagneticButton } from '@/components/ui/magnetic-button';
 import { BootLoader } from '@/components/ui/boot-loader';
 import { SmoothScroll } from '@/components/ui/smooth-scroll';
 import { Cursor } from '@/components/ui/cursor';
+import { AnalyticsEvents } from '@/components/analytics-events';
 
 export const metadata: Metadata = {
   title: 'Arvind Narayan — Staff AI/ML Engineer',
@@ -181,9 +183,22 @@ export default function RootLayout({
   return (
     <html lang='en' className={IBM.className}>
       <body className='dark'>
+        <Script
+          src='https://www.googletagmanager.com/gtag/js?id=G-7WLY43XFNL'
+          strategy='afterInteractive'
+        />
+        <Script id='google-analytics' strategy='afterInteractive'>
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-7WLY43XFNL');
+          `}
+        </Script>
         <BootLoader />
         <SmoothScroll />
         <Cursor />
+        <AnalyticsEvents />
         <div className='grain' aria-hidden='true' />
         <script
           type='application/ld+json'
