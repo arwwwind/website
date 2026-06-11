@@ -1,19 +1,19 @@
-import { CardContainer, CardItem } from '@/components/ui/3d-card';
 import { Button } from '@/components/ui/button';
+import { HeroAvatar } from '@/components/ui/hero-avatar';
 import { FlipWords } from '@/components/ui/flip-words';
 import { Timeline } from '@/components/ui/timeline';
 import { Badge } from '@/components/ui/badge';
 import { AuroraBackground } from '@/components/ui/aurora-background';
-import { MeteorShower } from '@/components/ui/meteor-shower';
 import { GradientText } from '@/components/ui/gradient-text';
 import { MagneticButton } from '@/components/ui/magnetic-button';
 import { BentoGrid, BentoCard } from '@/components/ui/bento-grid';
 import { HeroStats } from '@/components/HeroStats';
-import { GradientDescentBg } from '@/components/ui/gradient-descent-bg';
+import { NeuralField } from '@/components/three/neural-field';
+import { ScrollFX } from '@/components/ui/scroll-fx';
 import { SectionGridBackground } from '@/components/ui/section-grid-background';
 import Image from 'next/image';
 import { BrainCircuit, Database, FlaskConical, CloudCog } from 'lucide-react';
-import { WorkCarousel } from '@/components/ui/work-carousel';
+import { WorkShowcase } from '@/components/ui/work-showcase';
 
 export default function Home() {
   const hello = ['Hi,', 'Hello,', 'Hallo,', 'Hola!', 'Bonjour,'];
@@ -27,6 +27,7 @@ export default function Home() {
 
   return (
     <div className='min-h-[100vh] w-full max-w-none dark:bg-black bg-white relative'>
+      <ScrollFX />
       <AuroraBackground className='min-h-screen w-full max-w-none'>
 
         {/* ── Hero ──────────────────────────────────────────── */}
@@ -35,24 +36,29 @@ export default function Home() {
           aria-label='Introduction'
           className='relative w-full min-h-screen max-w-none overflow-hidden'
         >
-          <GradientDescentBg className='z-[0] opacity-70' />
-          <MeteorShower count={24} />
-          <div className='max-w-screen-xl mx-auto px-4 py-16 md:py-24 grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-12 items-center'>
+          <NeuralField className='z-[0]' />
+          <div
+            data-hero-parallax
+            className='max-w-screen-xl mx-auto px-4 py-16 md:py-24 grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-12 items-center'
+          >
 
             {/* Left: Text */}
             <div className='order-2 md:order-1 font-bold'>
-              <h1 className='text-2xl md:text-3xl py-1'>
+              <h1 data-hero className='text-2xl md:text-3xl py-1'>
                 <FlipWords words={hello} />
               </h1>
-              <h2 className='text-3xl md:text-5xl px-2 py-1 leading-tight'>
+              <h2 data-hero className='text-3xl md:text-5xl px-2 py-1 leading-tight'>
                 <span>{`I'm `}</span>
                 <GradientText>Arvind Narayan</GradientText>
               </h2>
-              <div className='text-xl md:text-2xl mt-1 text-neutral-300'>
+              <div data-hero className='text-xl md:text-2xl mt-1 text-neutral-300'>
                 <FlipWords words={roles} />
               </div>
 
-              <p className='px-2 pt-6 md:w-[92%] font-normal text-sm text-neutral-300 tracking-wide leading-relaxed'>
+              <p
+                data-hero
+                className='px-2 pt-6 md:w-[92%] font-normal text-sm text-neutral-300 tracking-wide leading-relaxed'
+              >
                 I build AI systems that actually work in the real world — for
                 biotech research labs, financial risk teams, and enterprise
                 organizations. Currently at{' '}
@@ -76,9 +82,11 @@ export default function Home() {
                 . Nine years shipping at Yahoo, upGrad, and Egen.ai.
               </p>
 
-              <HeroStats />
+              <div data-hero>
+                <HeroStats />
+              </div>
 
-              <div className='flex flex-wrap gap-3 px-2 mt-6'>
+              <div data-hero className='flex flex-wrap gap-3 px-2 mt-6'>
                 <MagneticButton>
                   <a
                     href='https://calendly.com/thearvindnarayan/15min'
@@ -111,7 +119,7 @@ export default function Home() {
                 </MagneticButton>
               </div>
 
-              <div className='flex gap-3 px-2 mt-3'>
+              <div data-hero className='flex gap-3 px-2 mt-3'>
                 <a
                   href='https://www.linkedin.com/in/arwwwind/'
                   target='_blank'
@@ -142,62 +150,43 @@ export default function Home() {
             </div>
 
             {/* Right: Avatar */}
-            <div className='order-1 md:order-2 flex justify-center'>
-              <CardContainer>
-                <CardItem translateZ='100' className='mt-4'>
-                  <Image
-                    className='inline-block h-[200px] w-auto md:h-[320px] rounded-full ring-[3px] ring-teal-600/70 shadow-[0_0_40px_rgba(20,184,166,0.2)]'
-                    width={320}
-                    height={320}
-                    src='/avatar.png'
-                    alt='Arvind Narayan — Staff AI/ML Engineer'
-                    priority
-                  />
-                </CardItem>
-              </CardContainer>
+            <div data-hero-avatar className='order-1 md:order-2 flex justify-center'>
+              <HeroAvatar />
             </div>
           </div>
-          <section
-            id='work'
-            aria-label='Selected work'
-            className='py-12 px-4 max-w-screen-xl mx-auto border-t border-neutral-900'
-          >
-            <div className='mb-2'>
-              <span className='text-xs font-semibold tracking-widest text-teal-400 uppercase'>
-                Selected Work
-              </span>
-            </div>
-            <div className='flex items-end justify-between mb-8'>
-              <h2 className='text-3xl md:text-4xl font-bold text-white'>
-                Products &amp; Case Studies
-              </h2>
-            </div>
-            <WorkCarousel />
-          </section>
         </section>
 
       </AuroraBackground>
 
       <SectionGridBackground>
+        {/* ── Selected Work: pinned horizontal gallery ──────── */}
+        <section
+          id='work'
+          aria-label='Selected work'
+          className='border-t border-neutral-900'
+        >
+          <WorkShowcase />
+        </section>
+
         {/* ── What I Do ─────────────────────────────────────── */}
         <section
           id='what-i-do'
           aria-label='Capabilities'
           className='py-20 px-4 max-w-screen-xl mx-auto'
         >
-          <div className='mb-2'>
+          <div data-reveal className='mb-2'>
             <span className='text-xs font-semibold tracking-widest text-teal-400 uppercase'>
               Capabilities
             </span>
           </div>
-          <h2 className='text-3xl md:text-4xl font-bold text-white mb-2'>
+          <h2 data-split className='text-3xl md:text-4xl font-bold text-white mb-2'>
             I architect AI systems that work in production.
           </h2>
-          <p className='text-neutral-400 mb-10 text-sm md:text-base'>
+          <p data-reveal className='text-neutral-400 mb-10 text-sm md:text-base'>
             Biotech research, financial risk, enterprise AI — the full stack, end to end.
           </p>
 
-          <BentoGrid>
+          <BentoGrid data-reveal-group>
             <BentoCard
               title='RAG & Agentic AI Systems'
               description='An AI research assistant used daily by lab scientists — finds papers, looks up drug data, and reasons across millions of documents without losing context. Technically: hybrid search (keyword + semantic), long-context memory across sessions, and tool-calling so the AI can autonomously query ChEMBL, PubChem, and specialized ML models.'
@@ -209,7 +198,6 @@ export default function Home() {
               title='Molecular ML & GNNs'
               description='ML models that predict whether a drug compound will be toxic, absorbed correctly, or reach the brain — F1 ≈ 0.90, AUROC ≈ 0.92 (near state-of-the-art). Graph neural networks that read molecular structure as a graph, deployed from data curation to cloud inference APIs.'
               icon={<FlaskConical className='w-6 h-6 text-teal-400' />}
-              className='md:row-span-2'
               gradient='bg-gradient-to-br from-teal-950/50 to-transparent'
             />
             <BentoCard
@@ -222,73 +210,82 @@ export default function Home() {
               title='LLM Infrastructure & MLOps'
               description='Deployed a 27 billion parameter language model on private cloud infrastructure — no external API dependency, full data control. Built quality evaluation pipelines, customized the model for scientific language, and designed the system so newer AI models can be swapped in without disrupting workflows.'
               icon={<CloudCog className='w-6 h-6 text-emerald-400' />}
+              className='md:col-span-2'
               gradient='bg-gradient-to-br from-emerald-950/40 to-transparent'
             />
           </BentoGrid>
         </section>
 
-        {/* ── Selected Work ─────────────────────────────────── */}
-        {/* <section
-          id='work'
-          aria-label='Selected work'
-          className='py-12 px-4 max-w-screen-xl mx-auto border-t border-neutral-900'
-        >
-          <div className='mb-2'>
-            <span className='text-xs font-semibold tracking-widest text-teal-400 uppercase'>
-              Selected Work
-            </span>
-          </div>
-          <div className='flex items-end justify-between mb-8'>
-            <h2 className='text-3xl md:text-4xl font-bold text-white'>
-              Products &amp; Case Studies
-            </h2>
-          </div>
-          <WorkCarousel />
-        </section> */}
-
         {/* ── Building ──────────────────────────────────────── */}
         <section
           id='building'
           aria-label='Ventures'
-          className='py-12 px-4 max-w-screen-xl mx-auto border-t border-neutral-900'
+          className='py-16 px-4 max-w-screen-xl mx-auto border-t border-neutral-900'
         >
-          <div className='mb-2'>
-            <span className='text-xs font-semibold tracking-widest text-teal-400 uppercase'>
-              Also Building
-            </span>
-          </div>
-          <h2 className='text-3xl md:text-4xl font-bold text-white mb-3'>
-            Superscaled
-          </h2>
-          <p className='text-neutral-400 text-sm mb-2 md:w-[65%]'>
-            An early-stage AI venture for engineering teams that need to move
-            faster than their organization&apos;s approval and procurement
-            processes allow. There&apos;s a frustrating gap between
-            &ldquo;we have a working model&rdquo; and &ldquo;this is actually
-            running in production, monitored, and trusted by the business.&rdquo;
-            Superscaled builds the tooling that closes it.
-          </p>
-          <p className='text-neutral-500 text-xs mb-6 md:w-[65%]'>
-            Building in public at{' '}
-            <a
-              href='https://superscaled.com'
-              target='_blank'
-              rel='noopener noreferrer'
-              className='text-teal-400 underline underline-offset-2 hover:text-teal-300 transition-colors'
-            >
-              superscaled.com
-            </a>
-            .
-          </p>
-          <a
-            href='https://superscaled.com'
-            target='_blank'
-            rel='noopener noreferrer'
-            className='inline-flex items-center gap-2 px-5 py-2.5 rounded-lg border border-teal-800/60 bg-teal-950/30 text-teal-400 text-sm font-medium hover:bg-teal-950/60 hover:border-teal-600 transition-all'
+          <div
+            data-reveal
+            className='relative overflow-hidden rounded-3xl border border-neutral-800/80 bg-neutral-950 px-6 py-12 md:px-14 md:py-16'
           >
-            <span>Visit Superscaled</span>
-            <span className='text-xs'>→</span>
-          </a>
+            {/* drifting glows */}
+            <div
+              aria-hidden='true'
+              data-drift='34'
+              className='pointer-events-none absolute -top-28 -right-20 w-80 h-80 rounded-full bg-teal-500/10 blur-3xl'
+            />
+            <div
+              aria-hidden='true'
+              data-drift='-26'
+              className='pointer-events-none absolute -bottom-32 left-1/4 w-96 h-96 rounded-full bg-rose-500/[0.07] blur-3xl'
+            />
+            {/* scrubbing watermark */}
+            <div
+              aria-hidden='true'
+              data-scrub-x
+              className='pointer-events-none select-none absolute -bottom-3 md:-bottom-7 left-0 whitespace-nowrap font-black leading-none tracking-tighter text-[5.5rem] md:text-[10rem] text-white/[0.03] will-change-transform'
+            >
+              SUPERSCALED&nbsp;&nbsp;SUPERSCALED&nbsp;&nbsp;SUPERSCALED
+            </div>
+
+            <div className='relative'>
+              <div className='mb-2'>
+                <span className='text-xs font-semibold tracking-widest text-teal-400 uppercase'>
+                  Also Building
+                </span>
+              </div>
+              <h2 data-split className='text-3xl md:text-5xl font-bold text-white mb-4'>
+                Superscaled
+              </h2>
+              <p className='text-neutral-400 text-sm mb-2 md:w-[60%] leading-relaxed'>
+                An early-stage AI venture for engineering teams that need to move
+                faster than their organization&apos;s approval and procurement
+                processes allow. There&apos;s a frustrating gap between
+                &ldquo;we have a working model&rdquo; and &ldquo;this is actually
+                running in production, monitored, and trusted by the business.&rdquo;
+                Superscaled builds the tooling that closes it.
+              </p>
+              <p className='text-neutral-500 text-xs mb-8 md:w-[60%]'>
+                Building in public at{' '}
+                <a
+                  href='https://superscaled.com'
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  className='text-teal-400 underline underline-offset-2 hover:text-teal-300 transition-colors'
+                >
+                  superscaled.com
+                </a>
+                .
+              </p>
+              <a
+                href='https://superscaled.com'
+                target='_blank'
+                rel='noopener noreferrer'
+                className='group inline-flex items-center gap-2 px-6 py-3 rounded-full border border-teal-800/60 bg-teal-950/30 text-teal-400 text-sm font-medium hover:bg-teal-950/60 hover:border-teal-500 transition-all'
+              >
+                <span>Visit Superscaled</span>
+                <span className='text-xs group-hover:translate-x-1 transition-transform'>→</span>
+              </a>
+            </div>
+          </div>
         </section>
 
         {/* ── Tech Stack ────────────────────────────────────── */}
@@ -297,25 +294,28 @@ export default function Home() {
           aria-label='Technology stack'
           className='py-12 px-4 max-w-screen-xl mx-auto border-t border-neutral-900'
         >
-          <div className='mb-2'>
+          <div data-reveal className='mb-2'>
             <span className='text-xs font-semibold tracking-widest text-teal-400 uppercase'>
               Tools
             </span>
           </div>
-          <h2 className='text-2xl font-bold mb-1'>
+          <h2 data-reveal className='text-2xl font-bold mb-1'>
             <GradientText>Tech Stack</GradientText>
           </h2>
-          <p className='text-neutral-500 text-sm mb-8'>
+          <p data-reveal className='text-neutral-500 text-sm mb-8'>
             From ML and data pipelines to infrastructure and product UI — organized
             by domain.
           </p>
           <div className='flex flex-col gap-8'>
             {stackCategories.map((cat) => (
               <div key={cat.label}>
-                <p className='text-xs font-semibold tracking-widest text-teal-400 uppercase mb-3'>
+                <p
+                  data-reveal
+                  className='text-xs font-semibold tracking-widest text-teal-400 uppercase mb-3'
+                >
                   {cat.label}
                 </p>
-                <div className='flex flex-wrap gap-2'>
+                <div data-reveal-chips className='flex flex-wrap gap-2'>
                   {cat.items.map((item) =>
                     item.src ? (
                       <a

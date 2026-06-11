@@ -7,6 +7,8 @@ import 'lineicons/web-font/lineicons.css';
 import { NavLinks } from '@/components/ui/nav-scroll';
 import { MagneticButton } from '@/components/ui/magnetic-button';
 import { BootLoader } from '@/components/ui/boot-loader';
+import { SmoothScroll } from '@/components/ui/smooth-scroll';
+import { Cursor } from '@/components/ui/cursor';
 
 export const metadata: Metadata = {
   title: 'Arvind Narayan — Staff AI/ML Engineer',
@@ -180,6 +182,9 @@ export default function RootLayout({
     <html lang='en' className={IBM.className}>
       <body className='dark'>
         <BootLoader />
+        <SmoothScroll />
+        <Cursor />
+        <div className='grain' aria-hidden='true' />
         <script
           type='application/ld+json'
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

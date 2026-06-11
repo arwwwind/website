@@ -14,6 +14,9 @@ function LoaderShell({ children }: { children: (onExit: () => void) => React.Rea
 
   const handleExit = useCallback(() => {
     setExiting(true);
+    // let the hero entrance start while the curtain slides up
+    (window as Window & { __booted?: boolean }).__booted = true;
+    window.dispatchEvent(new Event('boot:done'));
     setTimeout(() => setDone(true), 620);
   }, []);
 
