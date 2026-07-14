@@ -1,3 +1,4 @@
+import dynamic from 'next/dynamic';
 import { Button } from '@/components/ui/button';
 import { HeroAvatar } from '@/components/ui/hero-avatar';
 import { FlipWords } from '@/components/ui/flip-words';
@@ -13,6 +14,13 @@ import { SectionGridBackground } from '@/components/ui/section-grid-background';
 import Image from 'next/image';
 import { WorkShowcase } from '@/components/ui/work-showcase';
 import { AsciiFigure } from '@/components/ui/ascii-figure';
+
+/** Client-only + code-split: TF.js stays out of the initial homepage bundle. */
+const BeatTheBot = dynamic(
+  () =>
+    import('@/components/BeatTheBot').then((m) => m.BeatTheBot),
+  { ssr: false, loading: () => null }
+);
 
 export default function Home() {
   const hello = ['Hi,', 'Hello,', 'Hallo,', 'Hola!', 'Bonjour,'];
@@ -364,6 +372,9 @@ export default function Home() {
         <section id='timeline' aria-label='Work experience' className='py-8 px-4'>
           <Timeline data={exp} />
         </section>
+
+        {/* ── Beat the Bot (lazy TF.js demo) ─────────────────── */}
+        <BeatTheBot />
       </SectionGridBackground>
     </div>
   );
