@@ -6,14 +6,13 @@ import { Badge } from '@/components/ui/badge';
 import { AuroraBackground } from '@/components/ui/aurora-background';
 import { GradientText } from '@/components/ui/gradient-text';
 import { MagneticButton } from '@/components/ui/magnetic-button';
-import { BentoGrid, BentoCard } from '@/components/ui/bento-grid';
 import { HeroStats } from '@/components/HeroStats';
 import { NeuralField } from '@/components/three/neural-field';
 import { ScrollFX } from '@/components/ui/scroll-fx';
 import { SectionGridBackground } from '@/components/ui/section-grid-background';
 import Image from 'next/image';
-import { BrainCircuit, Database, FlaskConical, CloudCog } from 'lucide-react';
 import { WorkShowcase } from '@/components/ui/work-showcase';
+import { AsciiFigure } from '@/components/ui/ascii-figure';
 
 export default function Home() {
   const hello = ['Hi,', 'Hello,', 'Hallo,', 'Hola!', 'Bonjour,'];
@@ -186,34 +185,47 @@ export default function Home() {
             Biotech research, financial risk, enterprise AI — the full stack, end to end.
           </p>
 
-          <BentoGrid data-reveal-group>
-            <BentoCard
-              title='RAG & Agentic AI Systems'
-              description='An AI research assistant used daily by lab scientists — finds papers, looks up drug data, and reasons across millions of documents without losing context. Technically: hybrid search (keyword + semantic), long-context memory across sessions, and tool-calling so the AI can autonomously query ChEMBL, PubChem, and specialized ML models.'
-              icon={<BrainCircuit className='w-6 h-6 text-rose-400' />}
-              className='md:col-span-2'
-              gradient='bg-gradient-to-br from-rose-950/50 to-transparent'
-            />
-            <BentoCard
-              title='Molecular ML & GNNs'
-              description='ML models that predict whether a drug compound will be toxic, absorbed correctly, or reach the brain — F1 ≈ 0.90, AUROC ≈ 0.92 (near state-of-the-art). Graph neural networks that read molecular structure as a graph, deployed from data curation to cloud inference APIs.'
-              icon={<FlaskConical className='w-6 h-6 text-teal-400' />}
-              gradient='bg-gradient-to-br from-teal-950/50 to-transparent'
-            />
-            <BentoCard
-              title='Clinical & Research Analytics'
-              description="Investigated why a Phase 3 drug trial didn't show results. Discovered that how patients spoke during visits — not just what they reported — predicted who responded to placebo, pointing to a clinic habituation effect. Delivered recommendations that shaped future trial design."
-              icon={<Database className='w-6 h-6 text-blue-400' />}
-              gradient='bg-gradient-to-br from-blue-950/50 to-transparent'
-            />
-            <BentoCard
-              title='LLM Infrastructure & MLOps'
-              description='Deployed a 27 billion parameter language model on private cloud infrastructure — no external API dependency, full data control. Built quality evaluation pipelines, customized the model for scientific language, and designed the system so newer AI models can be swapped in without disrupting workflows.'
-              icon={<CloudCog className='w-6 h-6 text-emerald-400' />}
-              className='md:col-span-2'
-              gradient='bg-gradient-to-br from-emerald-950/40 to-transparent'
-            />
-          </BentoGrid>
+          <div className='border-t border-neutral-900'>
+            {capabilities.map((cap, i) => {
+              const flipped = i % 2 === 1;
+              return (
+                <article
+                  key={cap.num}
+                  data-reveal
+                  className='grid grid-cols-1 md:grid-cols-12 gap-x-10 gap-y-8 py-14 border-b border-neutral-900'
+                >
+                  {/* text */}
+                  <div className={`md:col-span-5 ${flipped ? 'md:order-2' : 'md:order-1'}`}>
+                    <span className='font-mono text-xs text-rose-400 tracking-widest'>
+                      {cap.num}
+                    </span>
+                    <h3 className='mt-2 text-xl md:text-2xl font-bold text-white leading-tight'>
+                      {cap.title}
+                    </h3>
+                    <p className='mt-3 text-xs md:text-sm text-neutral-400 leading-relaxed'>
+                      {cap.description}
+                    </p>
+                  </div>
+
+                  {/* animated figure(s) */}
+                  <div
+                    className={`md:col-span-5 flex flex-col justify-center gap-5 min-w-0 ${
+                      flipped ? 'md:order-1' : 'md:order-2'
+                    }`}
+                  >
+                    {cap.figures}
+                  </div>
+
+                  {/* margin note */}
+                  <aside className='hidden md:block md:col-span-2 md:order-3 border-l border-neutral-800/80 pl-4 self-start'>
+                    <p className='font-mono text-[10px] leading-relaxed text-neutral-500'>
+                      {cap.note}
+                    </p>
+                  </aside>
+                </article>
+              );
+            })}
+          </div>
         </section>
 
         {/* ── Building ──────────────────────────────────────── */}
@@ -357,6 +369,97 @@ export default function Home() {
   );
 }
 
+const capabilities = [
+  {
+    num: '02.1',
+    title: 'RAG & Agentic AI Systems',
+    description:
+      'An AI research assistant used daily by lab scientists — finds papers, looks up drug data, and reasons across millions of documents without losing context. Exposed our internal ML models as callable tools and built an agentic framework for molecule discovery, analysis, and exploratory studies: a planner agent spins up a fleet of specialized agents, tracks their state, validates every output, and streams the whole run live. Technically: hybrid search (keyword + semantic), long-context memory across sessions, and tool-calling into ChEMBL, PubChem, and in-house models.',
+    note: 'Daily driver for lab scientists. Planner + agent fleet with state, validation, and live streaming.',
+    figures: (
+      <>
+        <AsciiFigure
+          caption='FIG. 02.1a · Retrieval Graph'
+          lines={[
+            'query --> BM25 --+',
+            '                 +--> fuse --> rerank --> LLM',
+            'query --> dense -+' + ' '.repeat(24) + '|',
+            ' '.repeat(42) + '+--> tools',
+            ' '.repeat(42) + "'--> memory",
+          ]}
+        />
+        <AsciiFigure
+          caption='FIG. 02.1b · Agent Fleet'
+          lines={[
+            'goal --> planner --+--> agent[1] --+',
+            '           |       +--> agent[2] --+--> validate',
+            '         state     +--> agent[n] --+       |',
+            '           ^                               v',
+            "           '------- stream live <----------'",
+          ]}
+        />
+      </>
+    ),
+  },
+  {
+    num: '02.2',
+    title: 'Molecular ML & GNNs',
+    description:
+      'ML models that predict whether a drug compound will be toxic, absorbed correctly, or reach the brain — F1 ≈ 0.90, AUROC ≈ 0.92 (near state-of-the-art). Graph neural networks that read molecular structure as a graph, deployed from data curation to cloud inference APIs.',
+    note: 'F1 ≈ 0.90 · AUROC ≈ 0.92 on ADMET / BBB tasks.',
+    figures: (
+      <AsciiFigure
+        caption='FIG. 02.2 · Message Passing'
+        lines={[
+          '(C)--(N)--(O)',
+          ' |',
+          '(C)--(C)--(F)   message-passing',
+          ' v',
+          "h'v = s( sum_u W · hu )",
+        ]}
+      />
+    ),
+  },
+  {
+    num: '02.3',
+    title: 'Clinical & Research Analytics',
+    description:
+      "Investigated why a Phase 3 drug trial didn't show results. Discovered that how patients spoke during visits — not just what they reported — predicted who responded to placebo, pointing to a clinic habituation effect. Delivered recommendations that shaped future trial design.",
+    note: 'VistaGen PAL-3 · speech features predicted placebo response.',
+    figures: (
+      <AsciiFigure
+        caption='FIG. 02.3 · Longitudinal Signal'
+        lines={[
+          'visit[1]  visit[2]  visit[3]  ...',
+          '   |         |         |',
+          'speech    speech    scores',
+          "   '---------+---------'",
+          '             v',
+          '   features --> placebo model',
+        ]}
+      />
+    ),
+  },
+  {
+    num: '02.4',
+    title: 'LLM Infrastructure & MLOps',
+    description:
+      'Shipped a lot of models to production — neural networks served on SageMaker with end-to-end MLOps: registry-backed versioning, CI/CD, canary rollouts, monitoring and drift checks. These days that extends to open-source AI models and systems, routed and managed through LiteLLM and AWS Bedrock, so new models slot into existing workflows without disruption.',
+    note: 'SageMaker + full MLOps · FOSS models via LiteLLM / Bedrock.',
+    figures: (
+      <AsciiFigure
+        caption='FIG. 02.4 · Serving Graph'
+        lines={[
+          'train --> registry --> SageMaker --> canary --> live',
+          ' '.repeat(48) + '|',
+          'FOSS --> LiteLLM / Bedrock --> router' + ' '.repeat(11) + '+',
+          ' '.repeat(13) + 'swap models <' + '-'.repeat(22) + "'",
+        ]}
+      />
+    ),
+  },
+];
+
 const stackCategories = [
   {
     label: 'AI & LLMs',
@@ -435,6 +538,8 @@ const stackCategories = [
     items: [
       { name: 'AWS', src: '/aws.png', href: 'https://aws.amazon.com/' },
       { name: 'SageMaker', src: null, href: '#' },
+      { name: 'LiteLLM', src: null, href: '#' },
+      { name: 'AWS Bedrock', src: null, href: '#' },
       { name: 'FastAPI', src: null, href: '#' },
       { name: 'Golang APIs', src: null, href: 'https://go.dev/' },
       { name: 'GraphQL', src: null, href: '#' },
@@ -517,13 +622,17 @@ const exp = [
             questions without a human in the loop.
           </p>
           <p className='text-neutral-400 text-xs md:text-sm font-normal mb-4'>
-            Deployed a{' '}
+            Served{' '}
             <span className='text-rose-400 font-medium'>
-              27 billion parameter language model on our own AWS infrastructure
+              neural network models on SageMaker with full MLOps
             </span>{' '}
-            — no reliance on external AI providers, full data control. The
-            system is modular, so newer and more capable models can be swapped
-            in as they become available without rebuilding the application.
+            — registry, CI/CD, canary rollouts, monitoring — and routed
+            open-source models through{' '}
+            <span className='text-rose-400 font-medium'>
+              LiteLLM and AWS Bedrock
+            </span>{' '}
+            so newer models can be swapped in without rebuilding the
+            application.
           </p>
           <div className='flex flex-wrap gap-2'>
             {[
@@ -536,6 +645,8 @@ const exp = [
               'Qwen 3.5',
               'SGLang',
               'SageMaker',
+              'LiteLLM',
+              'Bedrock',
               'LIGHT Memory',
             ].map((t) => (
               <Badge key={t} variant='secondary'>

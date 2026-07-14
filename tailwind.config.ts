@@ -26,8 +26,8 @@ const config = {
     },
     extend: {
       fontFamily: {
-        sans: ['"IBM Plex Mono", system-ui'],
-        mono: ['"IBM Plex Mono", system-ui'],
+        sans: ['var(--font-plex-mono)', '"IBM Plex Mono"', 'monospace'],
+        mono: ['var(--font-plex-mono)', '"IBM Plex Mono"', 'monospace'],
       },
       colors: {
         border: 'hsl(var(--border))',

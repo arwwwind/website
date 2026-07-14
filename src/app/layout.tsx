@@ -70,6 +70,7 @@ const IBM = IBM_Plex_Mono({
   style: ['normal', 'italic'],
   subsets: ['latin'],
   display: 'swap',
+  variable: '--font-plex-mono',
 });
 
 const currentYear = new Date().getFullYear();
@@ -181,7 +182,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang='en' className={IBM.className}>
+    <html lang='en' className={`${IBM.className} ${IBM.variable}`}>
       <body className='dark'>
         <Script
           src='https://www.googletagmanager.com/gtag/js?id=G-7WLY43XFNL'

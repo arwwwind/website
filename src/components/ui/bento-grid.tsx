@@ -23,6 +23,7 @@ interface BentoCardProps {
   icon: React.ReactNode;
   className?: string;
   gradient?: string;
+  figure?: React.ReactNode;
 }
 
 export const BentoCard = ({
@@ -31,6 +32,7 @@ export const BentoCard = ({
   icon,
   className,
   gradient,
+  figure,
 }: BentoCardProps) => {
   const ref = useRef<HTMLDivElement>(null);
 
@@ -88,6 +90,7 @@ export const BentoCard = ({
         <p className='text-xs md:text-sm text-neutral-400 leading-relaxed'>
           {description}
         </p>
+        {figure && <div className='mt-auto pt-6'>{figure}</div>}
       </div>
     </div>
   );
