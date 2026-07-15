@@ -17,6 +17,7 @@ import {
   type ReactNode,
 } from 'react';
 import { AsciiFigure } from '@/components/ui/ascii-figure';
+import { CrypticText } from '@/components/ui/cryptic-text';
 import { cn } from '@/lib/utils';
 
 /* ── Types & constants ───────────────────────────────────────────── */
@@ -31,13 +32,18 @@ const MOVE_SHORT = ['R', 'P', 'S'] as const;
 /** Rounds before the model replaces a random bot move (cold start). */
 const WARMUP_ROUNDS = 6;
 const HISTORY_LEN = 5;
-const TRAIN_EPOCHS = 30;
+/** Gradient steps after play goes idle — never on the click path. */
+const TRAIN_STEPS = 3;
+/** Wait for a pause in throws before touching the model. */
+const TRAIN_IDLE_MS = 320;
+/** Only the most recent windows — older ones add cost without much signal. */
+const MAX_TRAIN_WINDOWS = 24;
 const CLASSES = 3;
 
 const PIPELINE_LINES = [
   'moves[-5:] --> one-hot(15) --> dense(8, relu) --> dense(3, softmax) --> argmax --> counter-move',
   '                                     ^                                              |',
-  "                                     '------- fit(full history, 30 epochs) <--------'",
+  "                                     '------- trainOnBatch (idle, 3 steps) <--------'",
 ];
 
 const HOW_IT_WORKS_MD = `## How Beat the Bot works
@@ -50,23 +56,24 @@ A tiny dense network trains **live in your browser** for the duration of this se
 2. Before revealing, the bot encodes your **last 5 throws** as a length-15 one-hot vector (\`5 × 3\` classes). Early rounds are zero-padded.
 3. A two-layer net predicts which class you are about to play.
 4. The bot plays the **direct counter** to that prediction (Rock→Paper, Paper→Scissors, Scissors→Rock).
-5. After the round resolves, the bot **retrains on the full session history** (\`epochs: 30\`, batch = all sliding windows) — not a single sample. Training runs in the background so the UI never blocks.
+5. After you pause, the bot runs a few **\`trainOnBatch\`** steps on recent windows. Training never shares the click path with inference, so throws stay instant.
 
 ### Architecture
 
 \`\`\`
 moves[-5:] → one-hot(15) → dense(8, relu) → dense(3, softmax) → argmax → counter
                  ^                                                    |
-                 '------- fit(full history, 30 epochs) <--------------'
+                 '------- trainOnBatch (idle, 3 steps) <--------------'
 \`\`\`
 
 - **Optimizer:** Adam
 - **Loss:** categorical cross-entropy
-- **Library:** TensorFlow.js (\`@tensorflow/tfjs\`), loaded only when this section scrolls into view
+- **Backend:** TensorFlow.js CPU (predictable for a toy net; avoids WebGL hitching)
+- **Library:** \`@tensorflow/tfjs\`, loaded only when this section scrolls into view
 
 ### Why the bot gets better
 
-A single gradient step on one example barely moves a randomly-initialized net. Retraining on every \`(window → next move)\` pair each round gives the model enough signal to overfit to *your* habits within a few dozen throws.
+A single gradient step on one example barely moves a randomly-initialized net. A few batch steps on recent \`(window → next move)\` pairs after each pause still lets the model overfit to *your* habits within a few dozen throws.
 
 Cold-start rounds (before enough history) use a random bot throw so the demo stays fair while the feature window fills.
 
@@ -93,20 +100,21 @@ function encodeHistory(history: Move[]): number[] {
 }
 
 /**
- * Retrain on every sliding (window → next move) pair in the session.
- * Single-sample online fit barely moves a cold net; a full retrain each
- * round is still milliseconds at session scale.
+ * A few trainOnBatch steps on recent windows. Intentionally tiny: this runs
+ * only after play goes idle so it never contends with predict on a throw.
  */
 async function trainOnHistory(
   tf: TfModule,
   model: Sequential,
-  history: Move[]
+  history: Move[],
+  shouldAbort?: () => boolean
 ): Promise<void> {
   if (history.length <= HISTORY_LEN) return;
 
   const xs: number[][] = [];
   const ys: number[][] = [];
-  for (let i = HISTORY_LEN; i < history.length; i++) {
+  const start = Math.max(HISTORY_LEN, history.length - MAX_TRAIN_WINDOWS);
+  for (let i = start; i < history.length; i++) {
     xs.push(encodeHistory(history.slice(i - HISTORY_LEN, i)));
     ys.push(oneHotMove(history[i]));
   }
@@ -114,12 +122,12 @@ async function trainOnHistory(
   const x = tf.tensor2d(xs);
   const y = tf.tensor2d(ys);
   try {
-    await model.fit(x, y, {
-      epochs: TRAIN_EPOCHS,
-      batchSize: xs.length,
-      shuffle: true,
-      verbose: 0,
-    });
+    for (let step = 0; step < TRAIN_STEPS; step++) {
+      if (shouldAbort?.()) return;
+      await model.trainOnBatch(x, y);
+      // Yield so scroll/paint stay smooth if the user is still on the page.
+      await tf.nextFrame();
+    }
   } finally {
     x.dispose();
     y.dispose();
@@ -395,7 +403,6 @@ function FloatingOrbButton({
 function BeatTheBotGame({ onOpenHelp }: { onOpenHelp: () => void }) {
   const [ready, setReady] = useState(false);
   const [failed, setFailed] = useState(false);
-  const [busy, setBusy] = useState(false);
   const [history, setHistory] = useState<Move[]>([]);
   const [wins, setWins] = useState(0);
   const [losses, setLosses] = useState(0);
@@ -410,7 +417,10 @@ function BeatTheBotGame({ onOpenHelp }: { onOpenHelp: () => void }) {
   const modelRef = useRef<Sequential | null>(null);
   const historyRef = useRef<Move[]>([]);
   const roundsRef = useRef(0);
-  const trainingRef = useRef(Promise.resolve());
+  const playLockRef = useRef(false);
+  /** Bumps whenever a throw happens so idle trains can bail. */
+  const trainGenRef = useRef(0);
+  const trainTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     let cancelled = false;
@@ -418,6 +428,11 @@ function BeatTheBotGame({ onOpenHelp }: { onOpenHelp: () => void }) {
     (async () => {
       try {
         const tf = await import('@tensorflow/tfjs');
+        if (cancelled) return;
+        // CPU is faster/more predictable than WebGL for this tiny net and
+        // avoids shader compile stalls after repeated weight updates.
+        await tf.setBackend('cpu');
+        await tf.ready();
         if (cancelled) return;
         tfRef.current = tf;
 
@@ -438,9 +453,12 @@ function BeatTheBotGame({ onOpenHelp }: { onOpenHelp: () => void }) {
 
         // Warm up backend so the first click isn't a hitch.
         const warm = tf.zeros([1, HISTORY_LEN * CLASSES]);
-        model.predict(warm);
+        const warmPred = model.predict(warm) as import('@tensorflow/tfjs').Tensor;
+        await warmPred.data();
+        warmPred.dispose();
         warm.dispose();
 
+        if (cancelled) return;
         setReady(true);
         setStatus('Ready — throw to begin.');
       } catch {
@@ -453,6 +471,11 @@ function BeatTheBotGame({ onOpenHelp }: { onOpenHelp: () => void }) {
 
     return () => {
       cancelled = true;
+      trainGenRef.current += 1;
+      if (trainTimerRef.current != null) {
+        clearTimeout(trainTimerRef.current);
+        trainTimerRef.current = null;
+      }
       modelRef.current?.dispose();
       modelRef.current = null;
     };
@@ -461,73 +484,96 @@ function BeatTheBotGame({ onOpenHelp }: { onOpenHelp: () => void }) {
   const played = wins + losses + ties;
   const botWinRate = played === 0 ? 0 : losses / played;
 
-  const play = useCallback(
-    async (human: Move) => {
-      if (!ready || busy || !modelRef.current || !tfRef.current) return;
-      setBusy(true);
+  const scheduleTrain = useCallback(() => {
+    if (trainTimerRef.current != null) {
+      clearTimeout(trainTimerRef.current);
+    }
+    const tf = tfRef.current;
+    const model = modelRef.current;
+    if (!tf || !model) return;
 
-      const tf = tfRef.current;
-      const model = modelRef.current;
-      const hist = historyRef.current;
-      const features = encodeHistory(hist);
-      const roundIndex = roundsRef.current;
-
-      let bot: Move;
-      let fromModel = false;
-
-      if (roundIndex < WARMUP_ROUNDS) {
-        bot = randomMove();
-      } else {
-        const pred = tf.tidy(() => {
-          const x = tf.tensor2d([features]);
-          const y = model.predict(x) as import('@tensorflow/tfjs').Tensor;
-          const data = y.dataSync();
-          let best = 0;
-          for (let i = 1; i < CLASSES; i++) {
-            if (data[i] > data[best]) best = i;
-          }
-          return best as Move;
-        });
-        bot = counterMove(pred);
-        fromModel = true;
-      }
-
-      const outcome = resolveRound(human, bot);
-
-      // Reveal immediately — train in the background.
-      setLastHuman(human);
-      setLastBot(bot);
-      setLastOutcome(outcome);
-      setUsedModel(fromModel);
-      if (outcome === 'win') setWins((w) => w + 1);
-      else if (outcome === 'loss') setLosses((l) => l + 1);
-      else setTies((t) => t + 1);
-
-      // Keep the full session — training needs every sliding window.
-      historyRef.current = [...hist, human];
-      setHistory([...historyRef.current]);
-      roundsRef.current += 1;
-
-      const outcomeLabel =
-        outcome === 'win' ? 'You win' : outcome === 'loss' ? 'Bot wins' : 'Tie';
-      setStatus(
-        fromModel
-          ? `${outcomeLabel}. Model predicted & countered.`
-          : `${outcomeLabel}. Warm-up (random bot).`
-      );
-
-      const session = historyRef.current;
-      trainingRef.current = trainingRef.current.then(async () => {
-        try {
-          await trainOnHistory(tf, model, session);
-        } catch {
+    const gen = trainGenRef.current;
+    const session = historyRef.current;
+    trainTimerRef.current = setTimeout(() => {
+      trainTimerRef.current = null;
+      if (gen !== trainGenRef.current) return;
+      void trainOnHistory(tf, model, session, () => gen !== trainGenRef.current).catch(
+        () => {
           // Training errors shouldn't break play.
         }
-      });
+      );
+    }, TRAIN_IDLE_MS);
+  }, []);
 
-      setBusy(false);
+  const play = useCallback(
+    (human: Move) => {
+      if (!ready || playLockRef.current || !modelRef.current || !tfRef.current) {
+        return;
+      }
+      playLockRef.current = true;
+
+      try {
+        // Cancel any pending/idle train — throws must never wait on fit.
+        trainGenRef.current += 1;
+        if (trainTimerRef.current != null) {
+          clearTimeout(trainTimerRef.current);
+          trainTimerRef.current = null;
+        }
+
+        const tf = tfRef.current;
+        const model = modelRef.current;
+        const hist = historyRef.current;
+        const features = encodeHistory(hist);
+        const roundIndex = roundsRef.current;
+
+        let bot: Move;
+        let fromModel = false;
+
+        if (roundIndex < WARMUP_ROUNDS) {
+          bot = randomMove();
+        } else {
+          const pred = tf.tidy(() => {
+            const x = tf.tensor2d([features]);
+            const y = model.predict(x) as import('@tensorflow/tfjs').Tensor;
+            const data = y.dataSync();
+            let best = 0;
+            for (let i = 1; i < CLASSES; i++) {
+              if (data[i] > data[best]) best = i;
+            }
+            return best as Move;
+          });
+          bot = counterMove(pred);
+          fromModel = true;
+        }
+
+        const outcome = resolveRound(human, bot);
+
+        setLastHuman(human);
+        setLastBot(bot);
+        setLastOutcome(outcome);
+        setUsedModel(fromModel);
+        if (outcome === 'win') setWins((w) => w + 1);
+        else if (outcome === 'loss') setLosses((l) => l + 1);
+        else setTies((t) => t + 1);
+
+        historyRef.current = [...hist, human];
+        setHistory([...historyRef.current]);
+        roundsRef.current += 1;
+
+        const outcomeLabel =
+          outcome === 'win' ? 'You win' : outcome === 'loss' ? 'Bot wins' : 'Tie';
+        setStatus(
+          fromModel
+            ? `${outcomeLabel}. Model predicted & countered.`
+            : `${outcomeLabel}. Warm-up (random bot).`
+        );
+
+        scheduleTrain();
+      } finally {
+        playLockRef.current = false;
+      }
     },
-    [busy, ready]
+    [ready, scheduleTrain]
   );
 
   if (failed) return null;
@@ -543,8 +589,8 @@ function BeatTheBotGame({ onOpenHelp }: { onOpenHelp: () => void }) {
           Live demo
         </span>
       </div>
-      <h2 data-split className='text-3xl md:text-4xl font-bold text-white mb-2'>
-        Beat the Bot
+      <h2 className='text-3xl md:text-4xl font-bold text-white mb-2'>
+        <CrypticText text='Beat the Bot' whenVisible cps={20} flipsPerChar={3} />
       </h2>
       <p data-reveal className='text-neutral-400 mb-2 text-sm md:text-base max-w-2xl leading-relaxed'>
         Rock-Paper-Scissors against a dense net that trains in your browser,
@@ -650,8 +696,8 @@ function BeatTheBotGame({ onOpenHelp }: { onOpenHelp: () => void }) {
                 <button
                   key={m}
                   type='button'
-                  disabled={!ready || busy}
-                  onClick={() => void play(m)}
+                  disabled={!ready}
+                  onClick={() => play(m)}
                   className={cn(
                     'flex flex-col items-center gap-1 rounded-lg border border-neutral-800 bg-neutral-900/50 px-3 py-4',
                     'text-sm font-medium text-neutral-300 transition-all',
@@ -696,10 +742,10 @@ function BeatTheBotGame({ onOpenHelp }: { onOpenHelp: () => void }) {
           <AsciiFigure caption='FIG. BTB · Online RPS Predictor' lines={PIPELINE_LINES} />
           <aside className='border-l border-neutral-800/80 pl-4'>
             <p className='font-mono text-[10px] leading-relaxed text-neutral-500'>
-              Session-only · no persistence. TF.js loads when this block intersects
-              the viewport. After each round the net retrains on the full history
-              ({TRAIN_EPOCHS} epochs). First {WARMUP_ROUNDS} rounds use a random
-              bot while the window fills.
+              Session-only · no persistence. TF.js (CPU) loads when this block
+              intersects the viewport. After you pause, the net takes{' '}
+              {TRAIN_STEPS} batch steps on recent windows. First {WARMUP_ROUNDS}{' '}
+              rounds use a random bot while the window fills.
             </p>
           </aside>
         </div>

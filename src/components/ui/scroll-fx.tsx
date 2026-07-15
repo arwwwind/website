@@ -3,6 +3,7 @@
 import { useEffect } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { runCrypticReveal } from '@/components/ui/cryptic-text';
 
 declare global {
   interface Window {
@@ -17,7 +18,7 @@ declare global {
  *  data-hero          — staggered entrance after the boot loader exits
  *  data-hero-avatar   — scale-in + idle float
  *  data-hero-parallax — drifts up / fades as the hero scrolls away
- *  data-split         — heading split into masked words, revealed on scroll
+ *  data-split         — cryptographic decrypt typewriter on scroll
  *  data-reveal        — single fade-up on scroll
  *  data-reveal-group  — children stagger-fade on scroll
  *  data-reveal-chips  — fast micro-stagger for dense chip grids
@@ -27,6 +28,7 @@ export function ScrollFX() {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
     gsap.registerPlugin(ScrollTrigger);
+    const cleanups: Array<() => void> = [];
 
     const ctx = gsap.context(() => {
       // ── hero entrance (waits for the boot loader) ──────────────────
@@ -105,30 +107,47 @@ export function ScrollFX() {
         });
       }
 
-      // ── masked word reveals for headings ───────────────────────────
+      // ── cryptographic decrypt for headings ─────────────────────────
       document.querySelectorAll<HTMLElement>('[data-split]').forEach((el) => {
-        const text = el.textContent ?? '';
-        if (!text.trim()) return;
+        const text = (el.textContent ?? '').replace(/\s+/g, ' ').trim();
+        if (!text) return;
+
         el.setAttribute('aria-label', text);
-        el.innerHTML = text
-          .split(/\s+/)
-          .filter(Boolean)
-          .map(
-            (w) =>
-              `<span class="sw" aria-hidden="true"><span class="swi">${w}</span></span>`
-          )
-          .join(' ');
-        gsap.fromTo(
-          el.querySelectorAll('.swi'),
-          { yPercent: 115 },
-          {
-            yPercent: 0,
-            duration: 0.85,
-            ease: 'power4.out',
-            stagger: 0.05,
-            scrollTrigger: { trigger: el, start: 'top 88%', once: true },
-          }
-        );
+        el.textContent = '';
+        el.style.position = el.style.position || 'relative';
+
+        const sizer = document.createElement('span');
+        sizer.setAttribute('aria-hidden', 'true');
+        sizer.style.visibility = 'hidden';
+        sizer.style.pointerEvents = 'none';
+        sizer.textContent = text;
+
+        const face = document.createElement('span');
+        face.setAttribute('aria-hidden', 'true');
+        face.style.position = 'absolute';
+        face.style.left = '0';
+        face.style.top = '0';
+        face.style.right = '0';
+        face.style.whiteSpace = 'pre-wrap';
+        el.append(sizer, face);
+
+        const st = ScrollTrigger.create({
+          trigger: el,
+          start: 'top 88%',
+          once: true,
+          onEnter: () => {
+            cleanups.push(
+              runCrypticReveal(text, (display) => {
+                face.textContent = display;
+              }, {
+                cps: 22,
+                flipsPerChar: 3,
+                scrambleWindow: 4,
+              })
+            );
+          },
+        });
+        cleanups.push(() => st.kill());
       });
 
       // ── generic fade-up reveals ────────────────────────────────────
@@ -236,6 +255,7 @@ export function ScrollFX() {
 
     return () => {
       window.removeEventListener('load', refresh);
+      cleanups.forEach((fn) => fn());
       ctx.revert();
     };
   }, []);

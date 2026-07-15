@@ -122,7 +122,7 @@ export function HeroAvatar() {
         <div className='relative inline-block'>
           <Image
             className={`block ${frameClass} transition-opacity duration-500 ${
-              gifVisible ? 'opacity-0' : 'opacity-100'
+              gifVisible ? 'opacity-0' : 'opacity-75'
             }`}
             width={320}
             height={320}

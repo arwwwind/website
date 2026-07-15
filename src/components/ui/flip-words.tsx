@@ -1,98 +1,91 @@
-"use client";
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import { AnimatePresence, motion, LayoutGroup } from "framer-motion";
-import { cn } from "@/lib/utils";
+'use client';
 
+import { useCallback, useEffect, useState } from 'react';
+import { cn } from '@/lib/utils';
+import { runCrypticReveal } from '@/components/ui/cryptic-text';
+
+/**
+ * Cycles through words with a cryptographic decrypt transition —
+ * symbols scramble and lock left-to-right into each new phrase.
+ */
 export const FlipWords = ({
   words,
   duration = 3000,
   className,
+  waitForBoot = false,
 }: {
   words: string[];
   duration?: number;
   className?: string;
+  /** Wait for homepage boot loader before the first decrypt. */
+  waitForBoot?: boolean;
 }) => {
-  const [currentWord, setCurrentWord] = useState(words[0]);
-  const [isAnimating, setIsAnimating] = useState<boolean>(false);
+  const [currentWord, setCurrentWord] = useState(words[0] ?? '');
+  const [display, setDisplay] = useState('');
+  const [busy, setBusy] = useState(true);
+  const [armed, setArmed] = useState(!waitForBoot);
 
-  // thanks for the fix Julian - https://github.com/Julian-AT
-  const startAnimation = useCallback(() => {
-    const word = words[words.indexOf(currentWord) + 1] || words[0];
-    setCurrentWord(word);
-    setIsAnimating(true);
+  useEffect(() => {
+    if (!waitForBoot) return;
+    if (window.__booted) {
+      setArmed(true);
+      return;
+    }
+    const onBoot = () => setArmed(true);
+    window.addEventListener('boot:done', onBoot, { once: true });
+    const t = setTimeout(() => setArmed(true), 4500);
+    return () => {
+      window.removeEventListener('boot:done', onBoot);
+      clearTimeout(t);
+    };
+  }, [waitForBoot]);
+
+  const advance = useCallback(() => {
+    const idx = words.indexOf(currentWord);
+    const next = words[(idx + 1) % words.length] ?? words[0];
+    setBusy(true);
+    setCurrentWord(next);
   }, [currentWord, words]);
 
   useEffect(() => {
-    if (!isAnimating)
-      setTimeout(() => {
-        startAnimation();
-      }, duration);
-  }, [isAnimating, duration, startAnimation]);
+    if (!armed || busy) return;
+    const t = setTimeout(advance, duration);
+    return () => clearTimeout(t);
+  }, [armed, busy, duration, advance]);
+
+  useEffect(() => {
+    if (!armed) return;
+    const stop = runCrypticReveal(currentWord, setDisplay, {
+      cps: 28,
+      flipsPerChar: 2,
+      scrambleWindow: 3,
+      onComplete: () => setBusy(false),
+    });
+    return stop;
+  }, [armed, currentWord]);
+
+  const sizer = words.reduce((a, b) => (a.length >= b.length ? a : b), '');
 
   return (
-    <AnimatePresence
-      onExitComplete={() => {
-        setIsAnimating(false);
-      }}
+    <span
+      className={cn(
+        'relative z-10 inline-block text-left text-neutral-900 dark:text-neutral-100 px-2',
+        className
+      )}
+      aria-label={currentWord}
     >
-      <motion.div
-        initial={{
-          opacity: 0,
-          y: 10,
-        }}
-        animate={{
-          opacity: 1,
-          y: 0,
-        }}
-        transition={{
-          type: "spring",
-          stiffness: 100,
-          damping: 10,
-        }}
-        exit={{
-          opacity: 0,
-          y: -40,
-          x: 40,
-          filter: "blur(8px)",
-          scale: 2,
-          position: "absolute",
-        }}
-        className={cn(
-          "z-10 inline-block relative text-left text-neutral-900 dark:text-neutral-100 px-2",
-          className
-        )}
-        key={currentWord}
+      <span
+        aria-hidden='true'
+        className='invisible pointer-events-none whitespace-nowrap'
       >
-        {/* edit suggested by Sajal: https://x.com/DewanganSajal */}
-        {currentWord.split(" ").map((word, wordIndex) => (
-          <motion.span
-            key={word + wordIndex}
-            initial={{ opacity: 0, y: 10, filter: "blur(8px)" }}
-            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-            transition={{
-              delay: wordIndex * 0.3,
-              duration: 0.3,
-            }}
-            className="inline-block whitespace-nowrap"
-          >
-            {word.split("").map((letter, letterIndex) => (
-              <motion.span
-                key={word + letterIndex}
-                initial={{ opacity: 0, y: 10, filter: "blur(8px)" }}
-                animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                transition={{
-                  delay: wordIndex * 0.3 + letterIndex * 0.05,
-                  duration: 0.2,
-                }}
-                className="inline-block"
-              >
-                {letter}
-              </motion.span>
-            ))}
-            <span className="inline-block">&nbsp;</span>
-          </motion.span>
-        ))}
-      </motion.div>
-    </AnimatePresence>
+        {sizer}
+      </span>
+      <span
+        aria-hidden='true'
+        className='absolute left-2 top-0 whitespace-nowrap'
+      >
+        {display}
+      </span>
+    </span>
   );
 };

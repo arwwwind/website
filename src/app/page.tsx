@@ -1,19 +1,18 @@
 import dynamic from 'next/dynamic';
-import { Button } from '@/components/ui/button';
 import { HeroAvatar } from '@/components/ui/hero-avatar';
 import { FlipWords } from '@/components/ui/flip-words';
 import { Timeline } from '@/components/ui/timeline';
 import { Badge } from '@/components/ui/badge';
 import { AuroraBackground } from '@/components/ui/aurora-background';
-import { GradientText } from '@/components/ui/gradient-text';
-import { MagneticButton } from '@/components/ui/magnetic-button';
-import { HeroStats } from '@/components/HeroStats';
+import { CrypticText } from '@/components/ui/cryptic-text';
+import { HeroBio } from '@/components/HeroBio';
 import { NeuralField } from '@/components/three/neural-field';
 import { ScrollFX } from '@/components/ui/scroll-fx';
 import { SectionGridBackground } from '@/components/ui/section-grid-background';
 import Image from 'next/image';
 import { WorkShowcase } from '@/components/ui/work-showcase';
-import { AsciiFigure } from '@/components/ui/ascii-figure';
+import { TechStackStream } from '@/components/ui/tech-stack-stream';
+import { CapabilitiesShowcase } from '@/components/ui/capabilities-showcase';
 
 /** Client-only + code-split: TF.js stays out of the initial homepage bundle. */
 const BeatTheBot = dynamic(
@@ -52,108 +51,25 @@ export default function Home() {
             {/* Left: Text */}
             <div className='order-2 md:order-1 font-bold'>
               <h1 data-hero className='text-2xl md:text-3xl py-1'>
-                <FlipWords words={hello} />
+                <FlipWords words={hello} waitForBoot />
               </h1>
               <h2 data-hero className='text-3xl md:text-5xl px-2 py-1 leading-tight'>
                 <span>{`I'm `}</span>
-                <GradientText>Arvind Narayan</GradientText>
+                <CrypticText
+                  text='Arvind Narayan'
+                  waitForBoot
+                  delay={200}
+                  cps={16}
+                  flipsPerChar={3}
+                  scrambleWindow={4}
+                  className='bg-gradient-to-r from-teal-400 via-rose-300 to-teal-400 bg-[length:200%_auto] bg-clip-text text-transparent animate-[cryptic-shimmer_4s_linear_infinite]'
+                />
               </h2>
               <div data-hero className='text-xl md:text-2xl mt-1 text-neutral-300'>
-                <FlipWords words={roles} />
+                <FlipWords words={roles} waitForBoot />
               </div>
 
-              <p
-                data-hero
-                className='px-2 pt-6 md:w-[92%] font-normal text-sm text-neutral-300 tracking-wide leading-relaxed'
-              >
-                I build AI systems that actually work in the real world — for
-                biotech research labs, financial risk teams, and enterprise
-                organizations. Currently at{' '}
-                <span className='text-rose-400 font-medium'>GATC Health</span>
-                , where the AI research tool I built is now the team&apos;s
-                daily interface for scientific literature and drug discovery
-                work. My ML models for drug property prediction achieve{' '}
-                <span className='text-rose-400 font-medium'>
-                  F1 ≈ 0.90, AUROC ≈ 0.92
-                </span>{' '}
-                — near state-of-the-art accuracy on biomedical benchmarks. Also
-                founding{' '}
-                <a
-                  href='https://superscaled.com'
-                  target='_blank'
-                  rel='noopener noreferrer'
-                  className='text-teal-400 font-medium underline underline-offset-2 hover:text-teal-300 transition-colors'
-                >
-                  Superscaled
-                </a>
-                . Nine years shipping at Yahoo, upGrad, and Egen.ai.
-              </p>
-
-              <div data-hero>
-                <HeroStats />
-              </div>
-
-              <div data-hero className='flex flex-wrap gap-3 px-2 mt-6'>
-                <MagneticButton>
-                  <a
-                    href='https://calendly.com/thearvindnarayan/15min'
-                    target='_blank'
-                    rel='noopener noreferrer'
-                  >
-                    <button
-                      type='button'
-                      className='text-white bg-rose-800 ring-2 focus:outline-none ring-rose-500/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-gradient-to-b from-rose-600 to-rose-900 hover:from-rose-500 hover:to-rose-800 transition-all flex items-center gap-2'
-                    >
-                      <i className='lni lni-google-meet'></i>
-                      <span>Book a Call</span>
-                    </button>
-                  </a>
-                </MagneticButton>
-                <MagneticButton>
-                  <a
-                    href='mailto:hi@arwwwind.com?subject=Hello%20Arvind%2C'
-                    target='_blank'
-                    rel='noopener noreferrer'
-                  >
-                    <button
-                      type='button'
-                      className='text-neutral-300 hover:text-white bg-neutral-800 hover:bg-neutral-700 ring-2 focus:outline-none ring-neutral-700 hover:ring-teal-700/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center transition-all flex items-center gap-2'
-                    >
-                      <i className='lni lni-envelope'></i>
-                      <span>Email Me</span>
-                    </button>
-                  </a>
-                </MagneticButton>
-              </div>
-
-              <div data-hero className='flex gap-3 px-2 mt-3'>
-                <a
-                  href='https://www.linkedin.com/in/arwwwind/'
-                  target='_blank'
-                  rel='noopener noreferrer'
-                >
-                  <Button
-                    variant='outline'
-                    size='sm'
-                    className='text-xs hover:border-teal-700/50 hover:text-teal-400 transition-colors'
-                  >
-                    <i className='lni lni-linkedin-original mr-1'></i>LinkedIn
-                  </Button>
-                </a>
-                <a
-                  href='https://github.com/arwwwind'
-                  target='_blank'
-                  rel='noopener noreferrer'
-                >
-                  <Button
-                    variant='outline'
-                    size='sm'
-                    className='text-xs hover:border-teal-700/50 hover:text-teal-400 transition-colors'
-                  >
-                    <i className='lni lni-github-original mr-1'></i>GitHub
-                  </Button>
-                </a>
-              </div>
+              <HeroBio />
             </div>
 
             {/* Right: Avatar */}
@@ -176,65 +92,7 @@ export default function Home() {
         </section>
 
         {/* ── What I Do ─────────────────────────────────────── */}
-        <section
-          id='what-i-do'
-          aria-label='Capabilities'
-          className='py-20 px-4 max-w-screen-xl mx-auto'
-        >
-          <div data-reveal className='mb-2'>
-            <span className='text-xs font-semibold tracking-widest text-teal-400 uppercase'>
-              Capabilities
-            </span>
-          </div>
-          <h2 data-split className='text-3xl md:text-4xl font-bold text-white mb-2'>
-            I architect AI systems that work in production.
-          </h2>
-          <p data-reveal className='text-neutral-400 mb-10 text-sm md:text-base'>
-            Biotech research, financial risk, enterprise AI — the full stack, end to end.
-          </p>
-
-          <div className='border-t border-neutral-900'>
-            {capabilities.map((cap, i) => {
-              const flipped = i % 2 === 1;
-              return (
-                <article
-                  key={cap.num}
-                  data-reveal
-                  className='grid grid-cols-1 md:grid-cols-12 gap-x-10 gap-y-8 py-14 border-b border-neutral-900'
-                >
-                  {/* text */}
-                  <div className={`md:col-span-5 ${flipped ? 'md:order-2' : 'md:order-1'}`}>
-                    <span className='font-mono text-xs text-rose-400 tracking-widest'>
-                      {cap.num}
-                    </span>
-                    <h3 className='mt-2 text-xl md:text-2xl font-bold text-white leading-tight'>
-                      {cap.title}
-                    </h3>
-                    <p className='mt-3 text-xs md:text-sm text-neutral-400 leading-relaxed'>
-                      {cap.description}
-                    </p>
-                  </div>
-
-                  {/* animated figure(s) */}
-                  <div
-                    className={`md:col-span-5 flex flex-col justify-center gap-5 min-w-0 ${
-                      flipped ? 'md:order-1' : 'md:order-2'
-                    }`}
-                  >
-                    {cap.figures}
-                  </div>
-
-                  {/* margin note */}
-                  <aside className='hidden md:block md:col-span-2 md:order-3 border-l border-neutral-800/80 pl-4 self-start'>
-                    <p className='font-mono text-[10px] leading-relaxed text-neutral-500'>
-                      {cap.note}
-                    </p>
-                  </aside>
-                </article>
-              );
-            })}
-          </div>
-        </section>
+        <CapabilitiesShowcase items={capabilities} />
 
         {/* ── Building ──────────────────────────────────────── */}
         <section
@@ -272,17 +130,25 @@ export default function Home() {
                   Also Building
                 </span>
               </div>
-              <h2 data-split className='text-3xl md:text-5xl font-bold text-white mb-4'>
-                Superscaled
+              <h2 className='text-3xl md:text-5xl font-bold text-white mb-4'>
+                <CrypticText
+                  text='Superscaled'
+                  whenVisible
+                  cps={14}
+                  flipsPerChar={4}
+                  scrambleWindow={4}
+                />
               </h2>
-              <p className='text-neutral-400 text-sm mb-2 md:w-[60%] leading-relaxed'>
-                An early-stage AI venture for engineering teams that need to move
-                faster than their organization&apos;s approval and procurement
-                processes allow. There&apos;s a frustrating gap between
-                &ldquo;we have a working model&rdquo; and &ldquo;this is actually
-                running in production, monitored, and trusted by the business.&rdquo;
-                Superscaled builds the tooling that closes it.
-              </p>
+              <CrypticText
+                as='p'
+                whenVisible
+                delay={400}
+                cps={42}
+                flipsPerChar={2}
+                scrambleWindow={5}
+                text={`An early-stage AI venture for engineering teams that need to move faster than their organization's approval and procurement processes allow. There's a frustrating gap between "we have a working model" and "this is actually running in production, monitored, and trusted by the business." Superscaled builds the tooling that closes it.`}
+                className='text-neutral-400 text-sm mb-2 md:w-[60%] leading-relaxed'
+              />
               <p className='text-neutral-500 text-xs mb-8 md:w-[60%]'>
                 Building in public at{' '}
                 <a
@@ -319,53 +185,27 @@ export default function Home() {
               Tools
             </span>
           </div>
-          <h2 data-reveal className='text-2xl font-bold mb-1'>
-            <GradientText>Tech Stack</GradientText>
+          <h2 className='text-2xl font-bold mb-1'>
+            <CrypticText
+              text='Tech Stack'
+              whenVisible
+              cps={14}
+              flipsPerChar={4}
+              scrambleWindow={4}
+              className='bg-gradient-to-r from-teal-400 via-rose-300 to-teal-400 bg-[length:200%_auto] bg-clip-text text-transparent animate-[cryptic-shimmer_4s_linear_infinite]'
+            />
           </h2>
-          <p data-reveal className='text-neutral-500 text-sm mb-8'>
-            From ML and data pipelines to infrastructure and product UI — organized
-            by domain.
-          </p>
-          <div className='flex flex-col gap-8'>
-            {stackCategories.map((cat) => (
-              <div key={cat.label}>
-                <p
-                  data-reveal
-                  className='text-xs font-semibold tracking-widest text-teal-400 uppercase mb-3'
-                >
-                  {cat.label}
-                </p>
-                <div data-reveal-chips className='flex flex-wrap gap-2'>
-                  {cat.items.map((item) =>
-                    item.src ? (
-                      <a
-                        key={item.name}
-                        href={item.href}
-                        target='_blank'
-                        rel='noopener noreferrer'
-                        className='group flex items-center gap-2 px-3 py-2 rounded-lg border border-neutral-800 hover:border-teal-800/60 bg-neutral-950 hover:bg-teal-950/20 transition-all duration-200'
-                      >
-                        <div
-                          style={{ backgroundImage: `url("${item.src}")` }}
-                          className='w-4 h-4 bg-contain bg-center bg-no-repeat saturate-0 group-hover:saturate-100 transition-all duration-300'
-                        />
-                        <span className='text-xs text-neutral-500 group-hover:text-teal-400 transition-colors'>
-                          {item.name}
-                        </span>
-                      </a>
-                    ) : (
-                      <span
-                        key={item.name}
-                        className='flex items-center px-3 py-2 rounded-lg border border-neutral-800 hover:border-teal-800/60 hover:bg-teal-950/20 bg-neutral-950 text-xs text-neutral-500 hover:text-teal-400 transition-all duration-200 cursor-default'
-                      >
-                        {item.name}
-                      </span>
-                    )
-                  )}
-                </div>
-              </div>
-            ))}
-          </div>
+          <CrypticText
+            as='p'
+            whenVisible
+            delay={350}
+            cps={36}
+            flipsPerChar={2}
+            scrambleWindow={4}
+            text='From ML and data pipelines to infrastructure and product UI — organized by domain.'
+            className='text-neutral-500 text-sm mb-8'
+          />
+          <TechStackStream categories={stackCategories} />
         </section>
 
         {/* ── Experience Timeline ───────────────────────────── */}
@@ -382,92 +222,142 @@ export default function Home() {
 
 const capabilities = [
   {
-    num: '02.1',
-    title: 'RAG & Agentic AI Systems',
-    description:
-      'An AI research assistant used daily by lab scientists — finds papers, looks up drug data, and reasons across millions of documents without losing context. Exposed our internal ML models as callable tools and built an agentic framework for molecule discovery, analysis, and exploratory studies: a planner agent spins up a fleet of specialized agents, tracks their state, validates every output, and streams the whole run live. Technically: hybrid search (keyword + semantic), long-context memory across sessions, and tool-calling into ChEMBL, PubChem, and in-house models.',
-    note: 'Daily driver for lab scientists. Planner + agent fleet with state, validation, and live streaming.',
-    figures: (
-      <>
-        <AsciiFigure
-          caption='FIG. 02.1a · Retrieval Graph'
-          lines={[
-            'query --> BM25 --+',
-            '                 +--> fuse --> rerank --> LLM',
-            'query --> dense -+' + ' '.repeat(24) + '|',
-            ' '.repeat(42) + '+--> tools',
-            ' '.repeat(42) + "'--> memory",
-          ]}
-        />
-        <AsciiFigure
-          caption='FIG. 02.1b · Agent Fleet'
-          lines={[
-            'goal --> planner --+--> agent[1] --+',
-            '           |       +--> agent[2] --+--> validate',
-            '         state     +--> agent[n] --+       |',
-            '           ^                               v',
-            "           '------- stream live <----------'",
-          ]}
-        />
-      </>
-    ),
+    id: 'hybrid-rag-agents',
+    label: 'Hybrid RAG & agents',
+    title: 'Enterprise AI research — Perplexity for scientific teams',
+    lead: 'I architected and shipped a production-grade hybrid RAG + agentic research platform that became the primary AI interface for lab workflows — an enterprise Perplexity for scientific teams that significantly boosted researcher productivity and day-to-day usage across the organization.',
+    detail:
+      'The retrieval stack combines BM25/TF-IDF with dense embeddings, late fusion, and cross-encoder reranking for high recall on domain-specific queries over large chemical and biological corpora. A LIGHT-style memory subsystem scales to millions of tokens of conversational history via episodic retrieval, structured working memory, and a compressed scratchpad — so multi-session research stays context-aware. Domain agentic tools (toxicity lookup, molecular property prediction, structure normalization, ChEMBL & PubChem connectors) let the LLM invoke specialized ML models and databases as callable actions. Inference runs on self-hosted Qwen 2.5 27B on AWS SageMaker with SGLang for high-throughput, low-latency serving, with a modular path to swap in larger models plus evaluation harnesses and domain fine-tunes.',
+    outcome: 'The daily AI research platform for scientific teams',
+    highlights: [
+      'Hybrid BM25 + dense retrieval with cross-encoder reranking',
+      'LIGHT-style memory across multi-session research',
+      'Tool-calling into ChEMBL, PubChem, and in-house models',
+      'Qwen 2.5 27B on SageMaker / SGLang',
+    ],
+    figures: [
+      {
+        caption: 'Hybrid retrieval → memory → tool-calling agents',
+        lines: [
+          'query --> BM25/TF-IDF --+--> fuse --> rerank --> LLM',
+          'query --> dense emb. --+                     |',
+          '                              episodic + working memory',
+          '',
+          'LLM --> tools: tox · ADMET · ChEMBL · PubChem',
+          'Qwen 2.5 27B @ SageMaker / SGLang',
+        ],
+      },
+    ],
   },
   {
-    num: '02.2',
-    title: 'Molecular ML & GNNs',
-    description:
-      'ML models that predict whether a drug compound will be toxic, absorbed correctly, or reach the brain — F1 ≈ 0.90, AUROC ≈ 0.92 (near state-of-the-art). Graph neural networks that read molecular structure as a graph, deployed from data curation to cloud inference APIs.',
-    note: 'F1 ≈ 0.90 · AUROC ≈ 0.92 on ADMET / BBB tasks.',
-    figures: (
-      <AsciiFigure
-        caption='FIG. 02.2 · Message Passing'
-        lines={[
+    id: 'molecular-ml',
+    label: 'Molecular ML & GNNs',
+    title: 'Drug property prediction before the wet lab',
+    lead: 'I build graph neural networks that treat molecules as graphs — atoms as nodes, bonds as edges — and predict whether a compound will be toxic, absorbed correctly, or cross the blood–brain barrier long before it reaches a wet lab, hitting near state-of-the-art accuracy on biomedical benchmarks.',
+    detail:
+      'The work spans the full molecular ML lifecycle: curating and featurizing chemical datasets, training message-passing GNNs for ADMET and BBB tasks, running ablations and evaluation against strong baselines, and deploying models behind cloud inference APIs that discovery teams can call from real workflows. The same judgment that shapes larger systems shows up here — reliable metrics, reproducible training, and serving that scientists actually use.',
+    outcome: 'F1 ≈ 0.90 · AUROC ≈ 0.92 on ADMET / BBB tasks',
+    highlights: [
+      'Graph neural nets on molecular structure',
+      'ADMET & blood–brain barrier prediction',
+      'Curated data → training → cloud APIs',
+      'Near SOTA biomedical benchmark scores',
+    ],
+    figures: [
+      {
+        caption: 'Message passing on molecular graphs',
+        lines: [
           '(C)--(N)--(O)',
           ' |',
-          '(C)--(C)--(F)   message-passing',
+          '(C)--(C)--(F)',
           ' v',
-          "h'v = s( sum_u W · hu )",
-        ]}
-      />
-    ),
+          "h′ = σ( Σ  W · h_u )   →  ADMET / BBB scores",
+        ],
+      },
+    ],
   },
   {
-    num: '02.3',
-    title: 'Clinical & Research Analytics',
-    description:
-      "Investigated why a Phase 3 drug trial didn't show results. Discovered that how patients spoke during visits — not just what they reported — predicted who responded to placebo, pointing to a clinic habituation effect. Delivered recommendations that shaped future trial design.",
-    note: 'VistaGen PAL-3 · speech features predicted placebo response.',
-    figures: (
-      <AsciiFigure
-        caption='FIG. 02.3 · Longitudinal Signal'
-        lines={[
-          'visit[1]  visit[2]  visit[3]  ...',
-          '   |         |         |',
-          'speech    speech    scores',
-          "   '---------+---------'",
+    id: 'clinical-analytics',
+    label: 'Clinical analytics',
+    title: 'Finding why a Phase 3 trial “failed”',
+    lead: 'On a Phase 3 drug trial that looked like a miss on paper, I investigated why expected efficacy wasn’t showing up — and found that how patients spoke during clinic visits, not only what they reported on instruments, predicted who was responding to placebo.',
+    detail:
+      'That pointed to a clinic-habituation effect: longitudinal speech and visit features carried signal that standard endpoints were missing. The analysis delivered concrete recommendations for how later trials should account for placebo response — turning a confusing null result into actionable clinical research analytics for the VistaGen PAL-3 program.',
+    outcome: 'Analytics shipped for VistaGen PAL-3',
+    highlights: [
+      'Phase 3 efficacy investigation',
+      'Speech features beyond self-report',
+      'Clinic-habituation / placebo signal',
+      'Recommendations for later trial design',
+    ],
+    figures: [
+      {
+        caption: 'Longitudinal visits → placebo response model',
+        lines: [
+          'visit₁     visit₂     visit₃',
+          '  |          |          |',
+          'speech     speech     scores',
+          "  '----------+----------'",
           '             v',
-          '   features --> placebo model',
-        ]}
-      />
-    ),
+          '      features → placebo model',
+        ],
+      },
+    ],
   },
   {
-    num: '02.4',
-    title: 'LLM Infrastructure & MLOps',
-    description:
-      'Shipped a lot of models to production — neural networks served on SageMaker with end-to-end MLOps: registry-backed versioning, CI/CD, canary rollouts, monitoring and drift checks. These days that extends to open-source AI models and systems, routed and managed through LiteLLM and AWS Bedrock, so new models slot into existing workflows without disruption.',
-    note: 'SageMaker + full MLOps · FOSS models via LiteLLM / Bedrock.',
-    figures: (
-      <AsciiFigure
-        caption='FIG. 02.4 · Serving Graph'
-        lines={[
-          'train --> registry --> SageMaker --> canary --> live',
-          ' '.repeat(48) + '|',
-          'FOSS --> LiteLLM / Bedrock --> router' + ' '.repeat(11) + '+',
-          ' '.repeat(13) + 'swap models <' + '-'.repeat(22) + "'",
-        ]}
-      />
-    ),
+    id: 'edtech-shorts',
+    label: 'EdTech & retention ML',
+    title: 'TikTok-style micro-learning that actually sticks',
+    lead: 'I conceived and built Shorts end-to-end — a TikTok-style micro-learning feed for upGrad — combining the SM-2 (SuperMemo-2) spaced-repetition algorithm with a feed-forward neural network that personalizes content sequencing and retention scheduling for each learner.',
+    detail:
+      'Vanilla SM-2 is static; the neural layer adjusts review intervals using activity patterns, concept-level recall history, domain difficulty, and course progress so cards surface when a learner is actually likely to engage. In parallel, I developed predictive models that flag students likely to fail or drop out months in advance from engagement, attendance, and social interaction signals — giving academic and growth teams time to intervene instead of finding out after the fact.',
+    outcome: 'Personalized retention scheduling · early dropout risk signals',
+    highlights: [
+      'TikTok-style Shorts feed, built end-to-end',
+      'SM-2 spaced repetition + neural timing',
+      'Per-learner sequencing & review schedule',
+      'Months-ahead fail / dropout prediction',
+    ],
+    figures: [
+      {
+        caption: 'SM-2 + neural personalization → proactive retention',
+        lines: [
+          'learner activity --> SM-2 intervals',
+          '                 \\',
+          '                  +--> FFNN --> personalized schedule',
+          'engagement · attendance · social',
+          '           |',
+          '           v',
+          '    dropout / fail risk  (months ahead)',
+        ],
+      },
+    ],
+  },
+  {
+    id: 'production-ml',
+    label: 'LLMOps & serving',
+    title: 'LLM infrastructure that survives production',
+    lead: 'I ship models into production with the boring parts done right — model registry and versioning, CI/CD for ML, canary and staged rollouts, monitoring, and drift checks — so inference stays reliable after the demo glow fades.',
+    detail:
+      'That same path extends to open-source and frontier models routed through LiteLLM and AWS Bedrock, with self-hosted high-throughput stacks (SageMaker, SGLang) where latency and cost matter. The architecture is modular on purpose: swap in a newer checkpoint or a larger model without rewriting how traffic is served, evaluated, or observed — the difference between a prototype and infrastructure teams can trust.',
+    outcome: 'SageMaker · SGLang · LiteLLM · Bedrock',
+    highlights: [
+      'Registry, CI/CD, canary & staged rollouts',
+      'Monitoring and drift checks in production',
+      'Open models via LiteLLM & Bedrock',
+      'Swap checkpoints without rewriting serving',
+    ],
+    figures: [
+      {
+        caption: 'Train → canary → live · open models on one path',
+        lines: [
+          'train → registry → SageMaker → canary → live',
+          '                                      |',
+          'open models → LiteLLM / Bedrock → router',
+          "                    swap <-------------'",
+        ],
+      },
+    ],
   },
 ];
 

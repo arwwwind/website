@@ -1,69 +1,78 @@
 'use client';
 
-import {
-  useMotionValueEvent,
-  useScroll,
-  useTransform,
-  motion,
-  useInView,
-} from 'framer-motion';
+import { useScroll, useTransform, motion } from 'framer-motion';
 import React, { useEffect, useRef, useState } from 'react';
-import { GradientText } from '@/components/ui/gradient-text';
+import { CrypticText } from '@/components/ui/cryptic-text';
+import { StreamCell, useSequentialStream } from '@/components/ui/stream-in';
 
 interface TimelineEntry {
   title: string;
   content: React.ReactNode;
 }
 
-const TimelineEntry = ({
+const TimelineEntryRow = ({
   item,
   index,
 }: {
   item: TimelineEntry;
   index: number;
 }) => {
-  const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: '-60px' });
-
   return (
-    <motion.div
-      ref={ref}
-      key={index}
-      className='flex justify-start pt-5 md:pt-40 md:gap-10'
-      initial={{ opacity: 0, x: 20 }}
-      animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 20 }}
-      transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1], delay: 0.05 }}
-    >
-      <div className='sticky flex flex-col md:flex-row z-40 items-center top-40 self-start max-w-xs lg:max-w-sm md:w-full'>
-        <div className='h-10 absolute left-3 md:left-3 w-10 rounded-full bg-white dark:bg-black flex items-center justify-center'>
-          <div className='h-4 w-4 rounded-full bg-neutral-200 dark:bg-neutral-800 border border-neutral-700 p-2 shadow-[0_0_8px_rgba(45,212,191,0.5)]' />
+    <StreamCell>
+      <div className='flex justify-start pt-5 md:pt-40 md:gap-10'>
+        <div className='sticky flex flex-col md:flex-row z-40 items-center top-40 self-start max-w-xs lg:max-w-sm md:w-full'>
+          <div className='h-10 absolute left-3 md:left-3 w-10 rounded-full bg-white dark:bg-black flex items-center justify-center'>
+            <div className='h-4 w-4 rounded-full bg-neutral-200 dark:bg-neutral-800 border border-neutral-700 p-2 shadow-[0_0_8px_rgba(45,212,191,0.5)]' />
+          </div>
+          <h3 className='hidden md:block text-xl md:pl-20 md:text-5xl font-bold text-neutral-500 dark:text-neutral-500'>
+            <CrypticText
+              text={item.title}
+              cps={20}
+              flipsPerChar={2}
+              scrambleWindow={3}
+              delay={index === 0 ? 0 : 40}
+            />
+          </h3>
         </div>
-        <h3 className='hidden md:block text-xl md:pl-20 md:text-5xl font-bold text-neutral-500 dark:text-neutral-500'>
-          {item.title}
-        </h3>
-      </div>
 
-      <div className='relative pl-20 pr-4 md:pl-4 w-full'>
-        <h3 className='md:hidden block text-2xl mb-4 text-left font-bold text-neutral-500 dark:text-neutral-500'>
-          {item.title}
-        </h3>
-        {item.content}
+        <div className='relative pl-20 pr-4 md:pl-4 w-full'>
+          <h3 className='md:hidden block text-2xl mb-4 text-left font-bold text-neutral-500 dark:text-neutral-500'>
+            {item.title}
+          </h3>
+          {item.content}
+        </div>
       </div>
-    </motion.div>
+    </StreamCell>
   );
 };
 
 export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
-  const ref = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [height, setHeight] = useState(0);
+  const [headerDone, setHeaderDone] = useState(false);
+
+  const { ref: listRef, count } = useSequentialStream(data.length, {
+    intervalMs: 120,
+    startDelay: 200,
+    enabled: headerDone,
+    whenVisible: true,
+  });
+
+  // If the title animation never reports complete, still stream entries.
+  useEffect(() => {
+    const t = setTimeout(() => setHeaderDone(true), 2800);
+    return () => clearTimeout(t);
+  }, []);
 
   useEffect(() => {
-    if (ref.current) {
-      const rect = ref.current.getBoundingClientRect();
-      setHeight(rect.height);
-    }
-  }, [ref]);
+    const node = listRef.current;
+    if (!node) return;
+    const measure = () => setHeight(node.getBoundingClientRect().height);
+    measure();
+    const ro = new ResizeObserver(measure);
+    ro.observe(node);
+    return () => ro.disconnect();
+  }, [count, listRef]);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -80,16 +89,31 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
     >
       <div className='max-w-7xl mx-auto py-10 px-4 md:px-8 lg:px-5'>
         <h2 className='text-lg md:text-4xl mb-4 text-white max-w-4xl font-bold'>
-          <GradientText>A Decade of Shipping</GradientText>
+          <CrypticText
+            text='A Decade of Shipping'
+            whenVisible
+            cps={14}
+            flipsPerChar={4}
+            scrambleWindow={4}
+            className='bg-gradient-to-r from-teal-400 via-rose-300 to-teal-400 bg-[length:200%_auto] bg-clip-text text-transparent animate-[cryptic-shimmer_4s_linear_infinite]'
+            onComplete={() => setHeaderDone(true)}
+          />
         </h2>
-        <p className='text-neutral-500 text-sm'>
-          From BASIC programs to distributed systems at scale.
-        </p>
+        <CrypticText
+          as='p'
+          whenVisible
+          delay={400}
+          cps={32}
+          flipsPerChar={2}
+          scrambleWindow={4}
+          text='From BASIC programs to distributed systems at scale.'
+          className='text-neutral-500 text-sm'
+        />
       </div>
 
-      <div ref={ref} className='relative max-w-7xl mx-auto pb-20'>
-        {data.map((item, index) => (
-          <TimelineEntry key={index} item={item} index={index} />
+      <div ref={listRef} className='relative max-w-7xl mx-auto pb-20'>
+        {data.slice(0, count).map((item, index) => (
+          <TimelineEntryRow key={item.title} item={item} index={index} />
         ))}
         <div
           style={{ height: height + 'px' }}

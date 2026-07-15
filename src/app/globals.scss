@@ -92,17 +92,26 @@ html.lenis body {
   overflow: hidden;
 }
 
-/* ── masked word reveal (GSAP data-split) ───────────────────────── */
-.sw {
-  display: inline-block;
-  overflow: hidden;
-  vertical-align: bottom;
-  padding-bottom: 0.08em;
-  margin-bottom: -0.08em;
+/* ── cryptographic text shimmer (hero name) ─────────────────────── */
+@keyframes cryptic-shimmer {
+  0% {
+    background-position: 0% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
 }
-.swi {
-  display: inline-block;
-  will-change: transform;
+
+/* ── LLM-style stream cell pop-in ───────────────────────────────── */
+@keyframes stream-cell-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* ── custom cursor: hide the native one on fine pointers ────────── */
