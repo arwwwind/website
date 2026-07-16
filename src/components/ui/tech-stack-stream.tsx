@@ -106,6 +106,7 @@ export function TechStackStream({
             {cat.labelJustIn && cat.items.length === 0 ? (
               <CrypticText
                 text={cat.label}
+                queue={false}
                 cps={22}
                 flipsPerChar={2}
                 scrambleWindow={3}

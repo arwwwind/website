@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Badge } from '@/components/ui/badge';
+import { CrypticText } from '@/components/ui/cryptic-text';
 
 const projects = [
   {
@@ -174,14 +175,26 @@ export function WorkShowcase() {
     >
       {/* heading row */}
       <div className='w-full max-w-screen-xl mx-auto px-4 mb-8 md:mb-10'>
-        <div data-reveal className='mb-2'>
+        <div className='mb-2'>
           <span className='text-xs font-semibold tracking-widest text-teal-400 uppercase'>
-            Selected Work
+            <CrypticText
+              text='Selected Work'
+              whenVisible
+              cps={20}
+              flipsPerChar={2}
+              scrambleWindow={3}
+            />
           </span>
         </div>
         <div className='flex items-end justify-between gap-6'>
-          <h2 data-split className='text-3xl md:text-4xl font-bold text-white'>
-            Products &amp; Case Studies
+          <h2 className='text-3xl md:text-4xl font-bold text-white'>
+            <CrypticText
+              text='Products & Case Studies'
+              whenVisible
+              cps={14}
+              flipsPerChar={3}
+              scrambleWindow={4}
+            />
           </h2>
           <div className='hidden md:flex items-center gap-3 shrink-0 pb-1'>
             <span className='text-xs font-mono text-neutral-500 tabular-nums'>

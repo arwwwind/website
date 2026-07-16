@@ -4,6 +4,8 @@ import { useEffect } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { runCrypticReveal } from '@/components/ui/cryptic-text';
+import { enqueueCryptic } from '@/lib/cryptic-orchestrator';
+import { shouldSkipMotion } from '@/lib/is-bot';
 
 declare global {
   interface Window {
@@ -25,7 +27,7 @@ declare global {
  */
 export function ScrollFX() {
   useEffect(() => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (shouldSkipMotion()) return;
 
     gsap.registerPlugin(ScrollTrigger);
     const cleanups: Array<() => void> = [];
@@ -107,7 +109,7 @@ export function ScrollFX() {
         });
       }
 
-      // ── cryptographic decrypt for headings ─────────────────────────
+      // ── cryptographic decrypt for headings (queued, document order) ─
       document.querySelectorAll<HTMLElement>('[data-split]').forEach((el) => {
         const text = (el.textContent ?? '').replace(/\s+/g, ' ').trim();
         if (!text) return;
@@ -131,21 +133,39 @@ export function ScrollFX() {
         face.style.whiteSpace = 'pre-wrap';
         el.append(sizer, face);
 
+        const handle = enqueueCryptic(el, (ctx) => {
+          let settled = false;
+          const settle = () => {
+            if (settled) return;
+            settled = true;
+            face.textContent = text;
+            ctx.complete();
+          };
+          const stop = runCrypticReveal(
+            text,
+            (display) => {
+              face.textContent = display;
+            },
+            {
+              cps: 22,
+              flipsPerChar: 3,
+              scrambleWindow: 4,
+              getSpeed: ctx.getSpeed,
+              onComplete: settle,
+            }
+          );
+          return () => {
+            stop();
+            settle();
+          };
+        });
+        cleanups.push(() => handle.dispose());
+
         const st = ScrollTrigger.create({
           trigger: el,
           start: 'top 88%',
           once: true,
-          onEnter: () => {
-            cleanups.push(
-              runCrypticReveal(text, (display) => {
-                face.textContent = display;
-              }, {
-                cps: 22,
-                flipsPerChar: 3,
-                scrambleWindow: 4,
-              })
-            );
-          },
+          onEnter: () => handle.arm(),
         });
         cleanups.push(() => st.kill());
       });

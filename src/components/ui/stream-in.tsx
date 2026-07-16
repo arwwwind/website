@@ -7,6 +7,8 @@ import {
   type ReactNode,
   type RefObject,
 } from 'react';
+import { enqueueCryptic, getCrypticSpeed } from '@/lib/cryptic-orchestrator';
+import { shouldSkipMotion } from '@/lib/is-bot';
 
 type StreamOptions = {
   /** Ms between normal steps. */
@@ -19,10 +21,16 @@ type StreamOptions = {
   /** Gate streaming until the ref scrolls into view. Default true. */
   whenVisible?: boolean;
   enabled?: boolean;
+  /**
+   * Hold a slot in the global document-order queue so this stream only
+   * advances when everything above it has finished. Default true.
+   */
+  queue?: boolean;
 };
 
 /**
  * Reveals `0..length` one step at a time — LLM-style streaming cadence.
+ * By default joins the global cryptic queue so the whole page streams top→bottom.
  */
 export function useSequentialStream(
   length: number,
@@ -33,30 +41,37 @@ export function useSequentialStream(
     pauseBefore,
     whenVisible = true,
     enabled = true,
+    queue = true,
   }: StreamOptions = {}
 ): { ref: RefObject<HTMLDivElement>; count: number; done: boolean } {
   const ref = useRef<HTMLDivElement>(null!);
-  const [armed, setArmed] = useState(!whenVisible);
+  const [visible, setVisible] = useState(!whenVisible);
+  const [playing, setPlaying] = useState(false);
   const [count, setCount] = useState(0);
   const pauseRef = useRef(pauseBefore);
   pauseRef.current = pauseBefore;
+  const lengthRef = useRef(length);
+  lengthRef.current = length;
+  const finishTurnRef = useRef<(() => void) | null>(null);
+  const finishedTurnRef = useRef(false);
 
   useEffect(() => {
     if (!whenVisible) {
-      setArmed(true);
+      setVisible(true);
       return;
     }
     const node = ref.current;
     if (!node) return;
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      setArmed(true);
+    if (shouldSkipMotion()) {
+      setVisible(true);
+      setPlaying(true);
       setCount(length);
       return;
     }
     const io = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setArmed(true);
+          setVisible(true);
           io.disconnect();
         }
       },
@@ -66,8 +81,62 @@ export function useSequentialStream(
     return () => io.disconnect();
   }, [whenVisible, length]);
 
+  // Take a turn in the global queue (or start immediately if queue=false).
   useEffect(() => {
-    if (!armed || !enabled || count >= length) return;
+    if (shouldSkipMotion()) {
+      setPlaying(true);
+      setCount(lengthRef.current);
+      return;
+    }
+    if (!visible || !enabled) return;
+
+    if (!queue) {
+      setPlaying(true);
+      return;
+    }
+
+    const node = ref.current;
+    if (!node) return;
+
+    finishedTurnRef.current = false;
+    const handle = enqueueCryptic(node, (ctx) => {
+      setPlaying(true);
+      finishTurnRef.current = () => {
+        if (finishedTurnRef.current) return;
+        finishedTurnRef.current = true;
+        finishTurnRef.current = null;
+        ctx.complete();
+      };
+
+      // Empty stream — release the turn immediately.
+      if (lengthRef.current <= 0) {
+        finishTurnRef.current();
+        return () => {};
+      }
+
+      return () => {
+        // Orchestrator skip/dispose: dump remaining steps and release.
+        setCount(lengthRef.current);
+        finishTurnRef.current?.();
+      };
+    });
+    handle.arm();
+
+    return () => {
+      handle.dispose();
+      finishTurnRef.current = null;
+      setPlaying(false);
+    };
+  }, [visible, enabled, queue, length]);
+
+  // Step forward while we hold the queue turn.
+  useEffect(() => {
+    if (!playing || !enabled) return;
+
+    if (count >= length) {
+      finishTurnRef.current?.();
+      return;
+    }
 
     const pauses = pauseRef.current;
     let isPause = false;
@@ -78,12 +147,19 @@ export function useSequentialStream(
           : (pauses as readonly number[]).includes(count);
     }
 
-    const wait =
+    const speed = Math.max(1, getCrypticSpeed());
+    if (speed >= 24) {
+      setCount(length);
+      return;
+    }
+
+    const base =
       count === 0 ? startDelay : isPause ? pauseMs : intervalMs;
+    const wait = Math.max(8, base / speed);
     const t = setTimeout(() => setCount((c) => c + 1), wait);
     return () => clearTimeout(t);
   }, [
-    armed,
+    playing,
     enabled,
     count,
     length,

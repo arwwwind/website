@@ -2,6 +2,9 @@
 
 import { useEffect, useRef, useState, type CSSProperties } from 'react';
 import { cn } from '@/lib/utils';
+import { enqueueCryptic } from '@/lib/cryptic-orchestrator';
+import { shouldSkipMotion } from '@/lib/is-bot';
+import { useCrawlMode } from '@/components/ui/crawl-mode';
 
 /** Glyphs that flicker while a character is still decrypting. */
 export const CRYPTIC_GLYPHS = '$#%@&*+=?!<>/\\|[]{}01XxAaZz';
@@ -25,6 +28,11 @@ export type CrypticOptions = {
   mode?: 'grow' | 'fill';
   /** Called once the full string has resolved. */
   onComplete?: () => void;
+  /**
+   * Live speed multiplier (scroll catch-up). Read every frame.
+   * 1 = normal; higher values shorten the per-character interval.
+   */
+  getSpeed?: () => number;
 };
 
 function randomGlyph(): string {
@@ -69,12 +77,13 @@ export function runCrypticReveal(
   onFrame: (display: string) => void,
   options: CrypticOptions = {}
 ): () => void {
-  const { delay = 0, mode = 'grow', onComplete } = options;
+  const { delay = 0, mode = 'grow', onComplete, getSpeed } = options;
   const { cps, flipsPerChar, scrambleWindow } = adaptiveParams(target, options);
 
   if (
     typeof window !== 'undefined' &&
-    window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    (shouldSkipMotion() ||
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches)
   ) {
     onFrame(target);
     onComplete?.();
@@ -84,11 +93,20 @@ export function runCrypticReveal(
   let raf = 0;
   let delayTimer: ReturnType<typeof setTimeout> | null = null;
   let cancelled = false;
+  let finished = false;
   let revealed = 0;
   let flipBudget = flipsPerChar;
   let lastTs = 0;
-  const msPerChar = 1000 / Math.max(cps, 1);
+  let carry = 0;
+  const baseMsPerChar = 1000 / Math.max(cps, 1);
   const chars = target.split('');
+
+  const finish = () => {
+    if (finished || cancelled) return;
+    finished = true;
+    onFrame(target);
+    onComplete?.();
+  };
 
   const paint = () => {
     if (mode === 'fill') {
@@ -121,18 +139,26 @@ export function runCrypticReveal(
   };
 
   const tick = (ts: number) => {
-    if (cancelled) return;
+    if (cancelled || finished) return;
     if (!lastTs) lastTs = ts;
     const elapsed = ts - lastTs;
+    lastTs = ts;
 
+    const speed = Math.max(1, getSpeed?.() ?? 1);
+    if (speed >= 24) {
+      finish();
+      return;
+    }
+
+    carry += elapsed * speed;
     paint();
 
-    if (elapsed >= msPerChar) {
-      lastTs = ts;
+    const msPerChar = baseMsPerChar;
+    while (carry >= msPerChar) {
+      carry -= msPerChar;
       skipWhitespace();
       if (revealed >= chars.length) {
-        onFrame(target);
-        onComplete?.();
+        finish();
         return;
       }
       flipBudget -= 1;
@@ -144,18 +170,16 @@ export function runCrypticReveal(
     }
 
     if (revealed >= chars.length) {
-      onFrame(target);
-      onComplete?.();
+      finish();
       return;
     }
     raf = requestAnimationFrame(tick);
   };
 
   const start = () => {
-    if (cancelled) return;
+    if (cancelled || finished) return;
     if (!target) {
-      onFrame('');
-      onComplete?.();
+      finish();
       return;
     }
     paint();
@@ -188,11 +212,17 @@ type CrypticTextProps = {
   autoPlay?: boolean;
   /** Wait for the homepage boot loader (`boot:done`) before starting. */
   waitForBoot?: boolean;
-} & CrypticOptions;
+  /**
+   * Join the global document-order reveal queue. Default true.
+   * Set false for independent loops (e.g. cycling FlipWords-style usage).
+   */
+  queue?: boolean;
+} & Omit<CrypticOptions, 'getSpeed'>;
 
 /**
  * Declarative cryptographic text reveal. Reserves layout with an invisible
  * copy of the final string so the line doesn't jump while typing.
+ * Queued reveals play one-at-a-time in document order; scroll-ahead speeds up.
  */
 export function CrypticText({
   text,
@@ -203,6 +233,7 @@ export function CrypticText({
   whenVisible = false,
   autoPlay = !whenVisible,
   waitForBoot = false,
+  queue = true,
   cps,
   flipsPerChar,
   scrambleWindow,
@@ -210,32 +241,32 @@ export function CrypticText({
   mode,
   onComplete,
 }: CrypticTextProps) {
-  const [display, setDisplay] = useState('');
+  const isBot = useCrawlMode();
+  const [display, setDisplay] = useState(isBot ? text : '');
+  const [plain] = useState(() => isBot);
   const rootRef = useRef<HTMLElement | null>(null);
   const startedRef = useRef(false);
   const onCompleteRef = useRef(onComplete);
   onCompleteRef.current = onComplete;
 
   useEffect(() => {
+    if (plain || shouldSkipMotion()) {
+      setDisplay(text);
+      onCompleteRef.current?.();
+      return;
+    }
+
     startedRef.current = false;
     setDisplay('');
 
-    let stop: (() => void) | undefined;
+    const node = rootRef.current;
+    if (!node) return;
+
+    let stopLocal: (() => void) | undefined;
     let io: IntersectionObserver | null = null;
     let bootTimer: ReturnType<typeof setTimeout> | null = null;
-
-    const play = () => {
-      if (startedRef.current) return;
-      startedRef.current = true;
-      stop = runCrypticReveal(text, setDisplay, {
-        cps,
-        flipsPerChar,
-        scrambleWindow,
-        delay,
-        mode,
-        onComplete: () => onCompleteRef.current?.(),
-      });
-    };
+    let cancelBoot: (() => void) | undefined;
+    let handle: ReturnType<typeof enqueueCryptic> | null = null;
 
     const afterBoot = (fn: () => void) => {
       if (!waitForBoot) {
@@ -255,27 +286,70 @@ export function CrypticText({
       };
     };
 
-    let cancelBoot: (() => void) | undefined;
+    const arm = () => {
+      if (queue && handle) {
+        handle.arm();
+        return;
+      }
+      if (startedRef.current) return;
+      startedRef.current = true;
+      stopLocal = runCrypticReveal(text, setDisplay, {
+        cps,
+        flipsPerChar,
+        scrambleWindow,
+        delay,
+        mode,
+        onComplete: () => onCompleteRef.current?.(),
+      });
+    };
+
+    if (queue) {
+      handle = enqueueCryptic(node, (ctx) => {
+        if (startedRef.current) return () => {};
+        startedRef.current = true;
+        let settled = false;
+        const settle = () => {
+          if (settled) return;
+          settled = true;
+          setDisplay(text);
+          onCompleteRef.current?.();
+          ctx.complete();
+        };
+        const stop = runCrypticReveal(text, setDisplay, {
+          cps,
+          flipsPerChar,
+          scrambleWindow,
+          delay,
+          mode,
+          getSpeed: ctx.getSpeed,
+          onComplete: settle,
+        });
+        // Orchestrator skip/dispose: paint final text + settle the queue.
+        return () => {
+          stop();
+          settle();
+        };
+      });
+    }
 
     if (whenVisible) {
-      const node = rootRef.current;
-      if (!node) return;
       io = new IntersectionObserver(
         ([entry]) => {
           if (entry.isIntersecting) {
-            cancelBoot = afterBoot(play) ?? undefined;
+            cancelBoot = afterBoot(arm) ?? undefined;
             io?.disconnect();
           }
         },
-        { threshold: 0.4 }
+        { threshold: 0.35, rootMargin: '0px 0px -4% 0px' }
       );
       io.observe(node);
     } else if (autoPlay) {
-      cancelBoot = afterBoot(play) ?? undefined;
+      cancelBoot = afterBoot(arm) ?? undefined;
     }
 
     return () => {
-      stop?.();
+      stopLocal?.();
+      handle?.dispose();
       io?.disconnect();
       cancelBoot?.();
     };
@@ -285,12 +359,22 @@ export function CrypticText({
     whenVisible,
     autoPlay,
     waitForBoot,
+    queue,
+    plain,
     cps,
     flipsPerChar,
     scrambleWindow,
     delay,
     mode,
   ]);
+
+  if (plain) {
+    return (
+      <Tag className={cn(className)} style={style}>
+        {text}
+      </Tag>
+    );
+  }
 
   return (
     <Tag

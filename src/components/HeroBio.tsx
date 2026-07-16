@@ -120,7 +120,7 @@ export function HeroBio() {
       <CrypticText
         as='p'
         waitForBoot
-        delay={900}
+        delay={80}
         cps={38}
         flipsPerChar={2}
         scrambleWindow={5}

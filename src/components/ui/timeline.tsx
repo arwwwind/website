@@ -4,6 +4,7 @@ import { useScroll, useTransform, motion } from 'framer-motion';
 import React, { useEffect, useRef, useState } from 'react';
 import { CrypticText } from '@/components/ui/cryptic-text';
 import { StreamCell, useSequentialStream } from '@/components/ui/stream-in';
+import { useCrawlMode } from '@/components/ui/crawl-mode';
 
 interface TimelineEntry {
   title: string;
@@ -27,6 +28,7 @@ const TimelineEntryRow = ({
           <h3 className='hidden md:block text-xl md:pl-20 md:text-5xl font-bold text-neutral-500 dark:text-neutral-500'>
             <CrypticText
               text={item.title}
+              queue={false}
               cps={20}
               flipsPerChar={2}
               scrambleWindow={3}
@@ -47,22 +49,16 @@ const TimelineEntryRow = ({
 };
 
 export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
+  const isBot = useCrawlMode();
   const containerRef = useRef<HTMLDivElement>(null);
   const [height, setHeight] = useState(0);
-  const [headerDone, setHeaderDone] = useState(false);
 
+  // Queued after the header CrypticTexts above it in the DOM.
   const { ref: listRef, count } = useSequentialStream(data.length, {
-    intervalMs: 120,
-    startDelay: 200,
-    enabled: headerDone,
-    whenVisible: true,
+    intervalMs: 140,
+    startDelay: 160,
+    whenVisible: !isBot,
   });
-
-  // If the title animation never reports complete, still stream entries.
-  useEffect(() => {
-    const t = setTimeout(() => setHeaderDone(true), 2800);
-    return () => clearTimeout(t);
-  }, []);
 
   useEffect(() => {
     const node = listRef.current;
@@ -96,13 +92,11 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
             flipsPerChar={4}
             scrambleWindow={4}
             className='bg-gradient-to-r from-teal-400 via-rose-300 to-teal-400 bg-[length:200%_auto] bg-clip-text text-transparent animate-[cryptic-shimmer_4s_linear_infinite]'
-            onComplete={() => setHeaderDone(true)}
           />
         </h2>
         <CrypticText
           as='p'
           whenVisible
-          delay={400}
           cps={32}
           flipsPerChar={2}
           scrambleWindow={4}

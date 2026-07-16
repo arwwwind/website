@@ -48,6 +48,7 @@ export const HeroStats = ({
             <span className='text-xs text-neutral-500 mt-0.5'>
               <CrypticText
                 text={stat.label}
+                queue={false}
                 cps={24}
                 flipsPerChar={2}
                 scrambleWindow={3}

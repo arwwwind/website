@@ -584,18 +584,29 @@ function BeatTheBotGame({ onOpenHelp }: { onOpenHelp: () => void }) {
       aria-label='Beat the Bot'
       className='py-16 px-4 max-w-screen-xl mx-auto border-t border-neutral-900'
     >
-      <div data-reveal className='mb-2'>
+      <div className='mb-2'>
         <span className='text-xs font-semibold tracking-widest text-teal-400 uppercase'>
-          Live demo
+          <CrypticText
+            text='Live demo'
+            whenVisible
+            cps={20}
+            flipsPerChar={2}
+            scrambleWindow={3}
+          />
         </span>
       </div>
       <h2 className='text-3xl md:text-4xl font-bold text-white mb-2'>
         <CrypticText text='Beat the Bot' whenVisible cps={20} flipsPerChar={3} />
       </h2>
-      <p data-reveal className='text-neutral-400 mb-2 text-sm md:text-base max-w-2xl leading-relaxed'>
-        Rock-Paper-Scissors against a dense net that trains in your browser,
-        one round at a time. The longer you play, the better it gets at reading you.
-      </p>
+      <CrypticText
+        as='p'
+        whenVisible
+        cps={40}
+        flipsPerChar={2}
+        scrambleWindow={4}
+        text='Rock-Paper-Scissors against a dense net that trains in your browser, one round at a time. The longer you play, the better it gets at reading you.'
+        className='text-neutral-400 mb-2 text-sm md:text-base max-w-2xl leading-relaxed'
+      />
       <p data-reveal className='mb-8'>
         <button
           type='button'

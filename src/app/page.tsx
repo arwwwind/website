@@ -22,13 +22,14 @@ const BeatTheBot = dynamic(
 );
 
 export default function Home() {
-  const hello = ['Hi,', 'Hello,', 'Hallo,', 'Hola!', 'Bonjour,'];
+  const hello = ['Hi,', 'Hello,', 'வணக்கம்,', 'Hallo,', 'こんにちは', 'olá', 'ನಮಸ್ಕಾರ', 'Hola!', 'Bonjour,', 'नमस्ते,', '你好', 'مرحبًا', 'Привет'];
   const roles = [
     'Staff AI/ML Engineer',
-    'RAG & Agentic Systems',
+    'Agentic Systems and LLM Infrastructure',
     'GNN & Molecular ML',
     'Founder @ Superscaled',
-    'Open to Consulting',
+    'Open to Consulting and Advisory Opportunities',
+    `Fractional CTO for Startup's and SMBs`,
   ];
 
   return (
@@ -58,11 +59,10 @@ export default function Home() {
                 <CrypticText
                   text='Arvind Narayan'
                   waitForBoot
-                  delay={200}
                   cps={16}
                   flipsPerChar={3}
                   scrambleWindow={4}
-                  className='bg-gradient-to-r from-teal-400 via-rose-300 to-teal-400 bg-[length:200%_auto] bg-clip-text text-transparent animate-[cryptic-shimmer_4s_linear_infinite]'
+                  className='bg-gradient-to-r from-teal-400 via-rose-300 to-teal-400 bg-[length:200%_auto] bg-clip-text text-transparent animate-[cryptic-shimmer-italic_4s_linear_infinite]'
                 />
               </h2>
               <div data-hero className='text-xl md:text-2xl mt-1 text-neutral-300'>
@@ -127,7 +127,13 @@ export default function Home() {
             <div className='relative'>
               <div className='mb-2'>
                 <span className='text-xs font-semibold tracking-widest text-teal-400 uppercase'>
-                  Also Building
+                  <CrypticText
+                    text='Also Building'
+                    whenVisible
+                    cps={20}
+                    flipsPerChar={2}
+                    scrambleWindow={3}
+                  />
                 </span>
               </div>
               <h2 className='text-3xl md:text-5xl font-bold text-white mb-4'>
@@ -142,7 +148,6 @@ export default function Home() {
               <CrypticText
                 as='p'
                 whenVisible
-                delay={400}
                 cps={42}
                 flipsPerChar={2}
                 scrambleWindow={5}
@@ -180,9 +185,15 @@ export default function Home() {
           aria-label='Technology stack'
           className='py-12 px-4 max-w-screen-xl mx-auto border-t border-neutral-900'
         >
-          <div data-reveal className='mb-2'>
+          <div className='mb-2'>
             <span className='text-xs font-semibold tracking-widest text-teal-400 uppercase'>
-              Tools
+              <CrypticText
+                text='Tools'
+                whenVisible
+                cps={20}
+                flipsPerChar={2}
+                scrambleWindow={3}
+              />
             </span>
           </div>
           <h2 className='text-2xl font-bold mb-1'>
@@ -198,7 +209,6 @@ export default function Home() {
           <CrypticText
             as='p'
             whenVisible
-            delay={350}
             cps={36}
             flipsPerChar={2}
             scrambleWindow={4}
