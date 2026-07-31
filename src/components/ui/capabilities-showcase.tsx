@@ -1,12 +1,19 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import {
+  AnimatePresence,
+  motion,
+  useMotionTemplate,
+  useMotionValue,
+  useSpring,
+  useTransform,
+} from 'framer-motion';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { AsciiFigure } from '@/components/ui/ascii-figure';
 import { CrypticText } from '@/components/ui/cryptic-text';
 import { StreamCell, useSequentialStream } from '@/components/ui/stream-in';
-import { useCrawlMode } from '@/components/ui/crawl-mode';
 import { shouldSkipMotion } from '@/lib/is-bot';
 import { cn } from '@/lib/utils';
 
@@ -22,7 +29,6 @@ export type Capability = {
   lead: string;
   detail?: string;
   outcome: string;
-  /** Short points that fill the sticky visual column */
   highlights: string[];
   figures: CapabilityFigure[];
 };
@@ -42,10 +48,10 @@ function CapHighlights({
   });
 
   return (
-    <div ref={ref} className='grid grid-cols-1 sm:grid-cols-2 gap-3'>
+    <div ref={ref} className='grid grid-cols-1 sm:grid-cols-2 gap-2.5'>
       {items.slice(0, count).map((h) => (
         <StreamCell key={h}>
-          <div className='rounded-lg border border-neutral-800/90 bg-neutral-950/60 px-3.5 py-3 text-sm text-neutral-300 leading-snug'>
+          <div className='rounded-lg border border-neutral-800/90 bg-neutral-950/60 px-3 py-2.5 text-xs text-neutral-300 leading-snug'>
             <span className='text-teal-500/80 mr-1.5' aria-hidden>
               ▸
             </span>
@@ -57,321 +63,472 @@ function CapHighlights({
   );
 }
 
-function CapChapter({
-  cap,
-  active,
-  setRef,
-  instant,
+function TiltPanel({
+  children,
+  className,
 }: {
-  cap: Capability;
-  active: boolean;
-  setRef: (el: HTMLElement | null) => void;
-  /** Bots / reduced-motion: show full copy immediately. */
-  instant?: boolean;
+  children: React.ReactNode;
+  className?: string;
 }) {
-  const articleRef = useRef<HTMLElement | null>(null);
-  const [unlocked, setUnlocked] = useState(!!instant);
-  // 0 locked · 1 title done → lead · 2 lead done → detail · 3 detail done → rest
-  const [phase, setPhase] = useState(instant ? 3 : 0);
+  const ref = useRef<HTMLDivElement>(null);
+  const mx = useMotionValue(0);
+  const my = useMotionValue(0);
+  const rx = useSpring(useTransform(my, [-0.5, 0.5], [6, -6]), {
+    stiffness: 180,
+    damping: 22,
+  });
+  const ry = useSpring(useTransform(mx, [-0.5, 0.5], [-8, 8]), {
+    stiffness: 180,
+    damping: 22,
+  });
+  const glowX = useSpring(useTransform(mx, [-0.5, 0.5], [0, 100]), {
+    stiffness: 120,
+    damping: 20,
+  });
+  const glowY = useSpring(useTransform(my, [-0.5, 0.5], [0, 100]), {
+    stiffness: 120,
+    damping: 20,
+  });
+  const glow = useMotionTemplate`radial-gradient(480px circle at ${glowX}% ${glowY}%, rgba(45,212,191,0.18), transparent 55%)`;
 
-  useEffect(() => {
-    if (instant) {
-      setUnlocked(true);
-      setPhase(3);
-      return;
-    }
+  const onMove = (e: React.MouseEvent) => {
+    const el = ref.current;
+    if (!el) return;
+    const r = el.getBoundingClientRect();
+    mx.set((e.clientX - r.left) / r.width - 0.5);
+    my.set((e.clientY - r.top) / r.height - 0.5);
+  };
 
-    const node = articleRef.current;
-    if (!node) return;
-    const io = new IntersectionObserver(
-      ([entry]) => {
-        if (!entry.isIntersecting) return;
-        setUnlocked(true);
-        io.disconnect();
-      },
-      { threshold: 0.18, rootMargin: '0px 0px -8% 0px' }
-    );
-    io.observe(node);
-    return () => io.disconnect();
-  }, [instant]);
+  const onLeave = () => {
+    mx.set(0);
+    my.set(0);
+  };
 
   return (
-    <article
-      id={`cap-${cap.id}`}
-      ref={(el) => {
-        articleRef.current = el;
-        setRef(el);
-      }}
-      className='scroll-mt-28 border-t border-neutral-900/80 pt-12 md:pt-16'
-    >
-      {/* Title band — full content width */}
-      <div data-cap-block className='mb-8 md:mb-10 max-w-4xl'>
-        <p className='text-sm font-medium tracking-wide mb-3 text-teal-400 min-h-[1.25rem]'>
-          {unlocked ? (
-            <CrypticText
-              text={cap.label}
-              cps={22}
-              flipsPerChar={2}
-              scrambleWindow={3}
-            />
-          ) : (
-            <span className='invisible' aria-hidden>
-              {cap.label}
-            </span>
-          )}
-        </p>
-        <h3 className='text-3xl md:text-4xl lg:text-[2.75rem] font-bold text-white leading-[1.12] tracking-tight'>
-          {unlocked ? (
-            <CrypticText
-              text={cap.title}
-              cps={16}
-              flipsPerChar={2}
-              scrambleWindow={4}
-              onComplete={() => setPhase((p) => Math.max(p, 1))}
-            />
-          ) : (
-            <span className='invisible' aria-hidden>
-              {cap.title}
-            </span>
-          )}
-        </h3>
-      </div>
-
-      {/* Dense two-column body — copy + sticky visual */}
-      <div className='grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start'>
-        <div className='lg:col-span-6 space-y-5'>
-          <div>
-            {phase >= 1 ? (
-              <CrypticText
-                as='p'
-                text={cap.lead}
-                cps={48}
-                flipsPerChar={1}
-                scrambleWindow={4}
-                className='text-neutral-200 text-base md:text-lg leading-relaxed'
-                onComplete={() => setPhase((p) => Math.max(p, 2))}
-              />
-            ) : (
-              <p
-                className='invisible text-base md:text-lg leading-relaxed'
-                aria-hidden
-              >
-                {cap.lead}
-              </p>
-            )}
-          </div>
-
-          {phase >= 2 && cap.detail && (
-            <CrypticText
-              as='p'
-              text={cap.detail}
-              cps={52}
-              flipsPerChar={1}
-              scrambleWindow={4}
-              className='text-neutral-400 text-base md:text-[17px] leading-relaxed'
-              onComplete={() => setPhase((p) => Math.max(p, 3))}
-            />
-          )}
-
-          {phase >= 2 && !cap.detail && phase < 3 && (
-            <DetailGate
-              onReady={() => setPhase((p) => Math.max(p, 3))}
-            />
-          )}
-
-          {phase >= 3 && (
-            <p className='text-base md:text-lg text-teal-400 font-medium border-l-2 border-teal-600/60 pl-4'>
-              <CrypticText
-                text={cap.outcome}
-                cps={28}
-                flipsPerChar={2}
-                scrambleWindow={3}
-              />
-            </p>
-          )}
+    <div className={cn('w-full', className)} style={{ perspective: 1100 }}>
+      <motion.div
+        ref={ref}
+        onMouseMove={onMove}
+        onMouseLeave={onLeave}
+        style={{ rotateX: rx, rotateY: ry, transformStyle: 'preserve-3d' }}
+        className='relative overflow-hidden rounded-2xl border border-neutral-800/90 bg-neutral-950 will-change-transform'
+      >
+        <motion.div
+          aria-hidden
+          className='pointer-events-none absolute inset-0 z-10 opacity-0 transition-opacity duration-500 group-hover/feature:opacity-100'
+          style={{ background: glow }}
+        />
+        <div className='relative' style={{ transform: 'translateZ(18px)' }}>
+          {children}
         </div>
-
-        <aside
-          data-cap-visual
-          className='lg:col-span-6 lg:sticky lg:top-28 space-y-5'
-        >
-          {cap.figures.map((fig) => (
-            <AsciiFigure
-              key={fig.caption}
-              caption={fig.caption}
-              lines={fig.lines}
-              armed={phase >= 3}
-              size='lg'
-            />
-          ))}
-
-          {phase >= 3 && (
-            <CapHighlights items={cap.highlights} active={phase >= 3} />
-          )}
-        </aside>
-      </div>
-
-      {/* Keep `active` meaningful for a11y / nav without unlocking early */}
-      <span className='sr-only'>{active ? 'Current capability' : ''}</span>
-    </article>
+      </motion.div>
+    </div>
   );
 }
 
-/** Advances phase when a chapter has no detail block. */
-function DetailGate({ onReady }: { onReady: () => void }) {
-  const fired = useRef(false);
-  useEffect(() => {
-    if (fired.current) return;
-    fired.current = true;
-    onReady();
-    // intentionally once on mount
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-  return null;
-}
-
+/**
+ * Capabilities — same sticky featured + scroll-linked rail UX as Writing.
+ * Content (copy, figures, highlights, outcomes) is unchanged.
+ */
 export function CapabilitiesShowcase({ items }: { items: Capability[] }) {
-  const isBot = useCrawlMode();
   const sectionRef = useRef<HTMLElement>(null);
-  const [active, setActive] = useState(isBot ? 0 : -1);
-  const articleRefs = useRef<(HTMLElement | null)[]>([]);
+  const progressRef = useRef<HTMLDivElement>(null);
+  const counterRef = useRef<HTMLSpanElement>(null);
+  const itemRefs = useRef<(HTMLElement | null)[]>([]);
+  const hoverLock = useRef(false);
+  const [active, setActive] = useState(0);
+  const activeCap = items[active] ?? items[0];
 
   useEffect(() => {
-    if (isBot || shouldSkipMotion()) {
-      setActive(0);
-      return;
-    }
+    if (shouldSkipMotion()) return;
 
     gsap.registerPlugin(ScrollTrigger);
     const ctx = gsap.context(() => {
-      articleRefs.current.forEach((el, i) => {
+      itemRefs.current.forEach((el, i) => {
         if (!el) return;
-
         ScrollTrigger.create({
           trigger: el,
-          start: 'top 50%',
+          start: 'top 55%',
           end: 'bottom 45%',
-          onEnter: () => setActive(i),
-          onEnterBack: () => setActive(i),
+          onEnter: () => {
+            if (!hoverLock.current) setActive(i);
+          },
+          onEnterBack: () => {
+            if (!hoverLock.current) setActive(i);
+          },
         });
 
-        const visual = el.querySelector('[data-cap-visual]');
-        if (visual) {
-          gsap.fromTo(
-            visual,
-            { y: 28, opacity: 0.45 },
-            {
-              y: 0,
-              opacity: 1,
-              ease: 'none',
-              scrollTrigger: {
-                trigger: el,
-                start: 'top 88%',
-                end: 'top 42%',
-                scrub: 0.7,
-              },
-            }
-          );
-        }
+        gsap.fromTo(
+          el,
+          { y: 28, opacity: 0.35 },
+          {
+            y: 0,
+            opacity: 1,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: el,
+              start: 'top 90%',
+              end: 'top 55%',
+              scrub: 0.6,
+            },
+          }
+        );
       });
+
+      const section = sectionRef.current;
+      if (section) {
+        ScrollTrigger.create({
+          trigger: section,
+          start: 'top 70%',
+          end: 'bottom 40%',
+          onUpdate(self) {
+            if (progressRef.current) {
+              progressRef.current.style.transform = `scaleX(${self.progress})`;
+            }
+          },
+        });
+      }
     }, sectionRef);
 
     requestAnimationFrame(() => ScrollTrigger.refresh());
     return () => ctx.revert();
-  }, [items.length, isBot]);
+  }, [items.length]);
 
-  const scrollTo = (i: number) => {
-    articleRefs.current[i]?.scrollIntoView({
+  useEffect(() => {
+    if (counterRef.current) {
+      counterRef.current.textContent = String(active + 1).padStart(2, '0');
+    }
+  }, [active]);
+
+  const activate = (i: number) => {
+    hoverLock.current = true;
+    setActive(i);
+    itemRefs.current[i]?.scrollIntoView({
       behavior: 'smooth',
-      block: 'start',
+      block: 'nearest',
     });
+    window.setTimeout(() => {
+      hoverLock.current = false;
+    }, 700);
   };
+
+  if (!activeCap) return null;
 
   return (
     <section
       ref={sectionRef}
       id='what-i-do'
       aria-label='AI engineering capabilities — RAG, molecular ML, clinical analytics, edtech, and production MLOps'
-      className='relative border-t border-neutral-900 py-16 md:py-24'
+      className='relative border-t border-neutral-900 overflow-x-clip'
     >
-      <div className='max-w-screen-xl mx-auto px-4'>
-        <header className='max-w-4xl mb-12 md:mb-16'>
-          <p className='text-sm font-semibold tracking-widest text-teal-400 uppercase mb-4'>
-            <CrypticText
-              text='Capabilities'
-              whenVisible
-              cps={20}
-              flipsPerChar={2}
-              scrambleWindow={3}
-            />
-          </p>
-          <h2 className='text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-[1.08] tracking-tight mb-5'>
-            <CrypticText
-              text='Production AI for science, learning, and scale.'
-              whenVisible
-              cps={14}
-              flipsPerChar={3}
-              scrambleWindow={4}
-            />
-          </h2>
-          <CrypticText
-            as='p'
-            whenVisible
-            cps={40}
-            flipsPerChar={2}
-            text='Staff AI/ML engineering across hybrid RAG platforms, graph neural networks for drug discovery, clinical trial analytics, personalized edtech, and LLM infrastructure — built to ship and stay in production.'
-            className='text-neutral-300 text-lg md:text-xl leading-relaxed max-w-3xl'
-          />
-        </header>
+      <div
+        aria-hidden
+        data-drift='32'
+        className='pointer-events-none absolute -top-24 -right-16 h-72 w-72 rounded-full bg-teal-500/[0.08] blur-3xl'
+      />
+      <div
+        aria-hidden
+        data-drift='-24'
+        className='pointer-events-none absolute top-1/3 -left-20 h-96 w-96 rounded-full bg-rose-500/[0.06] blur-3xl'
+      />
+      <div
+        aria-hidden
+        data-scrub-x
+        className='pointer-events-none select-none absolute -bottom-4 md:-bottom-10 left-0 whitespace-nowrap font-black leading-none tracking-tighter text-[4.5rem] md:text-[8.5rem] text-white/[0.03] will-change-transform'
+      >
+        CAPABILITIES&nbsp;&nbsp;CAPABILITIES&nbsp;&nbsp;CAPABILITIES
+      </div>
 
-        <div className='grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12'>
-          <nav
-            aria-label='Capability topics'
-            className='hidden lg:block lg:col-span-2'
-          >
-            <ul className='sticky top-28 space-y-0.5'>
+      <div className='relative max-w-screen-xl mx-auto px-4 py-16 md:py-24'>
+        <div className='mb-10 md:mb-14' data-reveal>
+          <div className='mb-2'>
+            <span className='text-xs font-semibold tracking-widest text-teal-400 uppercase'>
+              <CrypticText
+                text='Capabilities'
+                whenVisible
+                cps={20}
+                flipsPerChar={2}
+                scrambleWindow={3}
+              />
+            </span>
+          </div>
+          <div className='flex flex-wrap items-end justify-between gap-4'>
+            <div className='max-w-2xl'>
+              <h2 className='text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight'>
+                <CrypticText
+                  text='Production AI for science, learning, and scale.'
+                  whenVisible
+                  cps={14}
+                  flipsPerChar={3}
+                  scrambleWindow={4}
+                />
+              </h2>
+              <CrypticText
+                as='p'
+                whenVisible
+                cps={40}
+                flipsPerChar={2}
+                scrambleWindow={4}
+                text='Staff AI/ML engineering across hybrid RAG platforms, graph neural networks for drug discovery, clinical trial analytics, personalized edtech, and LLM infrastructure — built to ship and stay in production.'
+                className='mt-3 text-neutral-400 text-sm md:text-base leading-relaxed max-w-xl'
+              />
+            </div>
+            <div className='hidden md:flex items-center gap-3 shrink-0 pb-1'>
+              <span className='text-xs font-mono text-neutral-500 tabular-nums'>
+                <span ref={counterRef}>01</span>
+                <span className='text-neutral-700'>
+                  {' '}
+                  / {String(items.length).padStart(2, '0')}
+                </span>
+              </span>
+              <div className='w-36 h-px bg-neutral-800 overflow-hidden'>
+                <div
+                  ref={progressRef}
+                  className='h-full w-full origin-left scale-x-0 bg-gradient-to-r from-teal-400 to-rose-400'
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* desktop: sticky feature + capability rail */}
+        <div className='hidden lg:grid lg:grid-cols-12 gap-10 xl:gap-14 items-start'>
+          <div className='lg:col-span-6 xl:col-span-7 lg:sticky lg:top-28 group/feature'>
+            <div
+              id={`cap-${activeCap.id}`}
+              className='rounded-2xl focus-within:ring-2 focus-within:ring-teal-500/60'
+            >
+              <AnimatePresence mode='wait'>
+                <motion.div
+                  key={activeCap.id}
+                  initial={{
+                    opacity: 0,
+                    y: 20,
+                    filter: 'blur(6px)',
+                  }}
+                  animate={{
+                    opacity: 1,
+                    y: 0,
+                    filter: 'blur(0px)',
+                  }}
+                  exit={{
+                    opacity: 0,
+                    y: -14,
+                    filter: 'blur(4px)',
+                  }}
+                  transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                  className='space-y-4'
+                >
+                  <TiltPanel>
+                    <div className='p-0.5'>
+                      {activeCap.figures.map((fig) => (
+                        <AsciiFigure
+                          key={fig.caption}
+                          caption={fig.caption}
+                          lines={fig.lines}
+                          armed
+                          size='lg'
+                        />
+                      ))}
+                    </div>
+                  </TiltPanel>
+
+                  <div className='flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] font-mono text-neutral-500'>
+                    <span className='text-teal-500/80'>{activeCap.label}</span>
+                    <span aria-hidden>·</span>
+                    <span>
+                      {String(active + 1).padStart(2, '0')} /{' '}
+                      {String(items.length).padStart(2, '0')}
+                    </span>
+                  </div>
+                  <h3 className='text-2xl xl:text-[1.75rem] font-bold text-white leading-tight group-hover/feature:text-teal-100 transition-colors'>
+                    {activeCap.title}
+                  </h3>
+                  <p className='text-neutral-300 text-sm leading-relaxed max-w-xl line-clamp-3'>
+                    {activeCap.lead}
+                  </p>
+                  <p className='text-sm text-teal-400 font-medium border-l-2 border-teal-600/60 pl-4'>
+                    {activeCap.outcome}
+                  </p>
+                  <CapHighlights
+                    key={activeCap.id + '-hl'}
+                    items={activeCap.highlights}
+                    active
+                  />
+                </motion.div>
+              </AnimatePresence>
+            </div>
+          </div>
+
+          <div className='lg:col-span-6 xl:col-span-5'>
+            <ul className='space-y-3' role='list' aria-label='Capability topics'>
               {items.map((cap, i) => {
                 const on = i === active;
                 return (
-                  <li key={cap.id}>
+                  <li
+                    key={cap.id}
+                    ref={(el) => {
+                      itemRefs.current[i] = el;
+                    }}
+                  >
                     <button
                       type='button'
-                      onClick={() => scrollTo(i)}
+                      onMouseEnter={() => {
+                        hoverLock.current = true;
+                        setActive(i);
+                      }}
+                      onMouseLeave={() => {
+                        hoverLock.current = false;
+                      }}
+                      onFocus={() => activate(i)}
+                      onClick={() => activate(i)}
                       className={cn(
-                        'relative w-full text-left pl-3 pr-2 py-2.5 rounded-md text-sm leading-snug transition-all duration-300',
+                        'group/rail relative block w-full text-left rounded-2xl border px-4 py-4 transition-all duration-300',
                         on
-                          ? 'text-white font-medium'
-                          : 'text-neutral-500 hover:text-neutral-300'
+                          ? 'border-teal-700/50 bg-teal-950/25 shadow-[0_0_48px_-16px_rgba(45,212,191,0.5)]'
+                          : 'border-neutral-800/80 bg-neutral-950/40 hover:border-neutral-700 hover:bg-neutral-900/50'
                       )}
                     >
                       <span
                         aria-hidden
                         className={cn(
-                          'absolute left-0 top-1/2 -translate-y-1/2 w-0.5 rounded-full bg-teal-400 transition-all duration-300',
-                          on ? 'h-5 opacity-100' : 'h-0 opacity-0'
+                          'absolute left-0 top-3.5 bottom-3.5 w-0.5 rounded-full transition-all duration-300 origin-center',
+                          on
+                            ? 'bg-teal-400 scale-y-100'
+                            : 'bg-transparent scale-y-50'
                         )}
                       />
-                      {cap.label}
+                      <div className='flex items-baseline justify-between gap-3 mb-1.5 pr-6'>
+                        <span
+                          className={cn(
+                            'font-mono text-[11px] tabular-nums transition-colors',
+                            on ? 'text-teal-400' : 'text-neutral-600'
+                          )}
+                        >
+                          {String(i + 1).padStart(2, '0')}
+                        </span>
+                        <span
+                          className={cn(
+                            'text-[11px] font-mono transition-colors',
+                            on ? 'text-teal-500/80' : 'text-neutral-600'
+                          )}
+                        >
+                          {cap.label}
+                        </span>
+                      </div>
+                      <p
+                        className={cn(
+                          'text-[15px] font-semibold leading-snug transition-colors pr-6',
+                          on
+                            ? 'text-white'
+                            : 'text-neutral-400 group-hover/rail:text-neutral-200'
+                        )}
+                      >
+                        {cap.title}
+                      </p>
+                      <p className='mt-1.5 text-xs text-neutral-600 line-clamp-2 leading-relaxed pr-4'>
+                        {cap.lead}
+                      </p>
+                      <div
+                        className={cn(
+                          'grid transition-[grid-template-rows] duration-300 ease-out',
+                          on && cap.detail
+                            ? 'grid-rows-[1fr] mt-2'
+                            : 'grid-rows-[0fr]'
+                        )}
+                      >
+                        <div className='overflow-hidden'>
+                          {cap.detail && (
+                            <p className='text-xs text-neutral-500 leading-relaxed pr-4 pb-0.5'>
+                              {cap.detail}
+                            </p>
+                          )}
+                        </div>
+                      </div>
+                      <p
+                        className={cn(
+                          'mt-2 text-[11px] font-medium transition-colors line-clamp-1',
+                          on ? 'text-teal-500/70' : 'text-neutral-700'
+                        )}
+                      >
+                        {cap.outcome}
+                      </p>
+                      <span
+                        className={cn(
+                          'absolute right-4 top-1/2 -translate-y-1/2 text-teal-400 transition-all duration-300',
+                          on
+                            ? 'opacity-100 translate-x-0'
+                            : 'opacity-0 -translate-x-2 group-hover/rail:opacity-70 group-hover/rail:translate-x-0'
+                        )}
+                      >
+                        →
+                      </span>
                     </button>
                   </li>
                 );
               })}
             </ul>
-          </nav>
-
-          <div className='lg:col-span-10'>
-            {items.map((cap, i) => (
-              <CapChapter
-                key={cap.id}
-                cap={cap}
-                active={active === i}
-                instant={isBot}
-                setRef={(el) => {
-                  articleRefs.current[i] = el;
-                }}
-              />
-            ))}
           </div>
+        </div>
+
+        {/* mobile stack — full content retained */}
+        <div className='lg:hidden space-y-6' data-reveal-group>
+          {items.map((cap, i) => (
+            <article
+              key={cap.id}
+              id={`cap-m-${cap.id}`}
+              className='rounded-2xl overflow-hidden border border-neutral-800 bg-neutral-950'
+            >
+              <div className='border-b border-neutral-800/80'>
+                {cap.figures.map((fig) => (
+                  <AsciiFigure
+                    key={fig.caption}
+                    caption={fig.caption}
+                    lines={fig.lines}
+                    armed
+                    size='lg'
+                  />
+                ))}
+              </div>
+              <div className='p-5 space-y-4'>
+                <div className='flex items-baseline justify-between gap-3'>
+                  <span className='font-mono text-[11px] text-teal-400'>
+                    {String(i + 1).padStart(2, '0')}
+                  </span>
+                  <span className='text-[11px] font-mono text-neutral-500'>
+                    {cap.label}
+                  </span>
+                </div>
+                <h3 className='text-xl font-bold text-white leading-tight'>
+                  {cap.title}
+                </h3>
+                <p className='text-neutral-300 text-sm leading-relaxed'>
+                  {cap.lead}
+                </p>
+                {cap.detail && (
+                  <p className='text-neutral-500 text-sm leading-relaxed'>
+                    {cap.detail}
+                  </p>
+                )}
+                <p className='text-sm text-teal-400 font-medium border-l-2 border-teal-600/60 pl-4'>
+                  {cap.outcome}
+                </p>
+                <ul className='grid grid-cols-1 gap-2'>
+                  {cap.highlights.map((h) => (
+                    <li
+                      key={h}
+                      className='rounded-lg border border-neutral-800/90 bg-neutral-950/60 px-3 py-2.5 text-xs text-neutral-300 leading-snug'
+                    >
+                      <span className='text-teal-500/80 mr-1.5' aria-hidden>
+                        ▸
+                      </span>
+                      {h}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </article>
+          ))}
         </div>
       </div>
     </section>

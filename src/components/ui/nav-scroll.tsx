@@ -4,9 +4,10 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 
-const SECTIONS = ['hero', 'what-i-do', 'timeline'];
+const SECTIONS = ['hero', 'writing', 'what-i-do', 'timeline'];
 
 const links = [
+  { id: 'writing', label: 'Writing' },
   { id: 'what-i-do', label: 'What I Do' },
   { id: 'timeline', label: 'Experience' },
 ];

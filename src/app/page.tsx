@@ -11,6 +11,7 @@ import { ScrollFX } from '@/components/ui/scroll-fx';
 import { SectionGridBackground } from '@/components/ui/section-grid-background';
 import Image from 'next/image';
 import { WorkShowcase } from '@/components/ui/work-showcase';
+import { BlogShowcase } from '@/components/ui/blog-showcase';
 import { TechStackStream } from '@/components/ui/tech-stack-stream';
 import { CapabilitiesShowcase } from '@/components/ui/capabilities-showcase';
 
@@ -27,7 +28,6 @@ export default function Home() {
     'Staff AI/ML Engineer',
     'Agentic Systems and LLM Infrastructure',
     'GNN & Molecular ML',
-    'Founder @ Superscaled',
     'Open to Consulting and Advisory Opportunities',
     `Fractional CTO for Startup's and SMBs`,
   ];
@@ -82,6 +82,9 @@ export default function Home() {
       </AuroraBackground>
 
       <SectionGridBackground>
+        {/* ── Writing: pinned essay showcase ────────────────── */}
+        <BlogShowcase />
+
         {/* ── Selected Work: pinned horizontal gallery ──────── */}
         <section
           id='work'
@@ -93,91 +96,6 @@ export default function Home() {
 
         {/* ── What I Do ─────────────────────────────────────── */}
         <CapabilitiesShowcase items={capabilities} />
-
-        {/* ── Building ──────────────────────────────────────── */}
-        <section
-          id='building'
-          aria-label='Ventures'
-          className='py-16 px-4 max-w-screen-xl mx-auto border-t border-neutral-900'
-        >
-          <div
-            data-reveal
-            className='relative overflow-hidden rounded-3xl border border-neutral-800/80 bg-neutral-950 px-6 py-12 md:px-14 md:py-16'
-          >
-            {/* drifting glows */}
-            <div
-              aria-hidden='true'
-              data-drift='34'
-              className='pointer-events-none absolute -top-28 -right-20 w-80 h-80 rounded-full bg-teal-500/10 blur-3xl'
-            />
-            <div
-              aria-hidden='true'
-              data-drift='-26'
-              className='pointer-events-none absolute -bottom-32 left-1/4 w-96 h-96 rounded-full bg-rose-500/[0.07] blur-3xl'
-            />
-            {/* scrubbing watermark */}
-            <div
-              aria-hidden='true'
-              data-scrub-x
-              className='pointer-events-none select-none absolute -bottom-3 md:-bottom-7 left-0 whitespace-nowrap font-black leading-none tracking-tighter text-[5.5rem] md:text-[10rem] text-white/[0.03] will-change-transform'
-            >
-              SUPERSCALED&nbsp;&nbsp;SUPERSCALED&nbsp;&nbsp;SUPERSCALED
-            </div>
-
-            <div className='relative'>
-              <div className='mb-2'>
-                <span className='text-xs font-semibold tracking-widest text-teal-400 uppercase'>
-                  <CrypticText
-                    text='Also Building'
-                    whenVisible
-                    cps={20}
-                    flipsPerChar={2}
-                    scrambleWindow={3}
-                  />
-                </span>
-              </div>
-              <h2 className='text-3xl md:text-5xl font-bold text-white mb-4'>
-                <CrypticText
-                  text='Superscaled'
-                  whenVisible
-                  cps={14}
-                  flipsPerChar={4}
-                  scrambleWindow={4}
-                />
-              </h2>
-              <CrypticText
-                as='p'
-                whenVisible
-                cps={42}
-                flipsPerChar={2}
-                scrambleWindow={5}
-                text={`An early-stage AI venture for engineering teams that need to move faster than their organization's approval and procurement processes allow. There's a frustrating gap between "we have a working model" and "this is actually running in production, monitored, and trusted by the business." Superscaled builds the tooling that closes it.`}
-                className='text-neutral-400 text-sm mb-2 md:w-[60%] leading-relaxed'
-              />
-              <p className='text-neutral-500 text-xs mb-8 md:w-[60%]'>
-                Building in public at{' '}
-                <a
-                  href='https://superscaled.com'
-                  target='_blank'
-                  rel='noopener noreferrer'
-                  className='text-teal-400 underline underline-offset-2 hover:text-teal-300 transition-colors'
-                >
-                  superscaled.com
-                </a>
-                .
-              </p>
-              <a
-                href='https://superscaled.com'
-                target='_blank'
-                rel='noopener noreferrer'
-                className='group inline-flex items-center gap-2 px-6 py-3 rounded-full border border-teal-800/60 bg-teal-950/30 text-teal-400 text-sm font-medium hover:bg-teal-950/60 hover:border-teal-500 transition-all'
-              >
-                <span>Visit Superscaled</span>
-                <span className='text-xs group-hover:translate-x-1 transition-transform'>→</span>
-              </a>
-            </div>
-          </div>
-        </section>
 
         {/* ── Tech Stack ────────────────────────────────────── */}
         <section
