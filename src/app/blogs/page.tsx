@@ -1,14 +1,100 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
 import { BlogTimestamp } from '@/components/blog/blog-timestamp';
 import { BlogCover } from '@/components/blog/blog-cover';
+import { JsonLd } from '@/components/seo/json-ld';
 import { formatPostDate, getAllPosts } from '@/lib/blog-posts';
+import {
+  BLOG_ID,
+  DEFAULT_OG_IMAGE,
+  PERSON_ID,
+  SITE_URL,
+  WEBSITE_ID,
+  absoluteUrl,
+  breadcrumbJsonLd,
+  indexFollowRobots,
+  pageOpenGraph,
+  pageTwitter,
+} from '@/lib/seo';
+
+const title = 'Blog — Arvind Narayan';
+const description =
+  "Arvind Narayan's blog — engineering, AI, machine learning, and opinions I probably shouldn't say out loud at work.";
+const url = absoluteUrl('/blogs');
+
+export const metadata: Metadata = {
+  title,
+  description,
+  alternates: {
+    canonical: url,
+    types: {
+      'application/rss+xml': `${SITE_URL}/blogs/feed.xml`,
+    },
+  },
+  robots: indexFollowRobots,
+  openGraph: pageOpenGraph({
+    title,
+    description,
+    url,
+  }),
+  twitter: pageTwitter({ title, description }),
+};
 
 export default function BlogsPage() {
   const posts = getAllPosts();
 
+  const blogJsonLd = [
+    {
+      '@context': 'https://schema.org',
+      '@type': 'Blog',
+      '@id': BLOG_ID,
+      url,
+      name: 'Arvind Narayan — Blog',
+      description,
+      inLanguage: 'en-US',
+      isPartOf: { '@id': WEBSITE_ID },
+      publisher: { '@id': PERSON_ID },
+      author: { '@id': PERSON_ID },
+      image: DEFAULT_OG_IMAGE,
+      blogPost: posts.map((post) => ({
+        '@type': 'BlogPosting',
+        '@id': `${SITE_URL}/blogs/${post.slug}#article`,
+        headline: post.title,
+        url: `${SITE_URL}/blogs/${post.slug}`,
+        datePublished: `${post.date}T12:00:00.000Z`,
+        description: post.description,
+      })),
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'CollectionPage',
+      '@id': `${url}#collection`,
+      url,
+      name: title,
+      description,
+      isPartOf: { '@id': WEBSITE_ID },
+      mainEntity: {
+        '@type': 'ItemList',
+        itemListOrder: 'https://schema.org/ItemListOrderDescending',
+        numberOfItems: posts.length,
+        itemListElement: posts.map((post, index) => ({
+          '@type': 'ListItem',
+          position: index + 1,
+          url: `${SITE_URL}/blogs/${post.slug}`,
+          name: post.title,
+        })),
+      },
+    },
+    breadcrumbJsonLd([
+      { name: 'Home', path: '/' },
+      { name: 'Blog', path: '/blogs' },
+    ]),
+  ];
+
   return (
     <main className='blog-main'>
+      <JsonLd data={blogJsonLd} />
       <article className='blog-intro'>
         <blockquote className='blog-intro__quote'>
           &ldquo;Reading a personal blog is like walking through the front door

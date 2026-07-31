@@ -1,20 +1,14 @@
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Badge } from '@/components/ui/badge';
 import { SectionGridBackground } from '@/components/ui/section-grid-background';
+import { JsonLd } from '@/components/seo/json-ld';
+import {
+  workProjectJsonLd,
+  workProjectMetadata,
+} from '@/lib/work-projects';
 
-export const metadata: Metadata = {
-  title: 'upGrad LMS Rebuild — Case Study | Arvind Narayan',
-  description:
-    'Led the full-stack rebuild of upGrad\'s Learning Management System — achieving 75% Core Web Vitals improvement, sub-200ms API response times, and offline-first PWA for 3M+ active learners across emerging markets.',
-  openGraph: {
-    title: 'upGrad LMS Rebuild — 75% Core Web Vitals Improvement',
-    description:
-      'Case study: architecting a PWA-first LMS for 3M+ active learners with offline-first support for 2G networks.',
-    url: 'https://arwwwind.com/work/upgrad-lms',
-  },
-};
+export const metadata = workProjectMetadata('upgrad-lms');
 
 const stack = [
   'React', 'TypeScript', 'Node.js', 'Golang', 'Redis', 'PostgreSQL',
@@ -25,6 +19,7 @@ const stack = [
 export default function UpgradLMSPage() {
   return (
     <div className='min-h-screen bg-black'>
+      <JsonLd data={workProjectJsonLd('upgrad-lms')} />
       <SectionGridBackground>
         <div className='max-w-screen-lg mx-auto px-4 py-24'>
 

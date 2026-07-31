@@ -1,20 +1,14 @@
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Badge } from '@/components/ui/badge';
 import { SectionGridBackground } from '@/components/ui/section-grid-background';
+import { JsonLd } from '@/components/seo/json-ld';
+import {
+  workProjectJsonLd,
+  workProjectMetadata,
+} from '@/lib/work-projects';
 
-export const metadata: Metadata = {
-  title: 'Praana Foods — Case Study | Arvind Narayan',
-  description:
-    'Built the ML personalization engine behind Praana Foods — an AI-native vegan meal subscription that uses monthly health check-ins and a feedback loop to recalibrate each subscriber\'s macro and micronutrient plan.',
-  openGraph: {
-    title: 'Praana Foods — Precision Vegan Nutrition ML',
-    description:
-      'Case study: ML-driven nutritional recalibration, allergy guard, and life-stage personalization for a vegan meal subscription.',
-    url: 'https://arwwwind.com/work/pranaa',
-  },
-};
+export const metadata = workProjectMetadata('pranaa');
 
 const stack = [
   'Python', 'scikit-learn', 'XGBoost', 'FastAPI', 'PostgreSQL',
@@ -25,6 +19,7 @@ const stack = [
 export default function PranaaPage() {
   return (
     <div className='min-h-screen bg-black'>
+      <JsonLd data={workProjectJsonLd('pranaa')} />
       <SectionGridBackground>
         <div className='max-w-screen-lg mx-auto px-4 py-24'>
 

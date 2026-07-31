@@ -1,3 +1,7 @@
+import { SITE_URL } from '@/lib/seo';
+
+export { SITE_URL };
+
 export type BlogPost = {
   slug: string;
   title: string;
@@ -10,8 +14,6 @@ export type BlogPost = {
   wordCount: number;
   readingMinutes: number;
 };
-
-export const SITE_URL = 'https://arwwwind.com';
 
 export const blogPosts: BlogPost[] = [
   {

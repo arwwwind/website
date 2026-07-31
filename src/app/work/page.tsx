@@ -1,108 +1,21 @@
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
 import { SectionGridBackground } from '@/components/ui/section-grid-background';
 import { GradientText } from '@/components/ui/gradient-text';
 import { Badge } from '@/components/ui/badge';
+import { JsonLd } from '@/components/seo/json-ld';
+import {
+  workIndexJsonLd,
+  workIndexMetadata,
+  workProjects,
+} from '@/lib/work-projects';
 
-export const metadata: Metadata = {
-  title: 'Selected Work — Arvind Narayan',
-  description:
-    'Case studies from Arvind Narayan — Staff ML/AI Engineer. AI-driven recruitment, stock intelligence, molecular ML, edtech, and enterprise SaaS products built for millions of users.',
-  openGraph: {
-    title: 'Selected Work — Arvind Narayan',
-    description:
-      'Case studies from Arvind Narayan — Staff ML/AI Engineer. AI-driven recruitment, stock intelligence, molecular ML, edtech, and enterprise SaaS products built for millions of users.',
-    url: 'https://arwwwind.com/work',
-  },
-};
-
-const projects = [
-  {
-    slug: 'cohort-ai',
-    title: 'Cohort AI',
-    tagline: 'AI recruitment platform that delivers 3 pre-vetted candidates in 72 hours.',
-    tags: ['AI Agents', 'NLP', 'Personalization', 'Product'],
-    year: '2024',
-    image: '/CohortAI – Match – Candidates – High Fit.png',
-    gradient: 'from-violet-950 via-indigo-950 to-black',
-    accentColor: 'text-violet-400',
-  },
-  {
-    slug: 'tickerlens',
-    title: 'TickerLens',
-    tagline: 'Conversational stock screening and AI-powered market intelligence.',
-    tags: ['NLP', 'Predictive Analytics', 'FinTech', 'LLMs'],
-    year: '2024',
-    image: '/ticker-6.png',
-    gradient: 'from-emerald-950 via-teal-950 to-black',
-    accentColor: 'text-emerald-400',
-  },
-  {
-    slug: 'yuni',
-    title: 'Yuni',
-    tagline: 'Private multimodal AI platform for creatives with custom model training.',
-    tags: ['Multimodal AI', 'Fine-Tuning', 'Creative Tools', 'Privacy'],
-    year: '2024',
-    image: '/Yuni_Desktop_Discover_Creations.png',
-    gradient: 'from-rose-950 via-pink-950 to-black',
-    accentColor: 'text-rose-400',
-  },
-  {
-    slug: 'subclarity',
-    title: 'Subclarity',
-    tagline: 'B2B platform automating IT subcontractor onboarding, contracts, and accounting.',
-    tags: ['B2B SaaS', 'Automation', 'Finance', 'Compliance'],
-    year: '2023',
-    image: '/sub.png',
-    gradient: 'from-blue-950 via-slate-950 to-black',
-    accentColor: 'text-blue-400',
-  },
-  {
-    slug: 'upgrad-lms',
-    title: 'upGrad LMS Rebuild',
-    tagline: '75% Core Web Vitals improvement — LMS serving 3M+ active learners.',
-    tags: ['React', 'Performance', 'PWA', 'Scale'],
-    year: '2020–2021',
-    image: '/lms.png',
-    gradient: 'from-orange-950 via-amber-950 to-black',
-    accentColor: 'text-orange-400',
-  },
-  {
-    slug: 'upgrad-shorts',
-    title: 'upGrad Shorts',
-    tagline: 'ML-powered micro-learning feed with spaced repetition and neural retention engine.',
-    tags: ['ML', 'Spaced Repetition', 'Personalization', 'EdTech'],
-    year: '2020',
-    image: '/masterclass.png',
-    gradient: 'from-fuchsia-950 via-purple-950 to-black',
-    accentColor: 'text-fuchsia-400',
-  },
-  {
-    slug: 'pranaa',
-    title: 'Praana Foods',
-    tagline: 'AI-native vegan meal subscription with monthly ML-driven nutrition recalibration.',
-    tags: ['ML', 'Personalization', 'Health Tech', 'Subscriptions'],
-    year: '2022',
-    image: '/pranaa.png',
-    gradient: 'from-green-950 via-emerald-950 to-black',
-    accentColor: 'text-green-400',
-  },
-  {
-    slug: 'upgrad-lite',
-    title: 'upGrad Lite',
-    tagline: 'Offline-first lite LMS for 2G networks — 60% bundle reduction, full PWA.',
-    tags: ['PWA', 'Offline-First', 'Performance', 'Emerging Markets'],
-    year: '2020',
-    image: '/lms.png',
-    gradient: 'from-cyan-950 via-sky-950 to-black',
-    accentColor: 'text-cyan-400',
-  },
-];
+export const metadata = workIndexMetadata();
 
 export default function WorkPage() {
   return (
     <div className='min-h-screen bg-black'>
+      <JsonLd data={workIndexJsonLd()} />
       <SectionGridBackground>
         <div className='max-w-screen-xl mx-auto px-4 py-24'>
 
@@ -131,7 +44,7 @@ export default function WorkPage() {
 
           {/* Grid */}
           <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
-            {projects.map((p) => (
+            {workProjects.map((p) => (
               <Link
                 key={p.slug}
                 href={`/work/${p.slug}`}

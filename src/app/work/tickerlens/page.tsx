@@ -1,20 +1,14 @@
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Badge } from '@/components/ui/badge';
 import { SectionGridBackground } from '@/components/ui/section-grid-background';
+import { JsonLd } from '@/components/seo/json-ld';
+import {
+  workProjectJsonLd,
+  workProjectMetadata,
+} from '@/lib/work-projects';
 
-export const metadata: Metadata = {
-  title: 'TickerLens — Case Study | Arvind Narayan',
-  description:
-    'How I built TickerLens — a conversational stock screening platform using NLP and predictive ML to let investors "talk" to the market instead of fighting 50-filter dashboards.',
-  openGraph: {
-    title: 'TickerLens — AI Stock Intelligence Platform',
-    description:
-      'Case study: natural language stock screening, SWOT AI summaries, and probability-based forecasting.',
-    url: 'https://arwwwind.com/work/tickerlens',
-  },
-};
+export const metadata = workProjectMetadata('tickerlens');
 
 const stack = [
   'Python', 'FastAPI', 'OpenAI GPT-4o', 'LangChain', 'Pinecone', 'PostgreSQL',
@@ -25,6 +19,7 @@ const stack = [
 export default function TickerLensPage() {
   return (
     <div className='min-h-screen bg-black'>
+      <JsonLd data={workProjectJsonLd('tickerlens')} />
       <SectionGridBackground>
         <div className='max-w-screen-lg mx-auto px-4 py-24'>
 

@@ -1,20 +1,14 @@
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Badge } from '@/components/ui/badge';
 import { SectionGridBackground } from '@/components/ui/section-grid-background';
+import { JsonLd } from '@/components/seo/json-ld';
+import {
+  workProjectJsonLd,
+  workProjectMetadata,
+} from '@/lib/work-projects';
 
-export const metadata: Metadata = {
-  title: 'upGrad Lite — Case Study | Arvind Narayan',
-  description:
-    'How I built a lightweight, offline-first lite version of upGrad\'s learner UI — cutting JS bundle size by 60%, enabling full PWA functionality on 2G networks, and reaching learners in low-bandwidth markets without degrading the product.',
-  openGraph: {
-    title: 'upGrad Lite — Offline-First LMS for Low-Bandwidth Markets',
-    description:
-      'Case study: 60% bundle reduction, service worker architecture, and progressive enhancement for emerging market users.',
-    url: 'https://arwwwind.com/work/upgrad-lite',
-  },
-};
+export const metadata = workProjectMetadata('upgrad-lite');
 
 const stack = [
   'React', 'TypeScript', 'Service Workers', 'Workbox', 'IndexedDB',
@@ -25,6 +19,7 @@ const stack = [
 export default function UpgradLitePage() {
   return (
     <div className='min-h-screen bg-black'>
+      <JsonLd data={workProjectJsonLd('upgrad-lite')} />
       <SectionGridBackground>
         <div className='max-w-screen-lg mx-auto px-4 py-24'>
 

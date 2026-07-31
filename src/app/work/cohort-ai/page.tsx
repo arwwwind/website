@@ -1,20 +1,14 @@
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Badge } from '@/components/ui/badge';
 import { SectionGridBackground } from '@/components/ui/section-grid-background';
+import { JsonLd } from '@/components/seo/json-ld';
+import {
+  workProjectJsonLd,
+  workProjectMetadata,
+} from '@/lib/work-projects';
 
-export const metadata: Metadata = {
-  title: 'Cohort AI — Case Study | Arvind Narayan',
-  description:
-    'How I architected the AI agent pipeline behind Cohort AI — a recruitment platform using SPEC agents (Sally, Pete, Eva, Charlie) to deliver pre-vetted technical talent in 72 hours.',
-  openGraph: {
-    title: 'Cohort AI — AI-Driven Technical Recruitment',
-    description:
-      'Case study: designing the multi-agent sourcing and evaluation pipeline behind Cohort AI.',
-    url: 'https://arwwwind.com/work/cohort-ai',
-  },
-};
+export const metadata = workProjectMetadata('cohort-ai');
 
 const stack = [
   'Python', 'LangGraph', 'OpenAI GPT-4o', 'Embeddings (text-embedding-3-large)',
@@ -25,6 +19,7 @@ const stack = [
 export default function CohortAIPage() {
   return (
     <div className='min-h-screen bg-black'>
+      <JsonLd data={workProjectJsonLd('cohort-ai')} />
       <SectionGridBackground>
         <div className='max-w-screen-lg mx-auto px-4 py-24'>
 

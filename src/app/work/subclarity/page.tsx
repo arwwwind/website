@@ -1,20 +1,14 @@
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Badge } from '@/components/ui/badge';
 import { SectionGridBackground } from '@/components/ui/section-grid-background';
+import { JsonLd } from '@/components/seo/json-ld';
+import {
+  workProjectJsonLd,
+  workProjectMetadata,
+} from '@/lib/work-projects';
 
-export const metadata: Metadata = {
-  title: 'Subclarity — Case Study | Arvind Narayan',
-  description:
-    'How I engineered Subclarity — an automated B2B platform replacing manual IT subcontractor onboarding, contract management, tax calculation, and compliance tracking with a single intelligent system.',
-  openGraph: {
-    title: 'Subclarity — IT Subcontracting Automation',
-    description:
-      'Case study: automated IT subcontractor workflows, compliance enforcement, and financial reporting at scale.',
-    url: 'https://arwwwind.com/work/subclarity',
-  },
-};
+export const metadata = workProjectMetadata('subclarity');
 
 const stack = [
   'Node.js', 'TypeScript', 'PostgreSQL', 'Prisma', 'React',
@@ -25,6 +19,7 @@ const stack = [
 export default function SubclarityPage() {
   return (
     <div className='min-h-screen bg-black'>
+      <JsonLd data={workProjectJsonLd('subclarity')} />
       <SectionGridBackground>
         <div className='max-w-screen-lg mx-auto px-4 py-24'>
 

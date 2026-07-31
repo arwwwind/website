@@ -1,20 +1,14 @@
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Badge } from '@/components/ui/badge';
 import { SectionGridBackground } from '@/components/ui/section-grid-background';
+import { JsonLd } from '@/components/seo/json-ld';
+import {
+  workProjectJsonLd,
+  workProjectMetadata,
+} from '@/lib/work-projects';
 
-export const metadata: Metadata = {
-  title: 'Yuni — Case Study | Arvind Narayan',
-  description:
-    'How I built Yuni — a private multimodal AI platform for creatives to train custom models on their own data, generate in their own voice, and own their intellectual property.',
-  openGraph: {
-    title: 'Yuni — Private Multimodal AI for Creatives',
-    description:
-      'Case study: custom model fine-tuning, privacy-first AI, and collaborative creative workspaces.',
-    url: 'https://arwwwind.com/work/yuni',
-  },
-};
+export const metadata = workProjectMetadata('yuni');
 
 const stack = [
   'Python', 'FastAPI', 'Stable Diffusion XL', 'LoRA Fine-Tuning', 'DreamBooth',
@@ -25,6 +19,7 @@ const stack = [
 export default function YuniPage() {
   return (
     <div className='min-h-screen bg-black'>
+      <JsonLd data={workProjectJsonLd('yuni')} />
       <SectionGridBackground>
         <div className='max-w-screen-lg mx-auto px-4 py-24'>
 

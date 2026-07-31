@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import dynamic from 'next/dynamic';
 import { HeroAvatar } from '@/components/ui/hero-avatar';
 import { FlipWords } from '@/components/ui/flip-words';
@@ -14,6 +15,15 @@ import { WorkShowcase } from '@/components/ui/work-showcase';
 import { BlogShowcase } from '@/components/ui/blog-showcase';
 import { TechStackStream } from '@/components/ui/tech-stack-stream';
 import { CapabilitiesShowcase } from '@/components/ui/capabilities-showcase';
+import { JsonLd } from '@/components/seo/json-ld';
+import {
+  DEFAULT_OG_IMAGE,
+  SITE_URL,
+  breadcrumbJsonLd,
+  indexFollowRobots,
+  pageTwitter,
+  profilePageJsonLd,
+} from '@/lib/seo';
 
 /** Client-only + code-split: TF.js stays out of the initial homepage bundle. */
 const BeatTheBot = dynamic(
@@ -21,6 +31,44 @@ const BeatTheBot = dynamic(
     import('@/components/BeatTheBot').then((m) => m.BeatTheBot),
   { ssr: false, loading: () => null }
 );
+
+const homeTitle = 'Arvind Narayan — Staff AI/ML Engineer';
+const homeDescription =
+  'Staff ML & AI Engineer. Building production ML systems, LLM pipelines, and distributed data infrastructure at scale.';
+
+export const metadata: Metadata = {
+  alternates: {
+    canonical: SITE_URL,
+  },
+  robots: indexFollowRobots,
+  openGraph: {
+    type: 'profile',
+    url: SITE_URL,
+    title: homeTitle,
+    description: homeDescription,
+    siteName: 'arwwwind',
+    locale: 'en_US',
+    firstName: 'Arvind',
+    lastName: 'Narayan',
+    images: [
+      {
+        url: DEFAULT_OG_IMAGE,
+        width: 1200,
+        height: 630,
+        alt: homeTitle,
+      },
+    ],
+  },
+  twitter: pageTwitter({
+    title: homeTitle,
+    description: homeDescription,
+  }),
+};
+
+const homeJsonLd = [
+  profilePageJsonLd(),
+  breadcrumbJsonLd([{ name: 'Home', path: '/' }]),
+];
 
 export default function Home() {
   const hello = ['Hi,', 'Hello,', 'வணக்கம்,', 'Hallo,', 'こんにちは', 'olá', 'ನಮಸ್ಕಾರ', 'Hola!', 'Bonjour,', 'नमस्ते,', '你好', 'مرحبًا', 'Привет'];
@@ -34,6 +82,7 @@ export default function Home() {
 
   return (
     <div className='min-h-[100vh] w-full max-w-none dark:bg-black bg-white relative'>
+      <JsonLd data={homeJsonLd} />
       <ScrollFX />
       <AuroraBackground className='min-h-screen w-full max-w-none'>
 

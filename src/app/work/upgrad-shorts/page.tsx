@@ -1,20 +1,14 @@
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Badge } from '@/components/ui/badge';
 import { SectionGridBackground } from '@/components/ui/section-grid-background';
+import { JsonLd } from '@/components/seo/json-ld';
+import {
+  workProjectJsonLd,
+  workProjectMetadata,
+} from '@/lib/work-projects';
 
-export const metadata: Metadata = {
-  title: 'upGrad Shorts — Case Study | Arvind Narayan',
-  description:
-    'Engineered upGrad Shorts — a micro-learning feed with SM2 spaced repetition and a neural network classifier that predicts optimal review intervals per learner, delivering a 15% lift in retargeting and cross-sale experiments.',
-  openGraph: {
-    title: 'upGrad Shorts — ML-Driven Micro-Learning',
-    description:
-      'Case study: SM2 spaced repetition + neural network personalization for short-form learning.',
-    url: 'https://arwwwind.com/work/upgrad-shorts',
-  },
-};
+export const metadata = workProjectMetadata('upgrad-shorts');
 
 const stack = [
   'Python', 'scikit-learn', 'PyTorch', 'SM2 Algorithm', 'Node.js',
@@ -25,6 +19,7 @@ const stack = [
 export default function UpgradShortsPage() {
   return (
     <div className='min-h-screen bg-black'>
+      <JsonLd data={workProjectJsonLd('upgrad-shorts')} />
       <SectionGridBackground>
         <div className='max-w-screen-lg mx-auto px-4 py-24'>
 
