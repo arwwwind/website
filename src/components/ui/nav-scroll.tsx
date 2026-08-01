@@ -7,9 +7,9 @@ import { cn } from '@/lib/utils';
 const SECTIONS = ['hero', 'writing', 'what-i-do', 'timeline'];
 
 const links = [
-  { id: 'writing', label: 'Writing' },
-  { id: 'what-i-do', label: 'What I Do' },
-  { id: 'timeline', label: 'Experience' },
+  { id: 'writing', label: 'Writing', href: '/blogs' },
+  { id: 'what-i-do', label: 'What I Do', href: '#what-i-do' },
+  { id: 'timeline', label: 'Experience', href: '#timeline' },
 ];
 
 export const NavLinks = () => {
@@ -37,7 +37,7 @@ export const NavLinks = () => {
       {links.map((link) => (
         <li key={link.id} className='relative'>
           <a
-            href={`#${link.id}`}
+            href={link.href}
             className={cn(
               'block py-1 text-sm transition-colors duration-200',
               active === link.id

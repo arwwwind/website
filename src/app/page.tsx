@@ -2,11 +2,11 @@ import type { Metadata } from 'next';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { HeroAvatar } from '@/components/ui/hero-avatar';
-import { FlipWords } from '@/components/ui/flip-words';
 import { Timeline } from '@/components/ui/timeline';
 import { Badge } from '@/components/ui/badge';
 import { AuroraBackground } from '@/components/ui/aurora-background';
 import { CrypticText } from '@/components/ui/cryptic-text';
+import { HeroHeadings } from '@/components/ui/hero-headings';
 import { HeroBio } from '@/components/HeroBio';
 import { NeuralField } from '@/components/three/neural-field';
 import { ScrollFX } from '@/components/ui/scroll-fx';
@@ -101,24 +101,7 @@ export default function Home() {
 
             {/* Left: Text */}
             <div className='order-2 md:order-1 font-bold'>
-              <h1 data-hero className='text-2xl md:text-3xl py-1'>
-                <FlipWords words={hello} waitForBoot />
-              </h1>
-              <h2 data-hero className='text-3xl md:text-5xl px-2 py-1 leading-tight'>
-                <span>{`I'm `}</span>
-                <CrypticText
-                  text='Arvind Narayan'
-                  waitForBoot
-                  cps={16}
-                  flipsPerChar={3}
-                  scrambleWindow={4}
-                  className='bg-gradient-to-r from-teal-400 via-rose-300 to-teal-400 bg-[length:200%_auto] bg-clip-text text-transparent animate-[cryptic-shimmer-italic_4s_linear_infinite]'
-                />
-              </h2>
-              <div data-hero className='text-xl md:text-2xl mt-1 text-neutral-300'>
-                <FlipWords words={roles} waitForBoot />
-              </div>
-
+              <HeroHeadings greetings={hello} roles={roles} />
               <HeroBio />
             </div>
 

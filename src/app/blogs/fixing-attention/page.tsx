@@ -12,6 +12,7 @@ import { MermaidDiagram } from '@/components/blog/mermaid-diagram';
 import {
   formatPostDate,
   getPostBySlug,
+  postDocumentTitle,
   postUrl,
   SITE_URL,
 } from '@/lib/blog-posts';
@@ -51,7 +52,7 @@ flowchart TD
 `;
 
 export const metadata: Metadata = {
-  title: `${post.title} — Arvind Narayan`,
+  title: postDocumentTitle(post),
   description: post.description,
   keywords: [
     ...post.tags,

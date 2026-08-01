@@ -5,6 +5,8 @@ export { SITE_URL };
 export type BlogPost = {
   slug: string;
   title: string;
+  /** Document <title> stem — keep ≤42 chars so "+ — Arvind Narayan" fits SERP. */
+  metaTitle: string;
   description: string;
   date: string; // YYYY-MM-DD
   tags: string[];
@@ -17,10 +19,35 @@ export type BlogPost = {
 
 export const blogPosts: BlogPost[] = [
   {
+    slug: 'the-nutritionist-in-the-machine',
+    title: 'The Nutritionist in the Machine',
+    metaTitle: 'The Nutritionist in the Machine',
+    description:
+      'How a nutrition recommender actually decides what lands on your plate — and why it needs more than an LLM labouring under delusions of competence.',
+    date: '2026-08-02',
+    tags: [
+      'nutrition',
+      'recommender-systems',
+      'constrained-optimisation',
+      'llm',
+      'personalization',
+      'food-tech',
+      'ml-systems',
+      'healthcare-ai',
+    ],
+    coverAlt:
+      'Sepia surrealist architectural sketch of a desert plain where paths converge on a central pedestal machine, with crystalline scaffolds on one side and melting classical forms on the other — a recommendation system processing human data',
+    coverPath: '/blog/the-nutritionist-in-the-machine',
+    ogImage: '/blog/the-nutritionist-in-the-machine/og.jpg',
+    wordCount: 5600,
+    readingMinutes: 24,
+  },
+  {
     slug: 'the-rope-sellers-buy-a-rope-machine',
     title: 'The Rope Sellers Buy a Rope Machine',
+    metaTitle: 'The Rope Sellers Buy a Rope Machine',
     description:
-      'Indian IT slept through the AI revolution, woke up to a crashing stock price, and is now signing partnerships like a man buying gym memberships to fix a heart attack.',
+      'Indian IT slept through the AI revolution, woke up to a crashing stock price, and is signing partnerships like gym memberships after a heart attack.',
     date: '2026-08-01',
     tags: [
       'indian-it',
@@ -43,8 +70,9 @@ export const blogPosts: BlogPost[] = [
     slug: 'the-tree-not-the-titan',
     title:
       "The Tree, Not the Titan: Why AI's Future Is Architect Models Over Specialists — and Where That Intuition Breaks",
+    metaTitle: 'The Tree, Not the Titan',
     description:
-      'Biology, MoE, routers, and agent swarms all point at hierarchy — but the load-bearing case is architectural and economic, not a neuroscience proof. Trees win when tasks decompose and verification is cheap; monoliths win when the problem is entangled.',
+      'Biology, MoE, routers, and agent swarms point at hierarchy — trees win when tasks decompose; monoliths win when problems are entangled.',
     date: '2026-08-01',
     tags: [
       'architect-models',
@@ -66,8 +94,9 @@ export const blogPosts: BlogPost[] = [
   {
     slug: 'the-rope-sellers',
     title: 'The Rope Sellers',
+    metaTitle: 'The Rope Sellers',
     description:
-      'How agentic AI is quietly gutting the Big 4, consulting, and Indian IT — and why the only firms keeping their pricing power are the ones a government forces to sign their name in blood.',
+      'How agentic AI is gutting the Big 4, consulting, and Indian IT — and why firms that keep pricing power are the ones forced to sign their name in blood.',
     date: '2026-07-31',
     tags: [
       'agentic-ai',
@@ -88,8 +117,9 @@ export const blogPosts: BlogPost[] = [
   {
     slug: 'vibes-all-the-way-down',
     title: 'Vibes All the Way Down: Notes on Outsourcing Intuition',
+    metaTitle: 'Vibes All the Way Down',
     description:
-      'Are we augmenting intelligence, or outsourcing it? Notes on vibe coding, workslop, cognitive debt, and what happens when organizations hand judgment to the model.',
+      'Are we augmenting intelligence, or outsourcing it? Notes on vibe coding, workslop, cognitive debt, and handing judgment to the model.',
     date: '2026-07-31',
     tags: [
       'vibe-coding',
@@ -110,8 +140,9 @@ export const blogPosts: BlogPost[] = [
   {
     slug: 'anatomy-of-an-agentic-ai-system',
     title: 'Anatomy of an Agentic AI System for the Workspace',
+    metaTitle: 'Anatomy of an Agentic AI System',
     description:
-      'A practical guide to building — or evaluating — an enterprise agentic workspace assistant: permission-aware retrieval, intent routing, hybrid RAG, sandboxes, evals, and cost-per-answer as a design constraint.',
+      'A practical guide to building or evaluating an enterprise agentic workspace: permission-aware retrieval, intent routing, hybrid RAG, sandboxes, and evals.',
     date: '2026-07-31',
     tags: [
       'agentic-ai',
@@ -132,8 +163,9 @@ export const blogPosts: BlogPost[] = [
   {
     slug: 'fixing-attention',
     title: 'Fixing attention. Cause attention is all you need.',
+    metaTitle: 'Fixing Attention',
     description:
-      'I helped build a TikTok for learning. It got great watch time and taught nobody anything. Here\'s the second attempt — a feed with an ending, a quiz, and a scheduler that refuses to show you the fun thing.',
+      'Helped build a TikTok for learning — great watch time, taught nobody. Second attempt: a feed with an ending, a quiz, and a scheduler that refuses the fun thing.',
     date: '2026-07-31',
     tags: [
       'attention',
@@ -154,6 +186,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: 'one-model-to-rule-them-all',
     title: 'One Model to Rule Them All. Well, Most of Them.',
+    metaTitle: 'One Model to Rule Them All',
     description:
       "XGBoost is the single piece of technology I've used most in my career, and I think most teams are solving model problems when they actually have data problems.",
     date: '2026-07-31',
@@ -187,6 +220,10 @@ export function getAllPosts(): BlogPost[] {
 
 export function postUrl(slug: string): string {
   return `${SITE_URL}/blogs/${slug}`;
+}
+
+export function postDocumentTitle(post: BlogPost): string {
+  return `${post.metaTitle} — Arvind Narayan`;
 }
 
 export function formatPostDate(date: string): string {

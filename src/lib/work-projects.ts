@@ -32,7 +32,7 @@ export const workProjects: WorkProject[] = [
       'AI recruitment platform that delivers 3 pre-vetted candidates in 72 hours.',
     metaTitle: 'Cohort AI — Case Study | Arvind Narayan',
     description:
-      'How I architected the AI agent pipeline behind Cohort AI — a recruitment platform using SPEC agents (Sally, Pete, Eva, Charlie) to deliver pre-vetted technical talent in 72 hours.',
+      'How I architected the AI agent pipeline behind Cohort AI — SPEC agents delivering pre-vetted technical talent in 72 hours.',
     ogTitle: 'Cohort AI — AI-Driven Technical Recruitment',
     ogDescription:
       'Case study: designing the multi-agent sourcing and evaluation pipeline behind Cohort AI.',
@@ -48,7 +48,7 @@ export const workProjects: WorkProject[] = [
     tagline: 'Conversational stock screening and AI-powered market intelligence.',
     metaTitle: 'TickerLens — Case Study | Arvind Narayan',
     description:
-      'How I built TickerLens — a conversational stock screening platform using NLP and predictive ML to let investors "talk" to the market instead of fighting 50-filter dashboards.',
+      'How I built TickerLens — conversational stock screening with NLP and predictive ML so investors can talk to the market.',
     ogTitle: 'TickerLens — AI Stock Intelligence Platform',
     ogDescription:
       'Case study: natural language stock screening, SWOT AI summaries, and probability-based forecasting.',
@@ -65,7 +65,7 @@ export const workProjects: WorkProject[] = [
       'Private multimodal AI platform for creatives with custom model training.',
     metaTitle: 'Yuni — Case Study | Arvind Narayan',
     description:
-      'How I built Yuni — a private multimodal AI platform for creatives to train custom models on their own data, generate in their own voice, and own their intellectual property.',
+      'How I built Yuni — a private multimodal AI platform for creatives to train custom models on their own data and own their IP.',
     ogTitle: 'Yuni — Private Multimodal AI for Creatives',
     ogDescription:
       'Case study: custom model fine-tuning, privacy-first AI, and collaborative creative workspaces.',
@@ -82,7 +82,7 @@ export const workProjects: WorkProject[] = [
       'B2B platform automating IT subcontractor onboarding, contracts, and accounting.',
     metaTitle: 'Subclarity — Case Study | Arvind Narayan',
     description:
-      'How I engineered Subclarity — an automated B2B platform replacing manual IT subcontractor onboarding, contract management, tax calculation, and compliance tracking with a single intelligent system.',
+      'How I engineered Subclarity — automating IT subcontractor onboarding, contracts, tax, and compliance in one system.',
     ogTitle: 'Subclarity — IT Subcontracting Automation',
     ogDescription:
       'Case study: automated IT subcontractor workflows, compliance enforcement, and financial reporting at scale.',
@@ -98,7 +98,7 @@ export const workProjects: WorkProject[] = [
     tagline: '75% Core Web Vitals improvement — LMS serving 3M+ active learners.',
     metaTitle: 'upGrad LMS Rebuild — Case Study | Arvind Narayan',
     description:
-      "Led the full-stack rebuild of upGrad's Learning Management System — achieving 75% Core Web Vitals improvement, sub-200ms API response times, and offline-first PWA for 3M+ active learners across emerging markets.",
+      "Led upGrad's LMS rebuild — 75% Core Web Vitals improvement, sub-200ms APIs, and offline-first PWA for 3M+ learners.",
     ogTitle: 'upGrad LMS Rebuild — 75% Core Web Vitals Improvement',
     ogDescription:
       'Case study: architecting a PWA-first LMS for 3M+ active learners with offline-first support for 2G networks.',
@@ -115,7 +115,7 @@ export const workProjects: WorkProject[] = [
       'ML-powered micro-learning feed with spaced repetition and neural retention engine.',
     metaTitle: 'upGrad Shorts — Case Study | Arvind Narayan',
     description:
-      'Engineered upGrad Shorts — a micro-learning feed with SM2 spaced repetition and a neural network classifier that predicts optimal review intervals per learner, delivering a 15% lift in retargeting and cross-sale experiments.',
+      'Engineered upGrad Shorts — micro-learning with SM2 spaced repetition and a neural classifier for optimal review intervals.',
     ogTitle: 'upGrad Shorts — ML-Driven Micro-Learning',
     ogDescription:
       'Case study: SM2 spaced repetition + neural network personalization for short-form learning.',
@@ -132,7 +132,7 @@ export const workProjects: WorkProject[] = [
       'AI-native vegan meal subscription with monthly ML-driven nutrition recalibration.',
     metaTitle: 'Praana Foods — Case Study | Arvind Narayan',
     description:
-      "Built the ML personalization engine behind Praana Foods — an AI-native vegan meal subscription that uses monthly health check-ins and a feedback loop to recalibrate each subscriber's macro and micronutrient plan.",
+      "Built the ML personalization engine behind Praana Foods — monthly check-ins recalibrating each subscriber's nutrition plan.",
     ogTitle: 'Praana Foods — Precision Vegan Nutrition ML',
     ogDescription:
       'Case study: ML-driven nutritional recalibration, allergy guard, and life-stage personalization for a vegan meal subscription.',
@@ -148,7 +148,7 @@ export const workProjects: WorkProject[] = [
     tagline: 'Offline-first lite LMS for 2G networks — 60% bundle reduction, full PWA.',
     metaTitle: 'upGrad Lite — Case Study | Arvind Narayan',
     description:
-      "How I built a lightweight, offline-first lite version of upGrad's learner UI — cutting JS bundle size by 60%, enabling full PWA functionality on 2G networks, and reaching learners in low-bandwidth markets without degrading the product.",
+      "Built upGrad Lite — offline-first learner UI with 60% smaller JS bundles and full PWA support on 2G networks.",
     ogTitle: 'upGrad Lite — Offline-First LMS for Low-Bandwidth Markets',
     ogDescription:
       'Case study: 60% bundle reduction, service worker architecture, and progressive enhancement for emerging market users.',
@@ -260,7 +260,7 @@ export function workProjectJsonLd(slug: string) {
 export function workIndexMetadata(): Metadata {
   const title = 'Selected Work — Arvind Narayan';
   const description =
-    'Case studies from Arvind Narayan — Staff ML/AI Engineer. AI-driven recruitment, stock intelligence, molecular ML, edtech, and enterprise SaaS products built for millions of users.';
+    'Case studies from Arvind Narayan — Staff ML/AI Engineer. AI recruitment, stock intelligence, edtech, and enterprise SaaS.';
   const url = absoluteUrl('/work');
 
   return {

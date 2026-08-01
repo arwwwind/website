@@ -10,6 +10,7 @@ import {
 import {
   formatPostDate,
   getPostBySlug,
+  postDocumentTitle,
   postUrl,
   SITE_URL,
 } from '@/lib/blog-posts';
@@ -21,7 +22,7 @@ const ogAbsolute = `${SITE_URL}${post.ogImage}`;
 const publishedIso = `${post.date}T12:00:00.000Z`;
 
 export const metadata: Metadata = {
-  title: `${post.title} — Arvind Narayan`,
+  title: postDocumentTitle(post),
   description: post.description,
   keywords: [
     ...post.tags,

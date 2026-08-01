@@ -11,6 +11,7 @@ import {
 import {
   formatPostDate,
   getPostBySlug,
+  postDocumentTitle,
   postUrl,
   SITE_URL,
 } from '@/lib/blog-posts';
@@ -23,7 +24,7 @@ const publishedIso = `${post.date}T12:00:00.000Z`;
 const IMG = '/blog/one-model-to-rule-them-all';
 
 export const metadata: Metadata = {
-  title: `${post.title} — Arvind Narayan`,
+  title: postDocumentTitle(post),
   description: post.description,
   keywords: [
     ...post.tags,

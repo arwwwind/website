@@ -32,6 +32,31 @@ const RELATED_BY_SLUG: Record<
   string,
   { series?: SeriesMeta; mid?: RelatedRef; end?: RelatedRef[] }
 > = {
+  'the-nutritionist-in-the-machine': {
+    mid: {
+      kind: 'blog',
+      slug: 'one-model-to-rule-them-all',
+      eyebrow: 'Related essay',
+      blurb:
+        'Start with trees before you reach for neural nets — the same instinct this nutrition stack is built on.',
+    },
+    end: [
+      {
+        kind: 'blog',
+        slug: 'fixing-attention',
+        eyebrow: 'Related essay',
+        blurb:
+          'Another recommender with hard constraints — spaced repetition that refuses to optimise for watch time.',
+      },
+      {
+        kind: 'blog',
+        slug: 'anatomy-of-an-agentic-ai-system',
+        eyebrow: 'Related essay',
+        blurb:
+          'How to wire retrieval, guardrails, and human review when the model must not own the safety path.',
+      },
+    ],
+  },
   'the-rope-sellers': {
     series: { id: 'rope-sellers', label: 'The Rope Sellers', part: 1 },
     mid: {

@@ -137,9 +137,9 @@ export default function BlogsPage() {
       </article>
 
       <section className='blog-index' aria-labelledby='blog-index-heading'>
-        <h2 id='blog-index-heading' className='blog-index__heading'>
+        <h1 id='blog-index-heading' className='blog-index__heading'>
           Posts
-        </h2>
+        </h1>
         <ul className='blog-index__list'>
           {posts.map((post) => (
             <li key={post.slug} className='blog-index__item'>
