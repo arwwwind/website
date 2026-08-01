@@ -251,6 +251,24 @@ export default function CohortAIPage() {
                 ))}
               </div>
             </section>
+
+            <aside className='rounded-2xl border border-dashed border-violet-800/50 bg-violet-950/20 px-5 py-5'>
+              <p className='text-[11px] font-semibold tracking-widest uppercase text-violet-400/80 mb-2'>
+                Related essay
+              </p>
+              <Link href='/blogs/anatomy-of-an-agentic-ai-system' className='group block'>
+                <p className='text-lg font-bold text-white group-hover:text-violet-200 transition-colors mb-1.5'>
+                  Anatomy of an Agentic AI System for the Workspace
+                </p>
+                <p className='text-sm text-neutral-400 leading-relaxed mb-3'>
+                  The architecture playbook behind multi-agent systems like this — permissions,
+                  routing, hybrid RAG, sandboxes, and cost-per-answer as a design constraint.
+                </p>
+                <span className='text-sm font-medium text-violet-400 group-hover:text-violet-300 transition-colors'>
+                  Read more →
+                </span>
+              </Link>
+            </aside>
           </div>
 
           {/* Footer nav */}

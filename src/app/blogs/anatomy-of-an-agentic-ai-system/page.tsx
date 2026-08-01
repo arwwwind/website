@@ -2,6 +2,10 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { BlogCover } from '@/components/blog/blog-cover';
 import { BlogHook } from '@/components/blog/blog-hook';
+import {
+  BlogContinueReading,
+  BlogRelatedAd,
+} from '@/components/blog/blog-related';
 import { MermaidDiagram } from '@/components/blog/mermaid-diagram';
 import {
   formatPostDate,
@@ -555,8 +559,9 @@ export default function AnatomyOfAnAgenticAISystemPostPage() {
 <td>Columnar, cheap at volume</td>
 </tr>
 </tbody>
-</table></div>
-<h2>Details</h2>
+</table></div>` }} />
+          <BlogRelatedAd slug={SLUG} />
+          <div dangerouslySetInnerHTML={{ __html: `<h2>Details</h2>
 <h3>1. Auth &amp; Authorization: identity is the hardest part, do it first</h3>
 <p>There are <strong>four</strong> distinct authorization surfaces in a workspace agent, and conflating them is the most common architectural mistake:</p>
 <ol>
@@ -1621,6 +1626,7 @@ export default function AnatomyOfAnAgenticAISystemPostPage() {
 </ul>` }} />
         </div>
 
+        <BlogContinueReading slug={SLUG} />
         <BlogHook />
 
         <footer className='blog-article__footer'>

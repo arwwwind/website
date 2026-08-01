@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import dynamic from 'next/dynamic';
+import Link from 'next/link';
 import { HeroAvatar } from '@/components/ui/hero-avatar';
 import { FlipWords } from '@/components/ui/flip-words';
 import { Timeline } from '@/components/ui/timeline';
@@ -853,14 +854,19 @@ const exp = [
         <div className='mb-8 pl-4 border-l border-neutral-800'>
           <p className='text-rose-400 text-xs font-semibold tracking-widest uppercase mb-3'>
             LMS Rebuild · Full-Stack Platform{' '}
-            <a
-              href='https://medium.com/technology-at-upgrad/how-we-improved-user-experience-by-building-a-lite-version-of-learner-experience-ui-2df5ee521a5f'
+            <Link
+              href='/work/upgrad-lms'
               className='text-neutral-600 hover:text-teal-400 normal-case font-normal transition-colors'
-              target='_blank'
-              rel='noopener noreferrer'
             >
               [Case Study]
-            </a>
+            </Link>
+            {' · '}
+            <Link
+              href='/work/upgrad-lite'
+              className='text-neutral-600 hover:text-teal-400 normal-case font-normal transition-colors'
+            >
+              [Lite]
+            </Link>
           </p>
           <p className='text-neutral-400 text-xs md:text-sm font-normal mb-3'>
             <span className='text-rose-400 font-semibold'>
@@ -985,18 +991,43 @@ const exp = [
         {/* Shorts / ML */}
         <div className='mb-8 pl-4 border-l border-neutral-800'>
           <p className='text-rose-400 text-xs font-semibold tracking-widest uppercase mb-3'>
-            ML Product: &ldquo;Shorts&rdquo; — Micro-Learning Feed
+            ML Product: &ldquo;Shorts&rdquo; — Micro-Learning Feed{' '}
+            <Link
+              href='/work/upgrad-shorts'
+              className='text-neutral-600 hover:text-teal-400 normal-case font-normal transition-colors'
+            >
+              [Case Study]
+            </Link>
+            {' · '}
+            <Link
+              href='/blogs/fixing-attention'
+              className='text-neutral-600 hover:text-teal-400 normal-case font-normal transition-colors'
+            >
+              [Essay]
+            </Link>
           </p>
           <p className='text-neutral-400 text-xs md:text-sm font-normal mb-3'>
             Engineered{' '}
-            <span className='text-white font-medium'>
+            <Link
+              href='/work/upgrad-shorts'
+              className='text-white font-medium hover:text-teal-300 transition-colors'
+            >
               upGrad Shorts
-            </span>{' '}
+            </Link>{' '}
             as a learning-science driven micro-learning product. Built the
             ranking and retention engine using the{' '}
             <span className='text-rose-400 font-medium'>SM2 spaced repetition algorithm</span>{' '}
             paired with a neural network classifier to predict optimal review
             intervals per learner, improving long-term knowledge retention.
+            The longer write-up on what went wrong with attention — and the
+            second attempt — is in{' '}
+            <Link
+              href='/blogs/fixing-attention'
+              className='text-teal-400 underline underline-offset-2 hover:text-teal-300 transition-colors'
+            >
+              Fixing attention
+            </Link>
+            .
           </p>
           <p className='text-neutral-400 text-xs md:text-sm font-normal mb-3'>
             Owned the end-to-end experience across personalization logic,

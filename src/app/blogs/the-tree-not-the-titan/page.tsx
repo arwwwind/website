@@ -4,6 +4,10 @@ import { BlogCover } from '@/components/blog/blog-cover';
 import { BlogDropcap } from '@/components/blog/blog-dropcap';
 import { BlogHook } from '@/components/blog/blog-hook';
 import {
+  BlogContinueReading,
+  BlogRelatedAd,
+} from '@/components/blog/blog-related';
+import {
   formatPostDate,
   getPostBySlug,
   postUrl,
@@ -568,6 +572,8 @@ export default function TheTreeNotTheTitanPostPage() {
             the thing that makes the tree economically coherent.
           </p>
 
+          <BlogRelatedAd slug={SLUG} />
+
           <h2>The AGAINST case — steelmanned, no softballs</h2>
 
           <p>
@@ -1013,6 +1019,7 @@ export default function TheTreeNotTheTitanPostPage() {
           </ul>
         </div>
 
+        <BlogContinueReading slug={SLUG} />
         <BlogHook />
 
         <footer className='blog-article__footer'>

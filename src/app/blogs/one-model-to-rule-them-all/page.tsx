@@ -5,6 +5,10 @@ import { BlogCover } from '@/components/blog/blog-cover';
 import { BlogDropcap } from '@/components/blog/blog-dropcap';
 import { BlogHook } from '@/components/blog/blog-hook';
 import {
+  BlogContinueReading,
+  BlogRelatedAd,
+} from '@/components/blog/blog-related';
+import {
   formatPostDate,
   getPostBySlug,
   postUrl,
@@ -453,6 +457,8 @@ export default function OneModelToRuleThemAllPostPage() {
               jagged — not because of a magic algorithm.
             </figcaption>
           </figure>
+
+          <BlogRelatedAd slug={SLUG} />
 
           <h2>The Implementation for Most Problems</h2>
 
@@ -1522,6 +1528,7 @@ export default function OneModelToRuleThemAllPostPage() {
           </ul>
         </div>
 
+        <BlogContinueReading slug={SLUG} />
         <BlogHook />
 
         <footer className='blog-article__footer'>

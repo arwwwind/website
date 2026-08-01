@@ -17,6 +17,29 @@ export type BlogPost = {
 
 export const blogPosts: BlogPost[] = [
   {
+    slug: 'the-rope-sellers-buy-a-rope-machine',
+    title: 'The Rope Sellers Buy a Rope Machine',
+    description:
+      'Indian IT slept through the AI revolution, woke up to a crashing stock price, and is now signing partnerships like a man buying gym memberships to fix a heart attack.',
+    date: '2026-08-01',
+    tags: [
+      'indian-it',
+      'agentic-ai',
+      'anthropic',
+      'tcs',
+      'infosys',
+      'outsourcing',
+      'professional-services',
+      'china-ai',
+    ],
+    coverAlt:
+      'Sepia Dalí-style drawing of a stilt-legged elephant with a melting clock and ants pouring from a drawer, holding a rope that tethers dissolving animals over a smoky industrial wasteland',
+    coverPath: '/blog/the-rope-sellers-buy-a-rope-machine',
+    ogImage: '/blog/the-rope-sellers-buy-a-rope-machine/og.jpg',
+    wordCount: 3200,
+    readingMinutes: 14,
+  },
+  {
     slug: 'the-tree-not-the-titan',
     title:
       "The Tree, Not the Titan: Why AI's Future Is Architect Models Over Specialists — and Where That Intuition Breaks",

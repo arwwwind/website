@@ -181,6 +181,28 @@ export default function UpgradShortsPage() {
                 ))}
               </div>
             </section>
+
+            <aside className='rounded-2xl border border-dashed border-fuchsia-800/50 bg-fuchsia-950/20 px-5 py-5'>
+              <p className='text-[11px] font-semibold tracking-widest uppercase text-fuchsia-400/80 mb-2'>
+                Related essay
+              </p>
+              <Link
+                href='/blogs/fixing-attention'
+                className='group block'
+              >
+                <p className='text-lg font-bold text-white group-hover:text-fuchsia-200 transition-colors mb-1.5'>
+                  Fixing attention. Cause attention is all you need.
+                </p>
+                <p className='text-sm text-neutral-400 leading-relaxed mb-3'>
+                  The longer story — why a TikTok-for-learning taught nobody anything, and the
+                  second attempt with a feed that ends, a quiz, and a scheduler that refuses to
+                  show you the fun thing.
+                </p>
+                <span className='text-sm font-medium text-fuchsia-400 group-hover:text-fuchsia-300 transition-colors'>
+                  Read more →
+                </span>
+              </Link>
+            </aside>
           </div>
 
           <div className='mt-20 pt-8 border-t border-neutral-900 flex justify-between items-center'>

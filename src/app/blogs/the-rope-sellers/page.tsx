@@ -4,6 +4,11 @@ import { BlogCover } from '@/components/blog/blog-cover';
 import { BlogDropcap } from '@/components/blog/blog-dropcap';
 import { BlogHook } from '@/components/blog/blog-hook';
 import {
+  BlogContinueReading,
+  BlogRelatedAd,
+  BlogSeriesBanner,
+} from '@/components/blog/blog-related';
+import {
   formatPostDate,
   getPostBySlug,
   postUrl,
@@ -240,6 +245,8 @@ export default function TheRopeSellersPostPage() {
           />
           <figcaption className='sr-only'>{post.coverAlt}</figcaption>
         </figure>
+
+        <BlogSeriesBanner slug={SLUG} />
 
         <div className='blog-prose' itemProp='articleBody'>
           <p className='blog-prose__lede'>
@@ -546,6 +553,8 @@ export default function TheRopeSellersPostPage() {
             and every Indian IT major is being measured against it.
           </p>
 
+          <BlogRelatedAd slug={SLUG} />
+
           <h2>The counterexample that proves the rule: BigLaw</h2>
 
           <p>
@@ -716,6 +725,7 @@ export default function TheRopeSellersPostPage() {
           </p>
         </div>
 
+        <BlogContinueReading slug={SLUG} />
         <BlogHook />
 
         <footer className='blog-article__footer'>

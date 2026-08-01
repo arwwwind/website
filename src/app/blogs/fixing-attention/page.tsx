@@ -4,6 +4,10 @@ import Link from 'next/link';
 import { BlogCover } from '@/components/blog/blog-cover';
 import { BlogDropcap } from '@/components/blog/blog-dropcap';
 import { BlogHook } from '@/components/blog/blog-hook';
+import {
+  BlogContinueReading,
+  BlogRelatedAd,
+} from '@/components/blog/blog-related';
 import { MermaidDiagram } from '@/components/blog/mermaid-diagram';
 import {
   formatPostDate,
@@ -688,6 +692,8 @@ def sm2(card: Card, q: int) -> Card:
             None of which stops it from being a perfectly reasonable default. It
             just means someone was eventually going to fit the curve properly.
           </p>
+
+          <BlogRelatedAd slug={SLUG} />
 
           <h2>FSRS</h2>
 
@@ -2209,6 +2215,7 @@ def pick_slot(logits, due_day_slots):
           </ul>
         </div>
 
+        <BlogContinueReading slug={SLUG} />
         <BlogHook />
 
         <footer className='blog-article__footer'>

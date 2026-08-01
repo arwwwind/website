@@ -188,6 +188,37 @@ export default function UpgradLMSPage() {
                 ))}
               </div>
             </section>
+
+            <aside className='rounded-2xl border border-dashed border-orange-800/50 bg-orange-950/20 px-5 py-5'>
+              <p className='text-[11px] font-semibold tracking-widest uppercase text-orange-400/80 mb-2'>
+                Related reading
+              </p>
+              <ul className='space-y-4'>
+                <li>
+                  <Link href='/work/upgrad-shorts' className='group block'>
+                    <p className='text-base font-bold text-white group-hover:text-orange-200 transition-colors mb-1'>
+                      upGrad Shorts — case study
+                    </p>
+                    <p className='text-sm text-neutral-400 leading-relaxed'>
+                      The micro-learning feed that sat on top of this LMS.
+                    </p>
+                  </Link>
+                </li>
+                <li>
+                  <Link href='/blogs/fixing-attention' className='group block'>
+                    <p className='text-base font-bold text-white group-hover:text-orange-200 transition-colors mb-1'>
+                      Fixing attention — essay
+                    </p>
+                    <p className='text-sm text-neutral-400 leading-relaxed mb-1'>
+                      What we learned about watch time vs. learning — and the second attempt.
+                    </p>
+                    <span className='text-sm font-medium text-orange-400 group-hover:text-orange-300 transition-colors'>
+                      Read more →
+                    </span>
+                  </Link>
+                </li>
+              </ul>
+            </aside>
           </div>
 
           <div className='mt-20 pt-8 border-t border-neutral-900 flex justify-between items-center'>

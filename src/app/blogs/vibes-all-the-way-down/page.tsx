@@ -4,6 +4,10 @@ import { BlogCover } from '@/components/blog/blog-cover';
 import { BlogDropcap } from '@/components/blog/blog-dropcap';
 import { BlogHook } from '@/components/blog/blog-hook';
 import {
+  BlogContinueReading,
+  BlogRelatedAd,
+} from '@/components/blog/blog-related';
+import {
   formatPostDate,
   getPostBySlug,
   postUrl,
@@ -617,6 +621,8 @@ export default function VibesAllTheWayDownPostPage() {
             Name the quarterly-earnings CEO who volunteers.
           </p>
 
+          <BlogRelatedAd slug={SLUG} />
+
           <h2>The Steelman, Because It Deserves One</h2>
 
           <p>
@@ -776,6 +782,7 @@ export default function VibesAllTheWayDownPostPage() {
           <p>See you in 2028.</p>
         </div>
 
+        <BlogContinueReading slug={SLUG} />
         <BlogHook />
 
         <footer className='blog-article__footer'>
