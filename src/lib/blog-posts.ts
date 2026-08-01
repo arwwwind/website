@@ -17,6 +17,30 @@ export type BlogPost = {
 
 export const blogPosts: BlogPost[] = [
   {
+    slug: 'the-tree-not-the-titan',
+    title:
+      "The Tree, Not the Titan: Why AI's Future Is Architect Models Over Specialists — and Where That Intuition Breaks",
+    description:
+      'Biology, MoE, routers, and agent swarms all point at hierarchy — but the load-bearing case is architectural and economic, not a neuroscience proof. Trees win when tasks decompose and verification is cheap; monoliths win when the problem is entangled.',
+    date: '2026-08-01',
+    tags: [
+      'architect-models',
+      'mixture-of-experts',
+      'multi-agent',
+      'compound-ai',
+      'routing',
+      'bitter-lesson',
+      'neuroscience',
+      'slm',
+    ],
+    coverAlt:
+      'Sepia Dalí-style line drawing: a fan of sensory icons braids into a cord through a desert needle, watched by a spindly surreal tree of eyes and ears, while a hand writes a single line with the thread',
+    coverPath: '/blog/the-tree-not-the-titan',
+    ogImage: '/blog/the-tree-not-the-titan/og.jpg',
+    wordCount: 4010,
+    readingMinutes: 17,
+  },
+  {
     slug: 'the-rope-sellers',
     title: 'The Rope Sellers',
     description:
