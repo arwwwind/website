@@ -32,6 +32,66 @@ const RELATED_BY_SLUG: Record<
   string,
   { series?: SeriesMeta; mid?: RelatedRef; end?: RelatedRef[] }
 > = {
+  'the-middlemans-republic': {
+    series: {
+      id: 'middlemans-republic',
+      label: "The Middleman's Republic",
+      part: 1,
+    },
+    mid: {
+      kind: 'blog',
+      slug: 'the-arranged-marriage-of-the-century',
+      eyebrow: 'Series · Part 2',
+      blurb:
+        'The cure for a middleman republic: Japan has the factory and no coders; India has the coders and no factory.',
+    },
+    end: [
+      {
+        kind: 'blog',
+        slug: 'the-arranged-marriage-of-the-century',
+        eyebrow: 'Series · Part 2',
+        blurb:
+          'Why Japan and India are each other\'s missing half — and why the software age demands a sequel to Maruti.',
+      },
+      {
+        kind: 'blog',
+        slug: 'the-rope-sellers-buy-a-rope-machine',
+        eyebrow: 'Related essay',
+        blurb:
+          'Indian IT as the purest middleman pyramid — and what happens when the thing you resell starts eating you.',
+      },
+    ],
+  },
+  'the-arranged-marriage-of-the-century': {
+    series: {
+      id: 'middlemans-republic',
+      label: "The Middleman's Republic",
+      part: 2,
+    },
+    mid: {
+      kind: 'blog',
+      slug: 'the-middlemans-republic',
+      eyebrow: 'Series · Part 1',
+      blurb:
+        'Start here — the diagnosis: copycat capital, customs as tollbooths, and why originality is taxed like contraband.',
+    },
+    end: [
+      {
+        kind: 'blog',
+        slug: 'the-middlemans-republic',
+        eyebrow: 'Series · Part 1',
+        blurb:
+          'How we learnt to stop inventing and love the container ship.',
+      },
+      {
+        kind: 'blog',
+        slug: 'the-rope-sellers',
+        eyebrow: 'Related essay',
+        blurb:
+          'Accountability moats, body shops, and the professional-services cousin of the middleman pattern.',
+      },
+    ],
+  },
   'down-the-fraud-rabbit-hole': {
     mid: {
       kind: 'blog',
@@ -281,6 +341,10 @@ const SERIES_SLUGS: Record<string, string[]> = {
   'rope-sellers': [
     'the-rope-sellers',
     'the-rope-sellers-buy-a-rope-machine',
+  ],
+  'middlemans-republic': [
+    'the-middlemans-republic',
+    'the-arranged-marriage-of-the-century',
   ],
 };
 

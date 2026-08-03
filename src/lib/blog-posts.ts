@@ -19,6 +19,60 @@ export type BlogPost = {
 
 export const blogPosts: BlogPost[] = [
   {
+    slug: 'the-arranged-marriage-of-the-century',
+    title: 'The Arranged Marriage of the Century',
+    metaTitle: 'Arranged Marriage of the Century',
+    description:
+      "Why Japan and India are each other's missing half — and why the software age demands a sequel to Maruti.",
+    date: '2026-08-04',
+    tags: [
+      'india',
+      'japan',
+      'maruti',
+      'manufacturing',
+      'software',
+      'semiconductors',
+      'deep-tech',
+      'china-plus-one',
+      'india-japan',
+      'innovation',
+      'gccs',
+    ],
+    coverAlt:
+      'Espresso-brown fine-line illustration on warm cream: two tigers face each other inside a circular emblem with a lotus and yin-yang at centre, a gear-toothed lower rim, and sun rays above; left side tropical palms and a crescent moon, right side a Japanese pagoda, Mount Fuji, and a face-in-the-sun — the circle half-submerged in rippling water',
+    coverPath: '/blog/the-arranged-marriage-of-the-century',
+    ogImage: '/blog/the-arranged-marriage-of-the-century/og.jpg',
+    wordCount: 5960,
+    readingMinutes: 26,
+  },
+  {
+    slug: 'the-middlemans-republic',
+    title: "The Middleman's Republic",
+    metaTitle: "The Middleman's Republic",
+    description:
+      "Or: How We Learnt to Stop Inventing and Love the Container Ship — why India imports ingenuity by the pallet, exports geniuses by the planeload, and taxes originality at 28 per cent.",
+    date: '2026-08-03',
+    tags: [
+      'india',
+      'china',
+      'innovation',
+      'manufacturing',
+      'r-and-d',
+      'education',
+      'deep-tech',
+      'make-in-india',
+      'brain-drain',
+      'customs',
+      'startups',
+    ],
+    coverAlt:
+      'Espresso-brown pen-and-ink Dalí doodle on warm cream: a melting container ship drips into a customs pit with a draped pocket watch; faceless middlemen carry crates through a tollbooth; a walking circuit board flees right; an airplane carries stick-figure geniuses away over a barren desert',
+    coverPath: '/blog/the-middlemans-republic',
+    ogImage: '/blog/the-middlemans-republic/og.jpg',
+    wordCount: 6890,
+    readingMinutes: 30,
+  },
+  {
     slug: 'down-the-fraud-rabbit-hole',
     title: 'Down the Fraud Rabbit Hole: Why the Office Refuses to Die',
     metaTitle: 'Down the Fraud Rabbit Hole',
