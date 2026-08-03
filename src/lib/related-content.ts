@@ -32,6 +32,56 @@ const RELATED_BY_SLUG: Record<
   string,
   { series?: SeriesMeta; mid?: RelatedRef; end?: RelatedRef[] }
 > = {
+  'down-the-fraud-rabbit-hole': {
+    mid: {
+      kind: 'blog',
+      slug: 'an-exasperating-farrago-of-firewalls',
+      eyebrow: 'Related essay',
+      blurb:
+        'Same trust collapse, different door — stolen credentials, agentic attackers, and why identity is the real perimeter.',
+    },
+    end: [
+      {
+        kind: 'blog',
+        slug: 'vibes-all-the-way-down',
+        eyebrow: 'Related essay',
+        blurb:
+          'What happens when orgs outsource judgment — the cognitive sibling of outsourcing verification.',
+      },
+      {
+        kind: 'blog',
+        slug: 'the-rope-sellers',
+        eyebrow: 'Related essay',
+        blurb:
+          'Accountability moats in professional services — who still has to sign their name in blood.',
+      },
+    ],
+  },
+  'an-exasperating-farrago-of-firewalls': {
+    mid: {
+      kind: 'blog',
+      slug: 'anatomy-of-an-agentic-ai-system',
+      eyebrow: 'From the workshop',
+      blurb:
+        'The defensive counterpart — how a well-built agentic system wires identity, retrieval, and guardrails so the butler cannot be hypnotised.',
+    },
+    end: [
+      {
+        kind: 'blog',
+        slug: 'anatomy-of-an-agentic-ai-system',
+        eyebrow: 'Related essay',
+        blurb:
+          'Sandboxes, egress allowlists, and permission-aware retrieval — the build-side of the security argument.',
+      },
+      {
+        kind: 'blog',
+        slug: 'the-rope-sellers-buy-a-rope-machine',
+        eyebrow: 'Related essay',
+        blurb:
+          'Why the industry is shipping agents into production faster than it is securing them.',
+      },
+    ],
+  },
   'the-nutritionist-in-the-machine': {
     mid: {
       kind: 'blog',
@@ -138,6 +188,13 @@ const RELATED_BY_SLUG: Record<
         'Why trees of specialists beat monoliths — and when that intuition breaks.',
     },
     end: [
+      {
+        kind: 'blog',
+        slug: 'an-exasperating-farrago-of-firewalls',
+        eyebrow: 'Related essay',
+        blurb:
+          'The security twin — identity, gateways, and the broker that keeps the agent honest.',
+      },
       {
         kind: 'blog',
         slug: 'vibes-all-the-way-down',

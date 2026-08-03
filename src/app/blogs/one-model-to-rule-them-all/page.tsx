@@ -1217,7 +1217,14 @@ export default function OneModelToRuleThemAllPostPage() {
             <li>
               Borisov et al. (2024) —{' '}
               <em>Deep Neural Networks and Tabular Data: A Survey.</em> IEEE
-              TNNLS.
+              TNNLS.{' '}
+              <a
+                href='https://arxiv.org/abs/2110.01889'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                arXiv:2110.01889
+              </a>
             </li>
             <li>
               Holzmüller, Grinsztajn &amp; Steinwart (2024) —{' '}
@@ -1243,7 +1250,14 @@ export default function OneModelToRuleThemAllPostPage() {
               <em>
                 Greedy Function Approximation: A Gradient Boosting Machine.
               </em>{' '}
-              Annals of Statistics.
+              Annals of Statistics.{' '}
+              <a
+                href='https://projecteuclid.org/journals/annals-of-statistics/volume-29/issue-5/Greedy-function-approximation-A-gradient-boosting-machine/10.1214/aos/1013203451.full'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                Project Euclid
+              </a>
             </li>
             <li>
               Chen &amp; Guestrin (2016) —{' '}
@@ -1261,12 +1275,26 @@ export default function OneModelToRuleThemAllPostPage() {
               <em>
                 LightGBM: A Highly Efficient Gradient Boosting Decision Tree.
               </em>{' '}
-              NeurIPS.
+              NeurIPS.{' '}
+              <a
+                href='https://arxiv.org/abs/1706.02940'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                arXiv:1706.02940
+              </a>
             </li>
             <li>
               Prokhorenkova et al. (2018) —{' '}
               <em>CatBoost: unbiased boosting with categorical features.</em>{' '}
-              NeurIPS.
+              NeurIPS.{' '}
+              <a
+                href='https://arxiv.org/abs/1706.09516'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                arXiv:1706.09516
+              </a>
             </li>
           </ul>
 
@@ -1374,7 +1402,14 @@ export default function OneModelToRuleThemAllPostPage() {
                 The M5 Accuracy Competition: Results, findings and conclusions.
               </em>{' '}
               International Journal of Forecasting. (LightGBM was the method of
-              choice among winners.)
+              choice among winners.){' '}
+              <a
+                href='https://doi.org/10.1016/j.ijforecast.2021.11.013'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                DOI
+              </a>
             </li>
           </ul>
 
@@ -1397,10 +1432,24 @@ export default function OneModelToRuleThemAllPostPage() {
               <em>
                 Optuna: A Next-generation Hyperparameter Optimization Framework.
               </em>{' '}
-              KDD.
+              KDD.{' '}
+              <a
+                href='https://arxiv.org/abs/1907.10902'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                arXiv:1907.10902
+              </a>
             </li>
             <li>
-              Erickson et al. (2020) — <em>AutoGluon-Tabular.</em>
+              Erickson et al. (2020) — <em>AutoGluon-Tabular.</em>{' '}
+              <a
+                href='https://arxiv.org/abs/2003.06505'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                arXiv:2003.06505
+              </a>
             </li>
           </ul>
 
@@ -1488,7 +1537,14 @@ export default function OneModelToRuleThemAllPostPage() {
             </li>
             <li>
               Gilmer et al. (2017) —{' '}
-              <em>Neural Message Passing for Quantum Chemistry.</em> ICML.
+              <em>Neural Message Passing for Quantum Chemistry.</em> ICML.{' '}
+              <a
+                href='https://arxiv.org/abs/1704.01212'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                arXiv:1704.01212
+              </a>
             </li>
             <li>
               García-Ortegón et al. (2021) — <em>DOCKSTRING.</em>{' '}
@@ -1525,6 +1581,24 @@ export default function OneModelToRuleThemAllPostPage() {
               >
                 arXiv:2305.03403
               </a>
+            </li>
+          </ul>
+
+          <h3>On this site</h3>
+          <ul className='blog-prose__refs'>
+            <li>
+              <Link href='/blogs/the-tree-not-the-titan'>
+                The Tree, Not the Titan
+              </Link>{' '}
+              — when the same tree instinct applies to agent routing, and where
+              it breaks.
+            </li>
+            <li>
+              <Link href='/blogs/the-nutritionist-in-the-machine'>
+                The Nutritionist in the Machine
+              </Link>{' '}
+              — constrained optimisation over a recommender, not an LLM owning
+              the safety path.
             </li>
           </ul>
         </div>

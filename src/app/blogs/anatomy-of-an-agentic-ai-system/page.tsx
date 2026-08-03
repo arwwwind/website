@@ -1122,7 +1122,7 @@ export default function AnatomyOfAnAgenticAISystemPostPage() {
 <tr>
 <td>Lookup / single-hop fact</td>
 <td>Hybrid vector</td>
-<td>Per Han et al. (GraphRAG-Bench, arXiv:2506.05690, ICLR‘26), “GraphRAG achieves 13.4% lower accuracy on Natural Question compared to vanilla RAG”</td>
+<td>Per Han et al. (GraphRAG-Bench, <a href='https://arxiv.org/abs/2506.05690' target='_blank' rel='noopener noreferrer'>arXiv:2506.05690</a>, ICLR‘26), “GraphRAG achieves 13.4% lower accuracy on Natural Question compared to vanilla RAG”</td>
 </tr>
 <tr>
 <td>Semantic / paraphrase</td>
@@ -1142,7 +1142,7 @@ export default function AnatomyOfAnAgenticAISystemPostPage() {
 <tr>
 <td>Temporal (“who owned this account in February”)</td>
 <td>Temporal graph (Graphiti/Zep)</td>
-<td>Per the vectorize.io benchmark replicated in Rasmussen et al. (arXiv:2501.13956), Zep 63.8% vs Mem0 49.0% on LongMemEval</td>
+<td>Per the vectorize.io benchmark replicated in Rasmussen et al. (<a href='https://arxiv.org/abs/2501.13956' target='_blank' rel='noopener noreferrer'>arXiv:2501.13956</a>), Zep 63.8% vs Mem0 49.0% on LongMemEval</td>
 </tr>
 </tbody>
 </table></div>
@@ -1247,7 +1247,7 @@ export default function AnatomyOfAnAgenticAISystemPostPage() {
 </tbody>
 </table></div>
 <p><strong>Recommendation: hybrid.</strong> A <strong>markdown vault for canonical, user-visible preferences</strong> (portable, editable, the source of truth the user controls) <strong>plus a vector layer (Mem0-style) for transient session memory</strong> — the pattern “most mid-market deployments end up” with. Add a <strong>temporal graph (Graphiti)</strong> only if your domain has entities that change ownership/state over time. Memory system landscape: Mem0 (personalization, token-efficient), Zep/Graphiti (temporal, SOC2/HIPAA/GDPR), Letta/MemGPT (OS-style self-managed tiers), Cognee (unstructured-doc knowledge graphs).</p>
-<p><em>(On the “LIGHT” framework: there is a genuine 2026 paper — “Beyond a Million Tokens,” arXiv:2510.27246, ICLR 2026 — presenting a memory framework named </em><em>LIGHT</em><em> that equips an LLM with three complementary systems: long-term </em><em>episodic</em><em> memory (FAISS-indexed), short-term </em><em>working</em><em> memory (recent turns), and a </em><em>scratchpad</em><em> of accumulated salient facts, improving memory-QA by 3.5–12.7% over strong baselines. Its three-store design maps directly onto layers 2–4 of the table above — validate against its BEAM benchmark if memory is central to your product. Note the name collides with Facebook’s unrelated LIGHT text-adventure environment.)</em></p>
+<p><em>(On the “LIGHT” framework: there is a genuine 2026 paper — “Beyond a Million Tokens,” <a href='https://arxiv.org/abs/2510.27246' target='_blank' rel='noopener noreferrer'>arXiv:2510.27246</a>, ICLR 2026 — presenting a memory framework named </em><em>LIGHT</em><em> that equips an LLM with three complementary systems: long-term </em><em>episodic</em><em> memory (FAISS-indexed), short-term </em><em>working</em><em> memory (recent turns), and a </em><em>scratchpad</em><em> of accumulated salient facts, improving memory-QA by 3.5–12.7% over strong baselines. Its three-store design maps directly onto layers 2–4 of the table above — validate against its BEAM benchmark if memory is central to your product. Note the name collides with Facebook’s unrelated LIGHT text-adventure environment.)</em></p>
 <p><strong>Memory governance (non-negotiable):</strong>
 - <strong>Write policy:</strong> only write high-confidence, durable facts (preferences, roles, recurring context) — not transcripts. Anthropic stores “preferences… not conversation transcripts.”
 - <strong>Retrieval-time injection:</strong> inject only memories relevant to the current query (the scratchpad-filtering step).
@@ -1625,7 +1625,31 @@ export default function AnatomyOfAnAgenticAISystemPostPage() {
 <li><strong>Benchmark disputes are real</strong> — memory vendors (Mem0 vs Zep) publicly dispute each other’s LongMemEval/LOCOMO numbers; run evals on your own workload rather than trusting any single reported score.</li>
 <li><strong>This is an architecture guide, not a security audit.</strong> The auth patterns (especially offline token attenuation) are genuinely contested; involve your security team and threat-model your specific deployment.</li>
 </ul>` }} />
-        </div>
+        
+          <h2>Further reading on this site</h2>
+          <ul className='blog-prose__refs'>
+            <li>
+              <Link href='/blogs/an-exasperating-farrago-of-firewalls'>
+                An Exasperating Farrago of Firewalls
+              </Link>{' '}
+              — the defensive field guide that pairs with this architecture
+              essay.
+            </li>
+            <li>
+              <Link href='/blogs/the-tree-not-the-titan'>
+                The Tree, Not the Titan
+              </Link>{' '}
+              — when to route to specialists vs a frontier model.
+            </li>
+            <li>
+              <Link href='/blogs/the-rope-sellers-buy-a-rope-machine'>
+                The Rope Sellers Buy a Rope Machine
+              </Link>{' '}
+              — what happens when the industry sells agentic AI without
+              building it.
+            </li>
+          </ul>
+</div>
 
         <BlogContinueReading slug={SLUG} />
         <BlogHook />

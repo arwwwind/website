@@ -724,6 +724,166 @@ export default function TheRopeSellersPostPage() {
             to tie the knot. They&apos;re also declining to raise the next
             generation of people who&apos;d know when not to pull it.
           </p>
+
+          <h2>References</h2>
+
+          <h3>Consulting &amp; the billable pyramid</h3>
+          <ul className='blog-prose__refs'>
+            <li>
+              Bloomberg —{' '}
+              <a
+                href='https://news.bloomberglaw.com/artificial-intelligence/ex-mckinsey-consultants-are-training-ai-models-to-replace-them'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                Ex-McKinsey Consultants Are Training AI Models to Replace Them
+              </a>{' '}
+              (October 2025). Project Argentum; ~150 ex-MBB consultants at
+              ≥$110/hour.
+            </li>
+            <li>
+              HFS Research (with IBM) —{' '}
+              <a
+                href='https://www.hfsresearch.com/research/consulting-that-delivers/'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                Consulting that delivers, not just recommends
+              </a>{' '}
+              (November 2025). Survey of 1,002 senior executives; 65% say
+              traditional consulting fails to deliver real value; headcount
+              contracts expected to collapse.
+            </li>
+            <li>
+              PwC / Bloomberg coverage of client &ldquo;AI discounts&rdquo; and
+              KPMG–Grant Thornton audit-fee cut (UK{' '}
+              <a
+                href='https://find-and-update.company-information.service.gov.uk/'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                Companies House
+              </a>{' '}
+              filings, early 2026).
+            </li>
+          </ul>
+
+          <h3>Big 4, MBB, and Indian IT</h3>
+          <ul className='blog-prose__refs'>
+            <li>
+              KPMG / Deloitte / EY / PwC graduate-scheme and partner-rank cuts
+              (UK and Australia coverage, 2024–2025); US advisory and audit
+              partner reductions — same buyer pressure documented in the{' '}
+              <a
+                href='https://www.hfsresearch.com/research/consulting-that-delivers/'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                HFS survey
+              </a>{' '}
+              above.
+            </li>
+            <li>
+              <a
+                href='https://www.moneycontrol.com/news/business/information-technology/had-to-take-difficult-call-to-build-stronger-tcs-ceo-k-krithivasan-after-cutting-12-000-jobs-13333990.html'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                Moneycontrol
+              </a>{' '}
+              — K. Krithivasan on TCS&apos;s ~12,200-role cut (&ldquo;not
+              because of AI&rdquo;).
+            </li>
+            <li>
+              NASSCOM / EY GCC benchmarks; Xpheno FY26 GCC vs IT-services hiring
+              —{' '}
+              <a
+                href='https://nasscom.in/'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                NASSCOM
+              </a>
+              .
+            </li>
+            <li>
+              Accenture —{' '}
+              <a
+                href='https://newsroom.accenture.com/content/4q-full-fy25-earnings/accenture-reports-fourth-quarter-and-full-year-fiscal-2025-results.pdf'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                Q4 / FY2025 earnings
+              </a>
+              : $5.9B GenAI bookings; ~$865M optimization program; Julie Sweet
+              on compressed-timeline exits.
+            </li>
+            <li>
+              BCG / Bain / McKinsey AI-revenue and Lilli / outcome-pricing
+              disclosures (2025 firm annual reports and partner interviews) —
+              same structural pressure as{' '}
+              <a
+                href='https://news.bloomberglaw.com/artificial-intelligence/ex-mckinsey-consultants-are-training-ai-models-to-replace-them'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                Bloomberg&apos;s Argentum reporting
+              </a>
+              .
+            </li>
+          </ul>
+
+          <h3>BigLaw &amp; the accountability moat</h3>
+          <ul className='blog-prose__refs'>
+            <li>
+              Thomson Reuters Institute &amp; Georgetown Law —{' '}
+              <a
+                href='https://www.thomsonreuters.com/en-us/posts/legal/state-of-the-us-legal-market-2026/'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                2026 Report on the State of the US Legal Market
+              </a>
+              . Am Law profits-per-lawyer trajectory cited in the essay.
+            </li>
+            <li>
+              AICPA demographic estimates (CPA retirement cliff; exam-candidate
+              decline since 2016) —{' '}
+              <a
+                href='https://www.aicpa-cima.com/'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                AICPA
+              </a>
+              .
+            </li>
+          </ul>
+
+          <h3>On this site</h3>
+          <ul className='blog-prose__refs'>
+            <li>
+              <Link href='/blogs/the-rope-sellers-buy-a-rope-machine'>
+                The Rope Sellers Buy a Rope Machine
+              </Link>{' '}
+              — Series · Part 2: Indian IT wakes up, buys partnership gym
+              memberships, and calls it strategy.
+            </li>
+            <li>
+              <Link href='/blogs/vibes-all-the-way-down'>
+                Vibes All the Way Down
+              </Link>{' '}
+              — same pyramid, different angle: what happens when orgs outsource
+              judgment to the model.
+            </li>
+            <li>
+              <Link href='/blogs/anatomy-of-an-agentic-ai-system'>
+                Anatomy of an Agentic AI System
+              </Link>{' '}
+              — what building the rope machine actually looks like.
+            </li>
+          </ul>
+
         </div>
 
         <BlogContinueReading slug={SLUG} />

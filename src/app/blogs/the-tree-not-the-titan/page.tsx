@@ -884,15 +884,36 @@ export default function TheTreeNotTheTitanPostPage() {
               <em>
                 The unbearable slowness of being: Why do we live at 10 bits/s?
               </em>{' '}
-              Neuron. DOI: 10.1016/j.neuron.2024.11.008.
+              Neuron.{' '}
+              <a
+                href='https://doi.org/10.1016/j.neuron.2024.11.008'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                DOI: 10.1016/j.neuron.2024.11.008
+              </a>
             </li>
             <li>
               Koch et al. (2006) —{' '}
-              <em>How Much the Eye Tells the Brain.</em> Current Biology 16.
+              <em>How Much the Eye Tells the Brain.</em> Current Biology 16.{' '}
+              <a
+                href='https://doi.org/10.1016/j.cub.2006.05.025'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                DOI
+              </a>
             </li>
             <li>
               Lettvin, Maturana, McCulloch &amp; Pitts (1959) —{' '}
-              <em>What the Frog&apos;s Eye Tells the Frog&apos;s Brain.</em>
+              <em>What the Frog&apos;s Eye Tells the Frog&apos;s Brain.</em>{' '}
+              <a
+                href='https://doi.org/10.1109/PROC.1959.14411'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                IEEE
+              </a>
             </li>
             <li>
               Gollisch &amp; Meister (2010) —{' '}
@@ -900,29 +921,64 @@ export default function TheTreeNotTheTitanPostPage() {
                 Eye Smarter than Scientists Believed: Neural Computations in
                 Circuits of the Retina.
               </em>{' '}
-              Neuron 65.
+              Neuron 65.{' '}
+              <a
+                href='https://doi.org/10.1016/j.neuron.2009.12.009'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                DOI
+              </a>
             </li>
             <li>
               Baden et al. (2016) —{' '}
               <em>
                 The functional diversity of retinal ganglion cells in the mouse.
               </em>{' '}
-              Nature.
+              Nature.{' '}
+              <a
+                href='https://doi.org/10.1038/nature18633'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                DOI
+              </a>
             </li>
             <li>
               Fain et al. (2001) —{' '}
               <em>Adaptation in Vertebrate Photoreceptors.</em> Physiological
-              Reviews.
+              Reviews.{' '}
+              <a
+                href='https://doi.org/10.1152/physrev.2001.81.1.117'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                DOI
+              </a>
             </li>
             <li>
               Rao &amp; Ballard (1999) —{' '}
               <em>Predictive coding in the visual cortex.</em> Nature
-              Neuroscience 2.
+              Neuroscience 2.{' '}
+              <a
+                href='https://doi.org/10.1038/4580'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                DOI
+              </a>
             </li>
             <li>
               Teyler &amp; Rudy (2007) —{' '}
               <em>The hippocampal indexing theory and episodic memory.</em>{' '}
-              Hippocampus.
+              Hippocampus.{' '}
+              <a
+                href='https://doi.org/10.1002/hipo.20323'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                DOI
+              </a>
             </li>
           </ul>
 
@@ -940,7 +996,14 @@ export default function TheTreeNotTheTitanPostPage() {
               </a>
             </li>
             <li>
-              DeepSeek-AI — DeepSeek-V3 technical report (671B / 37B active).
+              DeepSeek-AI — DeepSeek-V3 technical report (671B / 37B active).{' '}
+              <a
+                href='https://arxiv.org/abs/2412.19437'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                arXiv:2412.19437
+              </a>
             </li>
             <li>
               Fedus, Zoph &amp; Shazeer (2021) —{' '}
@@ -954,35 +1017,84 @@ export default function TheTreeNotTheTitanPostPage() {
               </a>
             </li>
             <li>
-              Chen, Zaharia &amp; Zou (2023) — <em>FrugalGPT.</em>
+              Chen, Zaharia &amp; Zou (2023) — <em>FrugalGPT.</em>{' '}
+              <a
+                href='https://arxiv.org/abs/2305.05176'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                arXiv:2305.05176
+              </a>
             </li>
             <li>
-              Ong et al. (2025) — <em>RouteLLM.</em> ICLR 2025.
+              Ong et al. (2025) — <em>RouteLLM.</em> ICLR 2025.{' '}
+              <a
+                href='https://arxiv.org/abs/2406.18665'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                arXiv:2406.18665
+              </a>
             </li>
             <li>
               Anthropic (June 2025) — Engineering post on multi-agent research
-              system (+90.2% / ~15× tokens).
+              system (+90.2% / ~15× tokens).{' '}
+              <a
+                href='https://www.anthropic.com/engineering/built-multi-agent-research-system'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                Anthropic Engineering
+              </a>
             </li>
             <li>
               Zaharia et al. (2024) —{' '}
               <em>The Shift from Models to Compound AI Systems.</em> Berkeley
-              BAIR.
+              BAIR.{' '}
+              <a
+                href='https://bair.berkeley.edu/blog/2024/02/18/compound-ai-systems/'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                BAIR blog
+              </a>
             </li>
             <li>
-              Gutiérrez et al. (2024) — <em>HippoRAG.</em>
+              Gutiérrez et al. (2024) — <em>HippoRAG.</em>{' '}
+              <a
+                href='https://arxiv.org/abs/2405.14831'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                arXiv:2405.14831
+              </a>
             </li>
             <li>
               Ramsauer et al. (2020) —{' '}
               <em>
                 Hopfield Networks is All You Need.
-              </em>
+              </em>{' '}
+              <a
+                href='https://arxiv.org/abs/2008.02217'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                arXiv:2008.02217
+              </a>
             </li>
           </ul>
 
           <h3>The steelman</h3>
           <ul className='blog-prose__refs'>
             <li>
-              Sutton (2019) — <em>The Bitter Lesson.</em>
+              Sutton (2019) — <em>The Bitter Lesson.</em>{' '}
+              <a
+                href='http://www.incompleteideas.net/IncIdeas/BitterLesson.html'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                incompleteideas.net
+              </a>
             </li>
             <li>
               Nori et al. (2023) —{' '}
@@ -1011,11 +1123,42 @@ export default function TheTreeNotTheTitanPostPage() {
             </li>
             <li>
               Yan / Cognition (June 2025) —{' '}
-              <em>Don&apos;t Build Multi-Agents.</em>
+              <em>Don&apos;t Build Multi-Agents.</em>{' '}
+              <a
+                href='https://cognition.ai/blog/dont-build-multi-agents'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                Cognition blog
+              </a>
             </li>
             <li>
               LeCun (2022) —{' '}
-              <em>A Path Towards Autonomous Machine Intelligence.</em>
+              <em>A Path Towards Autonomous Machine Intelligence.</em>{' '}
+              <a
+                href='https://openreview.net/pdf?id=BZ5a1r-kVsf'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                OpenReview
+              </a>
+            </li>
+          </ul>
+
+          <h3>On this site</h3>
+          <ul className='blog-prose__refs'>
+            <li>
+              <Link href='/blogs/one-model-to-rule-them-all'>
+                One Model to Rule Them All
+              </Link>{' '}
+              — the tabular sibling of this argument: trees before titans.
+            </li>
+            <li>
+              <Link href='/blogs/anatomy-of-an-agentic-ai-system'>
+                Anatomy of an Agentic AI System
+              </Link>{' '}
+              — routing, retrieval, and when specialists actually earn their
+              keep.
             </li>
           </ul>
         </div>

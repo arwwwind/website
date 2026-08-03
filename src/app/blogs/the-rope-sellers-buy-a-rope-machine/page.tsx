@@ -735,65 +735,146 @@ export default function TheRopeSellersBuyARopeMachinePostPage() {
           <ul className='blog-prose__refs'>
             <li>
               Business Today —{' '}
-              <em>
-                TCS, HCL Tech, Infosys, Wipro among top IT losers as Nifty IT
-                tumbles 24% in 2026
-              </em>{' '}
+              <a
+                href='https://www.businesstoday.in/markets/stocks/story/tcs-hcl-tech-infosys-wipro-among-top-it-losers-as-nifty-it-tumbles-24-in-2026-535530-2026-06-08'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                <em>
+                  TCS, HCL Tech, Infosys, Wipro among top IT losers as Nifty IT
+                  tumbles 24% in 2026
+                </em>
+              </a>{' '}
               (June 8, 2026)
             </li>
             <li>
               Business Standard —{' '}
-              <em>
-                Nifty IT index tanks 9% in 4 days; Wipro, TCS down up to 6%
-              </em>{' '}
-              (June 8, 2026);{' '}
-              <em>
-                Nifty IT slips 2%; TCS, Infosys, HCL Tech down up to 3%
-              </em>{' '}
-              (June 23, 2026)
+              <a
+                href='https://www.business-standard.com/markets/news/nifty-it-index-cracks-6-tcs-infy-techm-ltm-hcl-tech-plunge-up-to-8-126061900193_1.html'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                <em>
+                  Nifty IT index cracks 6%; TCS, Infy, TechM, LTM, HCL Tech
+                  plunge up to 8%
+                </em>
+              </a>{' '}
+              (June 19, 2026); related June coverage of the multi-day selloff
             </li>
             <li>
-              India TV — Infosys crashes 8% to 52-week low of ₹1,030 after
-              Accenture guidance cut; Accenture −18% overnight (June 19, 2026)
+              <a
+                href='https://www.businesstoday.in/markets/stocks/story/infosys-shares-fall-to-5-year-low-tcs-nears-6-year-low-accenture-impact-explained-537949-2026-06-19'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                Business Today
+              </a>{' '}
+              /{' '}
+              <a
+                href='https://www.moneycontrol.com/news/business/markets/nifty-it-slumps-6-infosys-tcs-stocks-crash-up-to-7-after-accenture-guidance-cut-sparks-sell-off-13953640.html'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                Moneycontrol
+              </a>{' '}
+              — Infosys crashes after Accenture guidance cut; Accenture
+              −18% overnight (June 19, 2026)
             </li>
             <li>
-              Multibagg / market coverage — Nifty IT −29% YTD; five-session
-              selloff linked to Anthropic Claude Code legacy-modernization
-              claims (June 11, 2026); TCS market cap below ₹10 lakh crore;
-              Nirmal Bang downgrade of TCS to Sell, target ₹1,693
+              Market coverage — Nifty IT −29% YTD; five-session selloff linked
+              to Anthropic Claude Code legacy-modernization claims; TCS market
+              cap below ₹10 lakh crore; Nirmal Bang downgrade of TCS to Sell —
+              see also{' '}
+              <a
+                href='https://www.businesstoday.in/markets/stocks/story/from-52-week-high-to-52-week-low-nifty-it-tanks-us-iran-war-ai-disruption-520899-2026-03-17'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                Business Today on the Feb–Mar drawdown
+              </a>
             </li>
             <li>
-              Kotak Neo — Nifty IT 52-week low 26,634.50 (June 19, 2026)
+              Zee Business / market data — Nifty IT 52-week low 26,634.50 (
+              <a
+                href='https://www.zeebiz.com/market-news/news-it-stocks-bloodbath-nifty-it-crashes-6-hits-fresh-52-week-low-what-triggered-the-selloff-397548'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                June 19, 2026
+              </a>
+              )
             </li>
           </ul>
 
           <h3>TCS statements &amp; financials</h3>
           <ul className='blog-prose__refs'>
             <li>
-              Moneycontrol — K. Krithivasan interview on July 2025 layoffs
-              (&ldquo;not because of AI&rdquo;)
+              <a
+                href='https://www.moneycontrol.com/news/business/information-technology/had-to-take-difficult-call-to-build-stronger-tcs-ceo-k-krithivasan-after-cutting-12-000-jobs-13333990.html'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                Moneycontrol
+              </a>{' '}
+              — K. Krithivasan on July 2025 layoffs (&ldquo;not because of
+              AI&rdquo;)
             </li>
             <li>
               TCS AGM coverage, June 2026 — N. Chandrasekaran &ldquo;half a
-              million AI agents&rdquo; remarks
+              million AI agents&rdquo; remarks (also referenced in the{' '}
+              <a
+                href='https://www.marketscreener.com/news/india-s-tcs-partners-with-anthropic-to-drive-enterprise-ai-scaling-ce7f5cdbde80fe22'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                Reuters / MarketScreener partnership note
+              </a>
+              )
             </li>
             <li>
-              TCS Q4 FY26 press release — revenue ₹2,67,021 crore, net profit
-              ₹52,820 crore, 25% operating margin; FY26 dividend ₹39,571 crore
+              TCS Q4 / FY26 results — revenue ₹2,67,021 crore, net profit
+              ₹52,820 crore, 25% operating margin; FY26 dividend ₹39,571 crore —{' '}
+              <a
+                href='https://www.tcs.com/investor-relations'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                TCS Investor Relations
+              </a>
             </li>
           </ul>
 
           <h3>Partnerships</h3>
           <ul className='blog-prose__refs'>
             <li>
-              TCS–Anthropic Global Premier Partner announcement (June 2026);
-              Infosys–Anthropic (February 2026); Cognizant–Anthropic expansion
-              (July 2026); Accenture Anthropic Business Group (December 2025);
-              Infosys–OpenAI partnership (February 2026)
+              <a
+                href='https://www.anthropic.com/news/tcs-anthropic-partnership'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                TCS–Anthropic Global Premier Partner
+              </a>{' '}
+              (June 2026);{' '}
+              <a
+                href='https://www.anthropic.com/news/anthropic-infosys'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                Infosys–Anthropic
+              </a>{' '}
+              (February 2026); Cognizant–Anthropic expansion (July 2026);
+              Accenture Anthropic Business Group (December 2025); Infosys–OpenAI
+              partnership (February 2026)
             </li>
             <li>
-              Everest Group commentary on model portability and abstraction
-              layers
+              <a
+                href='https://www.everestgrp.com/'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                Everest Group
+              </a>{' '}
+              commentary on model portability and abstraction layers
             </li>
           </ul>
 
@@ -801,19 +882,48 @@ export default function TheRopeSellersBuyARopeMachinePostPage() {
           <ul className='blog-prose__refs'>
             <li>
               Vishal Sikka, India Today AI Summit (February 2026) — on the 2015
-              OpenAI donation
+              OpenAI donation —{' '}
+              <a
+                href='https://www.indiatoday.in/'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                India Today
+              </a>
             </li>
             <li>
               Infosys 2017 resignation coverage; Sikka resignation letter
-              (&ldquo;drumbeat of distractions&rdquo;)
+              (&ldquo;drumbeat of distractions&rdquo;) —{' '}
+              <a
+                href='https://www.infosys.com/newsroom/press-releases/Documents/annexure-a-company-statement-18aug2017.pdf'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                Infosys press release
+              </a>
             </li>
             <li>
               Company annual reports — R&amp;D as % of revenue for
               TCS/Infosys/Wipro vs Accenture; hyperscaler R&amp;D budgets from
-              public filings
+              public filings (
+              <a
+                href='https://www.sec.gov/edgar'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                SEC EDGAR
+              </a>
+              )
             </li>
             <li>
-              Deccan Chronicle — India&apos;s IT rise and the Y2K origin story
+              <a
+                href='https://www.deccanchronicle.com/'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                Deccan Chronicle
+              </a>{' '}
+              — India&apos;s IT rise and the Y2K origin story
             </li>
           </ul>
 
@@ -821,73 +931,200 @@ export default function TheRopeSellersBuyARopeMachinePostPage() {
           <ul className='blog-prose__refs'>
             <li>
               NASSCOM–Zinnov &ldquo;GCC Value Orbit&rdquo; report (July 2026) —
-              2,117 GCCs, 2.36M professionals, $98.4B revenue
+              2,117 GCCs, 2.36M professionals, $98.4B revenue —{' '}
+              <a
+                href='https://nasscom.in/'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                NASSCOM
+              </a>
             </li>
             <li>
-              Business Today — GCC hiring crossing 5.1 lakh in 2026
+              <a
+                href='https://www.businesstoday.in/'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                Business Today
+              </a>{' '}
+              — GCC hiring crossing 5.1 lakh in 2026
             </li>
             <li>
-              Storyboard18 — Infosys Q4 FY26 headcount cut of 8,440; attrition
-              data
+              <a
+                href='https://www.storyboard18.com/'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                Storyboard18
+              </a>{' '}
+              — Infosys Q4 FY26 headcount cut of 8,440; attrition data
             </li>
           </ul>
 
           <h3>BPO / voice AI</h3>
           <ul className='blog-prose__refs'>
             <li>
-              Gartner — $80B contact-center labor cost reduction (2026); 80%
-              autonomous resolution by 2029
+              Gartner — contact-center labor cost reduction forecasts; 80%
+              autonomous resolution by 2029 —{' '}
+              <a
+                href='https://www.gartner.com/en'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                Gartner
+              </a>
             </li>
             <li>
-              Reuters — Teleperformance share crash on Klarna news
+              <a
+                href='https://www.bloomberg.com/news/articles/2024-02-28/teleperformance-sinks-as-klarna-fuels-worries-over-impact-of-ai'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                Bloomberg / Reuters coverage
+              </a>{' '}
+              — Teleperformance share crash on Klarna news
             </li>
             <li>
-              Concentrix FY26 guidance cut coverage; Capgemini–WNS $3.3B
-              acquisition (2025)
+              Concentrix FY26 guidance cut coverage;{' '}
+              <a
+                href='https://www.capgemini.com/news/press-releases/capgemini-completes-the-acquisition-of-wns-and-creates-a-global-leader-in-agentic-ai-powered-intelligent-operations/'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                Capgemini–WNS $3.3B acquisition
+              </a>{' '}
+              (2025)
             </li>
             <li>
-              IBPAP (Philippines) revised 2028 employment forecasts
+              IBPAP (Philippines) revised 2028 employment forecasts —{' '}
+              <a
+                href='https://www.ibpap.org/'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                IBPAP
+              </a>
             </li>
             <li>
-              Forrester (Kate Leggett) — Klarna &ldquo;overpivoted&rdquo;
+              <a
+                href='https://www.forrester.com/'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                Forrester
+              </a>{' '}
+              (Kate Leggett) — Klarna &ldquo;overpivoted&rdquo;
             </li>
           </ul>
 
           <h3>China</h3>
           <ul className='blog-prose__refs'>
             <li>
-              OpenRouter / a16z token-usage study via South China Morning Post —
-              Chinese open-source models ~30% of global usage (December 2025)
+              OpenRouter / a16z token-usage study —{' '}
+              <a
+                href='https://a16z.com/state-of-ai/'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                State of AI
+              </a>{' '}
+              (December 2025); Chinese open-source models ~30% of global usage
+              (also covered via South China Morning Post)
             </li>
             <li>
               Forbes —{' '}
-              <em>
-                China&apos;s DeepSeek V4 and Qwen Reshape the Open-Source AI Race
-              </em>{' '}
+              <a
+                href='https://www.forbes.com/sites/jonmarkman/2026/04/28/chinas-deepseek-v4-and-qwen-reshape-the-open-source-ai-race/'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                <em>
+                  China&apos;s DeepSeek V4 and Qwen Reshape the Open-Source AI
+                  Race
+                </em>
+              </a>{' '}
               (April 2026): Qwen 1B downloads, 180K derivatives, February 2026
               download share
             </li>
             <li>
-              Startup Fortune / WAIC 2026 coverage — Xi Jinping&apos;s 29-nation
-              AI alliance, Global South adoption
+              Startup Fortune /{' '}
+              <a
+                href='https://www.worldaicannes.com/'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                WAIC
+              </a>{' '}
+              2026 coverage — Xi Jinping&apos;s 29-nation AI alliance, Global
+              South adoption
             </li>
             <li>
-              Digital in Asia —{' '}
-              <em>What is China&apos;s AI Strategy in 2026</em>: OCBC, Indosat,
-              Malaysia sovereign AI examples; USCC &ldquo;Two Loops&rdquo; staff
-              paper (March 2026)
+              Digital in Asia /{' '}
+              <a
+                href='https://aiinasia.com/greater-china/china-domestic-ai-stack-deepseek-v4-huawei-ascend-greater-china-2026-06-05'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                AI in Asia
+              </a>{' '}
+              on China&apos;s AI stack; USCC &ldquo;Two Loops&rdquo; staff paper
+              (March 2026)
             </li>
           </ul>
 
           <h3>India AI</h3>
           <ul className='blog-prose__refs'>
             <li>
-              IndiaAI Mission budget (₹10,371 crore) and disbursement reporting
-              (~₹400 crore by early 2026)
+              <a
+                href='https://indiaai.gov.in/'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                IndiaAI Mission
+              </a>{' '}
+              budget (₹10,371 crore) and disbursement reporting (~₹400 crore by
+              early 2026)
             </li>
             <li>
-              Tech Times — Sarvam AI $1.5B valuation, HCLTech $150M investment
-              (June 2026)
+              <a
+                href='https://economictimes.indiatimes.com/tech/technology/indiaai-backing-could-make-government-a-minority-shareholder-in-sarvam/articleshow/131975997.cms'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                Economic Times
+              </a>{' '}
+              — Sarvam AI $1.5B valuation, HCLTech $150M investment (June 2026)
+            </li>
+          </ul>
+
+          <h3>On this site</h3>
+          <ul className='blog-prose__refs'>
+            <li>
+              <Link href='/blogs/the-rope-sellers'>
+                The Rope Sellers
+              </Link>{' '}
+              — Series · Part 1: accountability moats and who keeps pricing
+              power.
+            </li>
+            <li>
+              <Link href='/blogs/vibes-all-the-way-down'>
+                Vibes All the Way Down
+              </Link>{' '}
+              — outsourcing intuition, the cognitive sibling of selling rope.
+            </li>
+            <li>
+              <Link href='/blogs/anatomy-of-an-agentic-ai-system'>
+                Anatomy of an Agentic AI System
+              </Link>{' '}
+              — what a real agentic system looks like under the hood, vs the
+              partnership pitch deck.
+            </li>
+            <li>
+              <Link href='/blogs/an-exasperating-farrago-of-firewalls'>
+                An Exasperating Farrago of Firewalls
+              </Link>{' '}
+              — shipping agents faster than securing them.
             </li>
           </ul>
         </div>

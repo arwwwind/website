@@ -781,6 +781,238 @@ export default function VibesAllTheWayDownPostPage() {
           </p>
 
           <p>See you in 2028.</p>
+
+          <h2>References</h2>
+
+          <h3>Workslop, productivity, and code quality</h3>
+          <ul className='blog-prose__refs'>
+            <li>
+              Niederhoffer et al. / BetterUp Labs &amp; Stanford Social Media
+              Lab —{' '}
+              <a
+                href='https://hbr.org/2025/09/ai-generated-workslop-is-destroying-productivity'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                AI-Generated &ldquo;Workslop&rdquo; Is Destroying Productivity
+              </a>{' '}
+              (<em>Harvard Business Review</em>, September 2025); also{' '}
+              <a
+                href='https://www.betterup.com/workslop'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                BetterUp Labs summary
+              </a>
+              . Source of the 40% / ~$186/month figures.
+            </li>
+            <li>
+              Becker, Rush, Barnes &amp; Rein —{' '}
+              <a
+                href='https://metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-study/'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                Measuring the Impact of Early-2025 AI on Experienced Open-Source
+                Developer Productivity
+              </a>{' '}
+              (METR, July 2025). The RCT where developers predicted +24%,
+              believed +20%, and measured −19%.
+            </li>
+            <li>
+              GitClear —{' '}
+              <a
+                href='https://www.gitclear.com/ai_assistant_code_quality_2025_research/'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                AI Copilot Code Quality: 2025 Data
+              </a>{' '}
+              (and the{' '}
+              <a
+                href='https://www.gitclear.com/coding_on_copilot_data_shows_ais_downward_pressure_on_code_quality/'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                2024 predecessor
+              </a>
+              ). Copy/paste exceeding refactor; duplication rising.
+            </li>
+            <li>
+              Veracode —{' '}
+              <a
+                href='https://www.veracode.com/blog/ai-generated-code-security-risks/'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                2025 GenAI Code Security Report
+              </a>
+              . ~45% security failure rate; syntax up, security flat.
+            </li>
+            <li>
+              Business Insider —{' '}
+              <a
+                href='https://www.businessinsider.com/replit-ceo-apologizes-ai-coding-tool-delete-company-database-2025-7'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                Replit CEO apologizes after AI coding tool wipes database
+              </a>{' '}
+              (July 2025). Jason Lemkin / SaaStr vibe-coding experiment.
+            </li>
+            <li>
+              Collins Dictionary Word of the Year 2025 —{' '}
+              <a
+                href='https://www.cnn.com/2025/11/06/tech/vibe-coding-collins-word-year-scli-intl'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                &ldquo;vibe coding&rdquo;
+              </a>
+              ; Karpathy&apos;s February 2025 coinage.
+            </li>
+          </ul>
+
+          <h3>Cognitive science and automation</h3>
+          <ul className='blog-prose__refs'>
+            <li>
+              Kosmyna et al. —{' '}
+              <a
+                href='https://arxiv.org/abs/2506.08872'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                Your Brain on ChatGPT: Accumulation of Cognitive Debt when Using
+                an AI Assistant for Essay Writing Task
+              </a>{' '}
+              (MIT Media Lab preprint, arXiv:2506.08872).
+            </li>
+            <li>
+              Lee et al. (Microsoft Research / Carnegie Mellon) —{' '}
+              <a
+                href='https://www.microsoft.com/en-us/research/wp-content/uploads/2025/01/lee_2025_ai_critical_thinking_survey.pdf'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                The Impact of Generative AI on Critical Thinking
+              </a>{' '}
+              (CHI 2025). 319 knowledge workers, 936 tasks; confidence in AI ↔
+              less critical thinking.
+            </li>
+            <li>
+              Bainbridge, L. —{' '}
+              <a
+                href='https://doi.org/10.1016/0005-1098(83)90046-8'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                Ironies of Automation
+              </a>
+              . <em>Automatica</em> 19(6), 1983.
+            </li>
+          </ul>
+
+          <h3>Enterprise adoption, layoffs, and the junior pipeline</h3>
+          <ul className='blog-prose__refs'>
+            <li>
+              MIT Project NANDA —{' '}
+              <a
+                href='https://www.softwareseni.com/why-95-percent-of-enterprise-ai-projects-fail-mit-research-breakdown-and-implementation-reality-check/'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                The GenAI Divide: State of AI in Business 2025
+              </a>{' '}
+              (~95% of enterprise GenAI pilots with no measurable P&amp;L
+              impact; $30–40B spend).
+            </li>
+            <li>
+              S&amp;P Global Market Intelligence —{' '}
+              <a
+                href='https://www.cfodive.com/news/AI-project-fail-data-SPGlobal/742784/'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                Voice of the Enterprise: AI &amp; Machine Learning, Use Cases
+                2025
+              </a>
+              . 42% abandoned most AI initiatives (up from 17%); ~46% of PoCs
+              scrapped before production.
+            </li>
+            <li>
+              Gartner — agentic AI cancellations by 2027; &ldquo;agent
+              washing&rdquo; framing —{' '}
+              <a
+                href='https://www.gartner.com/en'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                Gartner
+              </a>
+              .
+            </li>
+            <li>
+              <a
+                href='https://www.roberthalf.com/us/en/insights/navigating-ai-adoption'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                Robert Half
+              </a>{' '}
+              — 32% of hiring managers who cut a role for AI later rehired
+              (44% in finance). Orgvue — 55% of leaders who made AI-driven
+              redundancies later called it the wrong call (
+              <a
+                href='https://www.inc.com/bruce-crumley/55-percent-of-leaders-regret-ai-layoffs-and-a-major-hiring-reversal-has-begun/91380901'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                Inc. coverage
+              </a>
+              ).
+            </li>
+            <li>
+              Brynjolfsson, Chandar &amp; Chen —{' '}
+              <a
+                href='https://digitaleconomy.stanford.edu/publication/canaries-in-the-coal-mine-six-facts-about-the-recent-employment-effects-of-artificial-intelligence/'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                Canaries in the Coal Mine?
+              </a>{' '}
+              Stanford Digital Economy Lab (2025). ~13–16% relative employment
+              decline for 22–25s in the most AI-exposed occupations.
+            </li>
+          </ul>
+
+          <h3>On this site</h3>
+          <ul className='blog-prose__refs'>
+            <li>
+              <Link href='/blogs/the-rope-sellers'>The Rope Sellers</Link>{' '}
+              — the Bengaluru pyramid view: consulting, Big 4, and who still
+              gets paid to be wrong.
+            </li>
+            <li>
+              <Link href='/blogs/the-rope-sellers-buy-a-rope-machine'>
+                The Rope Sellers Buy a Rope Machine
+              </Link>{' '}
+              — what happened when Indian IT finally bought the rope machine.
+            </li>
+            <li>
+              <Link href='/blogs/anatomy-of-an-agentic-ai-system'>
+                Anatomy of an Agentic AI System
+              </Link>{' '}
+              — retrieval, guardrails, and identity when judgment cannot be
+              vibes.
+            </li>
+            <li>
+              <Link href='/blogs/an-exasperating-farrago-of-firewalls'>
+                An Exasperating Farrago of Firewalls
+              </Link>{' '}
+              — what happens when agents ship faster than they are secured.
+            </li>
+          </ul>
+
         </div>
 
         <BlogContinueReading slug={SLUG} />

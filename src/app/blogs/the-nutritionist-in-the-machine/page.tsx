@@ -1196,7 +1196,14 @@ export default function TheNutritionistInTheMachinePostPage() {
               advice formulated by ChatGPT: Robo-diets for people with food
               allergies.&rdquo; <em>Nutrition</em> 112, 112076 (2023). ChatGPT
               can generate diets that include the very allergens it was
-              instructed to avoid. PMID 37269717.
+              instructed to avoid. PMID 37269717.{' '}
+              <a
+                href='https://doi.org/10.1016/j.nut.2023.112076'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                DOI
+              </a>
             </li>
           </ul>
 
@@ -1223,20 +1230,41 @@ export default function TheNutritionistInTheMachinePostPage() {
               resistance training-induced gains in muscle mass and strength in
               healthy adults.&rdquo; <em>British Journal of Sports Medicine</em>{' '}
               52(6), 376-384 (2018). Identifies roughly 1.6 g/kg/day as the point
-              of diminishing returns.
+              of diminishing returns.{' '}
+              <a
+                href='https://doi.org/10.1136/bjsports-2017-097608'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                DOI
+              </a>
             </li>
             <li>
               Ikizler, T. A., et al. &ldquo;KDOQI Clinical Practice Guideline for
               Nutrition in CKD: 2020 Update.&rdquo;{' '}
               <em>American Journal of Kidney Diseases</em> 76(3, Suppl. 1),
               S1-S107 (2020). Source of the protein-restriction figures for
-              chronic kidney disease.
+              chronic kidney disease.{' '}
+              <a
+                href='https://doi.org/10.1053/j.ajkd.2020.05.006'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                DOI
+              </a>
             </li>
             <li>
               Hall, K. D., et al. &ldquo;Quantification of the effect of energy
               imbalance on bodyweight.&rdquo; <em>The Lancet</em> 378(9793),
               826-837 (2011). The dynamic energy-balance model that underpins
-              adaptive, self-correcting calorie targets.
+              adaptive, self-correcting calorie targets.{' '}
+              <a
+                href='https://doi.org/10.1016/S0140-6736(11)60812-X'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                DOI
+              </a>
             </li>
           </ul>
 
@@ -1245,13 +1273,27 @@ export default function TheNutritionistInTheMachinePostPage() {
             <li>
               Stigler, G. J. &ldquo;The Cost of Subsistence.&rdquo;{' '}
               <em>Journal of Farm Economics</em> 27(2), 303-314 (1945). The
-              original least-cost-diet formulation.
+              original least-cost-diet formulation.{' '}
+              <a
+                href='https://www.jstor.org/stable/1231810'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                JSTOR
+              </a>
             </li>
             <li>
               Dantzig, G. B. &ldquo;The Diet Problem.&rdquo; <em>Interfaces</em>{' '}
               20(4), 43-47 (1990). How the simplex method solved Stigler&apos;s
               problem, landing within 24 cents a year of his hand-computed
-              answer.
+              answer.{' '}
+              <a
+                href='https://doi.org/10.1287/inte.20.4.43'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                DOI
+              </a>
             </li>
           </ul>
 
@@ -1261,11 +1303,25 @@ export default function TheNutritionistInTheMachinePostPage() {
               Covington, P., Adams, J., and Sargin, E. &ldquo;Deep Neural
               Networks for YouTube Recommendations.&rdquo; <em>RecSys</em>{' '}
               (2016). The canonical two-stage candidate-generation-then-ranking
-              architecture.
+              architecture.{' '}
+              <a
+                href='https://dl.acm.org/doi/10.1145/2959100.2959190'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                ACM
+              </a>
             </li>
             <li>
               Cheng, H.-T., et al. &ldquo;Wide &amp; Deep Learning for
-              Recommender Systems.&rdquo; <em>DLRS at RecSys</em> (2016).
+              Recommender Systems.&rdquo; <em>DLRS at RecSys</em> (2016).{' '}
+              <a
+                href='https://arxiv.org/abs/1606.07792'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                arXiv:1606.07792
+              </a>
             </li>
             <li>
               Naumov, M., et al. &ldquo;Deep Learning Recommendation Model for
@@ -1281,22 +1337,50 @@ export default function TheNutritionistInTheMachinePostPage() {
             </li>
             <li>
               Kang, W.-C., and McAuley, J. &ldquo;Self-Attentive Sequential
-              Recommendation&rdquo; (SASRec). <em>ICDM</em> (2018).
+              Recommendation&rdquo; (SASRec). <em>ICDM</em> (2018).{' '}
+              <a
+                href='https://arxiv.org/abs/1808.09781'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                arXiv:1808.09781
+              </a>
             </li>
             <li>
               Sun, F., et al. &ldquo;BERT4Rec: Sequential Recommendation with
               Bidirectional Encoder Representations from Transformer.&rdquo;{' '}
-              <em>CIKM</em> (2019).
+              <em>CIKM</em> (2019).{' '}
+              <a
+                href='https://arxiv.org/abs/1904.05349'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                arXiv:1904.05349
+              </a>
             </li>
             <li>
               Ma, J., et al. &ldquo;Modeling Task Relationships in Multi-task
               Learning with Multi-gate Mixture-of-Experts&rdquo; (MMoE).{' '}
-              <em>KDD</em> (2018).
+              <em>KDD</em> (2018).{' '}
+              <a
+                href='https://dl.acm.org/doi/10.1145/3219819.3220007'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                ACM
+              </a>
             </li>
             <li>
               Li, L., Chu, W., Langford, J., and Schapire, R. E. &ldquo;A
               Contextual-Bandit Approach to Personalized News Article
-              Recommendation&rdquo; (LinUCB). <em>WWW</em> (2010).
+              Recommendation&rdquo; (LinUCB). <em>WWW</em> (2010).{' '}
+              <a
+                href='https://arxiv.org/abs/1003.0146'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                arXiv:1003.0146
+              </a>
             </li>
             <li>
               Jiang, R., Chiappa, S., Lattimore, T., György, A., and Kohli, P.
@@ -1313,11 +1397,25 @@ export default function TheNutritionistInTheMachinePostPage() {
             </li>
             <li>
               Mansoury, M., et al. &ldquo;Feedback Loop and Bias Amplification in
-              Recommender Systems.&rdquo; <em>CIKM</em> (2020).
+              Recommender Systems.&rdquo; <em>CIKM</em> (2020).{' '}
+              <a
+                href='https://arxiv.org/abs/2007.13019'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                arXiv:2007.13019
+              </a>
             </li>
             <li>
               Pariser, E. <em>The Filter Bubble: What the Internet Is Hiding
-              from You.</em> Penguin Press (2011).
+              from You.</em> Penguin Press (2011).{' '}
+              <a
+                href='https://en.wikipedia.org/wiki/Filter_bubble'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                overview
+              </a>
             </li>
           </ul>
 
@@ -1373,6 +1471,29 @@ export default function TheNutritionistInTheMachinePostPage() {
               </a>
               . Documents judge biases including the fondness for verbosity and
               sensitivity to ordering.
+            </li>
+          </ul>
+
+          <h3>On this site</h3>
+          <ul className='blog-prose__refs'>
+            <li>
+              <Link href='/blogs/one-model-to-rule-them-all'>
+                One Model to Rule Them All
+              </Link>{' '}
+              — start with trees before neural nets; the same instinct this
+              stack is built on.
+            </li>
+            <li>
+              <Link href='/blogs/fixing-attention'>Fixing Attention</Link>{' '}
+              — another recommender with hard constraints (spaced repetition
+              that refuses to optimise for watch time).
+            </li>
+            <li>
+              <Link href='/blogs/anatomy-of-an-agentic-ai-system'>
+                Anatomy of an Agentic AI System
+              </Link>{' '}
+              — retrieval, guardrails, and human review when the model must
+              not own the safety path.
             </li>
           </ul>
         </div>

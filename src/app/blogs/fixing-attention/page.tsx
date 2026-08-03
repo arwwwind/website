@@ -2214,6 +2214,24 @@ def pick_slot(logits, due_day_slots):
               </a>
             </li>
           </ul>
+
+          <h3>On this site</h3>
+          <ul className='blog-prose__refs'>
+            <li>
+              <Link href='/blogs/the-nutritionist-in-the-machine'>
+                The Nutritionist in the Machine
+              </Link>{' '}
+              — another recommender with hard constraints that refuses to
+              optimise for engagement alone.
+            </li>
+            <li>
+              <Link href='/blogs/one-model-to-rule-them-all'>
+                One Model to Rule Them All
+              </Link>{' '}
+              — when trees beat titans on structured prediction problems.
+            </li>
+          </ul>
+
         </div>
 
         <BlogContinueReading slug={SLUG} />

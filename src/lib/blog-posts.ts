@@ -19,6 +19,60 @@ export type BlogPost = {
 
 export const blogPosts: BlogPost[] = [
   {
+    slug: 'down-the-fraud-rabbit-hole',
+    title: 'Down the Fraud Rabbit Hole: Why the Office Refuses to Die',
+    metaTitle: 'Down the Fraud Rabbit Hole',
+    description:
+      "A builder's journal on fake candidates, the RTO morality play, and why your CEO's culture sermon is really a lie detector with a cafeteria attached.",
+    date: '2026-08-03',
+    tags: [
+      'hiring',
+      'candidate-fraud',
+      'return-to-office',
+      'remote-work',
+      'trust',
+      'recruiting-ai',
+      'identity-verification',
+      'wfh',
+      'bengaluru',
+    ],
+    coverAlt:
+      'Sepia Dalí-style doodle: a melting office tower drips into a rabbit hole; a giant hand puppets blank-faced suited figures holding masks; a webcam on stilts watches; a solitary writer works at a desk while a laptop and briefcase fly into the desert',
+    coverPath: '/blog/down-the-fraud-rabbit-hole',
+    ogImage: '/blog/down-the-fraud-rabbit-hole/og.jpg',
+    wordCount: 4700,
+    readingMinutes: 21,
+  },
+  {
+    slug: 'an-exasperating-farrago-of-firewalls',
+    title:
+      'An Exasperating Farrago of Firewalls: A 360° Field Guide to Security in the Age of Agentic AI',
+    metaTitle: 'An Exasperating Farrago of Firewalls',
+    description:
+      'The modern burglar logs in with stolen credentials, hands off in 22 seconds, and increasingly lets an AI do the burgling. A witty, technical tour of 360° security — code, cloud, network, email, ransomware, encryption, detection — and how to defend it all.',
+    date: '2026-08-03',
+    tags: [
+      'cybersecurity',
+      'agentic-ai',
+      'ai-security',
+      'zero-trust',
+      'ransomware',
+      'prompt-injection',
+      'mcp-security',
+      'encryption',
+      'incident-response',
+      'infosec',
+      'agentic-soc',
+      'security-vendors',
+    ],
+    coverAlt:
+      'Sepia single-line Dalí-style doodle of the shore at Troy: the wooden horse looms on impossibly long spindly legs casting a shadow the wrong way, a melting pocket watch draped on its back, while Greek ships line the beach, stick-thin armies stream across the sand, and the towers of Troy sag on stilts and crutches',
+    coverPath: '/blog/an-exasperating-farrago-of-firewalls',
+    ogImage: '/blog/an-exasperating-farrago-of-firewalls/og.jpg',
+    wordCount: 10120,
+    readingMinutes: 44,
+  },
+  {
     slug: 'the-nutritionist-in-the-machine',
     title: 'The Nutritionist in the Machine',
     metaTitle: 'The Nutritionist in the Machine',
@@ -60,7 +114,7 @@ export const blogPosts: BlogPost[] = [
       'china-ai',
     ],
     coverAlt:
-      'Sepia Dalí-style drawing of a stilt-legged elephant with a melting clock and ants pouring from a drawer, holding a rope that tethers dissolving animals over a smoky industrial wasteland',
+      'Sepia Dalí-style drawing of galloping horses melting into liquid as frayed ropes snap, with tiny figures clinging on, a melting clock and bell, and a smoky factory in the distance',
     coverPath: '/blog/the-rope-sellers-buy-a-rope-machine',
     ogImage: '/blog/the-rope-sellers-buy-a-rope-machine/og.jpg',
     wordCount: 3200,
