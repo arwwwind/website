@@ -71,7 +71,7 @@ export default function BlogsLayout({
     <div className={`${spaceGrotesk.variable} ${inter.variable}`}>
       <script
         dangerouslySetInnerHTML={{
-          __html: `(function(){try{var t=localStorage.getItem('arwwwind-blog-theme');if(t!=='light'&&t!=='dark')t='dark';var r=document.documentElement;r.setAttribute('data-blog-theme',t);r.classList.add(t==='light'?'blog-theme-light':'blog-theme-dark');r.classList.remove(t==='light'?'blog-theme-dark':'blog-theme-light');document.body.style.setProperty('background-color',t==='light'?'#f4f0ea':'#1e1b18','important');document.body.style.setProperty('color',t==='light'?'#4a443f':'#d2c9bf','important');}catch(e){}})();`,
+          __html: `(function(){try{var t=localStorage.getItem('arwwwind-blog-theme');if(t!=='light'&&t!=='dark')t='light';var r=document.documentElement;r.setAttribute('data-blog-theme',t);r.classList.add(t==='light'?'blog-theme-light':'blog-theme-dark');r.classList.remove(t==='light'?'blog-theme-dark':'blog-theme-light');document.body.style.setProperty('background-color',t==='light'?'#f4f0ea':'#1e1b18','important');document.body.style.setProperty('color',t==='light'?'#4a443f':'#d2c9bf','important');if(t==='light')document.body.classList.remove('dark');else document.body.classList.add('dark');}catch(e){}})();`,
         }}
       />
       <BlogThemeProvider>

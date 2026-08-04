@@ -34,18 +34,18 @@ export const HeroStats = ({
   }, [done, active, onComplete]);
 
   if (!active && count === 0) {
-    return <div ref={ref} className='px-2 mt-8 min-h-[3.5rem]' aria-hidden />;
+    return <div ref={ref} className='px-2 mt-10 min-h-[4.5rem]' aria-hidden />;
   }
 
   return (
-    <div ref={ref} className='flex flex-wrap gap-8 px-2 mt-8'>
+    <div ref={ref} className='flex flex-wrap gap-x-10 gap-y-4 px-2 mt-10'>
       {STATS.slice(0, count).map((stat) => (
         <StreamCell key={stat.label}>
-          <div className='flex flex-col'>
-            <span className='text-3xl font-bold text-white'>
+          <div className='flex flex-col gap-1'>
+            <span className='text-3xl font-bold text-white leading-none'>
               <AnimatedCounter to={stat.to} suffix={stat.suffix} />
             </span>
-            <span className='text-xs text-neutral-500 mt-0.5'>
+            <span className='text-xs text-neutral-500 leading-snug max-w-[9rem]'>
               <CrypticText
                 text={stat.label}
                 queue={false}

@@ -100,6 +100,11 @@ const projects = [
   },
 ];
 
+const HOME_PROJECT_LIMIT = 5;
+const featuredProjects = projects.slice(0, HOME_PROJECT_LIMIT);
+/** Featured cards + trailing "View all" slide in the track. */
+const slideCount = featuredProjects.length + 1;
+
 /**
  * Pinned horizontal scroll gallery (desktop): the section pins while the
  * card track scrubs sideways with the scroll — the signature Lenis +
@@ -147,8 +152,11 @@ export function WorkShowcase() {
             }
             if (counterRef.current) {
               const idx = Math.min(
-                projects.length,
-                Math.max(1, Math.round(self.progress * (projects.length - 1)) + 1)
+                slideCount,
+                Math.max(
+                  1,
+                  Math.round(self.progress * (slideCount - 1)) + 1
+                )
               );
               counterRef.current.textContent = String(idx).padStart(2, '0');
             }
@@ -199,7 +207,10 @@ export function WorkShowcase() {
           <div className='hidden md:flex items-center gap-3 shrink-0 pb-1'>
             <span className='text-xs font-mono text-neutral-500 tabular-nums'>
               <span ref={counterRef}>01</span>
-              <span className='text-neutral-700'> / {String(projects.length).padStart(2, '0')}</span>
+              <span className='text-neutral-700'>
+                {' '}
+                / {String(slideCount).padStart(2, '0')}
+              </span>
             </span>
             <div className='w-40 h-px bg-neutral-800 overflow-hidden'>
               <div
@@ -217,7 +228,7 @@ export function WorkShowcase() {
         className='flex gap-5 md:gap-6 overflow-x-auto snap-x snap-mandatory pb-4 md:pb-0 scrollbar-none pl-4 md:pl-[max(1rem,calc((100vw-80rem)/2+1rem))] pr-4 will-change-transform'
         style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
       >
-        {projects.map((p, i) => (
+        {featuredProjects.map((p, i) => (
           <Link
             key={p.slug}
             href={`/work/${p.slug}`}

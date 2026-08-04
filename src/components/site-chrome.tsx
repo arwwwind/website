@@ -20,8 +20,10 @@ export function SiteChrome({
 }) {
   const pathname = usePathname();
   const isBlog = pathname?.startsWith('/blogs') ?? false;
+  const isCv = pathname === '/cv' || pathname?.startsWith('/cv/') === true;
+  const isMinimal = isBlog || isCv;
 
-  if (isBlog) {
+  if (isMinimal) {
     return (
       <>
         {!isBot && <AnalyticsEvents />}
@@ -56,17 +58,24 @@ export function SiteChrome({
           >
             <NavLinks />
           </div>
-          <div className='flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse'>
+          <div className='flex md:order-2 items-center gap-2 sm:gap-3'>
             <MagneticButton>
-              <a
-                href='mailto:hi@arwwwind.com?subject=Hello%20Arvind%2C'
-                className='hover:underline me-4 md:me-6'
-              >
+              <a href='mailto:hi@arwwwind.com?subject=Hello%20Arvind%2C'>
                 <button
                   type='button'
-                  className='text-white bg-red-800 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-4 py-2 text-center bg-gradient-to-b from-rose-600 to-rose-900 hover:from-rose-600 hover:to-purple-900 transition ease-in-out'
+                  className='text-white ring-2 ring-rose-500/50 focus:outline-none font-medium rounded-lg text-sm px-4 py-2 text-center bg-gradient-to-b from-rose-600 to-rose-900 hover:from-rose-500 hover:to-rose-800 transition-all'
                 >
                   Get in touch
+                </button>
+              </a>
+            </MagneticButton>
+            <MagneticButton>
+              <a href='/cv' target='_blank' rel='noopener noreferrer'>
+                <button
+                  type='button'
+                  className='text-neutral-300 hover:text-white bg-neutral-800/80 hover:bg-neutral-700 ring-2 ring-neutral-700 hover:ring-teal-700/50 focus:outline-none font-medium rounded-lg text-sm px-4 py-2 text-center transition-all'
+                >
+                  CV
                 </button>
               </a>
             </MagneticButton>

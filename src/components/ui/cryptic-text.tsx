@@ -386,10 +386,11 @@ export function CrypticText({
       style={style}
       aria-label={text}
     >
+      {/* Both layers must share whitespace rules or reserved height drifts and overlays collide. */}
       <span
         aria-hidden='true'
         className={cn(
-          'invisible pointer-events-none',
+          'invisible pointer-events-none whitespace-pre-wrap',
           Tag === 'span' ? undefined : 'block',
           className
         )}

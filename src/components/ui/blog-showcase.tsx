@@ -47,8 +47,8 @@ export function BlogShowcase() {
         WRITING&nbsp;&nbsp;WRITING&nbsp;&nbsp;WRITING
       </div>
 
-      <div className='relative max-w-screen-xl mx-auto px-4 py-16 md:py-24'>
-        <div className='mb-10 md:mb-14' data-reveal>
+      <div className='relative max-w-screen-xl mx-auto px-4 py-12 md:py-16'>
+        <div className='mb-6 md:mb-8' data-reveal>
           <div className='mb-2'>
             <span className='text-xs font-semibold tracking-widest text-teal-400 uppercase'>
               <CrypticText
@@ -62,7 +62,7 @@ export function BlogShowcase() {
           </div>
           <div className='flex flex-wrap items-end justify-between gap-4'>
             <div className='max-w-2xl'>
-              <h2 className='text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight'>
+              <h2 className='text-3xl md:text-4xl font-bold text-white leading-tight'>
                 <CrypticText
                   text='Essays from the workshop.'
                   whenVisible
@@ -78,7 +78,7 @@ export function BlogShowcase() {
                 flipsPerChar={2}
                 scrambleWindow={4}
                 text='Agentic systems, attention, tabular ML, and the odd consulting roast — notes from building production AI.'
-                className='mt-3 text-neutral-400 text-sm md:text-base leading-relaxed max-w-xl'
+                className='mt-2 text-neutral-400 text-sm leading-relaxed max-w-xl'
               />
             </div>
             <span className='hidden md:inline text-xs font-mono text-neutral-600 tabular-nums pb-1'>
@@ -89,7 +89,7 @@ export function BlogShowcase() {
         </div>
 
         <ul
-          className='grid grid-cols-1 sm:grid-cols-2 gap-5'
+          className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4'
           role='list'
           data-reveal-group
         >
@@ -97,9 +97,9 @@ export function BlogShowcase() {
             <li key={post.slug}>
               <Link
                 href={`/blogs/${post.slug}`}
-                className='group block h-full rounded-2xl overflow-hidden border border-neutral-800 bg-neutral-950 hover:border-teal-800/50 transition-colors'
+                className='group block h-full rounded-xl overflow-hidden border border-neutral-800 bg-neutral-950 hover:border-teal-800/50 transition-colors'
               >
-                <div className='relative aspect-[16/9] overflow-hidden'>
+                <div className='relative aspect-[16/10] lg:aspect-[5/3] overflow-hidden'>
                   <BlogCover
                     basePath={post.coverPath}
                     alt={post.coverAlt}
@@ -107,23 +107,23 @@ export function BlogShowcase() {
                     className='h-full w-full object-cover opacity-80 group-hover:opacity-95 group-hover:scale-[1.03] transition-all duration-700 ease-out'
                   />
                   <div className='absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/30 to-transparent' />
-                  <span className='absolute top-3 left-3 font-mono text-[11px] text-neutral-400 bg-neutral-950/55 backdrop-blur px-2 py-0.5 rounded'>
+                  <span className='absolute top-2.5 left-2.5 font-mono text-[10px] text-neutral-400 bg-neutral-950/55 backdrop-blur px-1.5 py-0.5 rounded'>
                     {String(i + 1).padStart(2, '0')}
                   </span>
                 </div>
-                <div className='p-5'>
-                  <p className='text-[11px] font-mono text-neutral-500 mb-1.5'>
+                <div className='p-3.5 md:p-4'>
+                  <p className='text-[10px] font-mono text-neutral-500 mb-1'>
                     <time dateTime={post.date}>{formatPostDate(post.date)}</time>
                     <span aria-hidden> · </span>
                     <span>{post.readingMinutes} min</span>
                   </p>
-                  <h3 className='text-lg font-bold text-white mb-1.5 group-hover:text-teal-100 transition-colors leading-snug'>
+                  <h3 className='text-sm md:text-[15px] font-bold text-white mb-1 group-hover:text-teal-100 transition-colors leading-snug line-clamp-2'>
                     {post.title}
                   </h3>
-                  <p className='text-neutral-500 text-sm leading-relaxed line-clamp-2'>
+                  <p className='text-neutral-500 text-xs leading-relaxed line-clamp-2'>
                     {post.description}
                   </p>
-                  <span className='inline-flex items-center gap-1 mt-3 text-sm text-teal-400 font-medium'>
+                  <span className='inline-flex items-center gap-1 mt-2 text-xs text-teal-400 font-medium'>
                     Read more
                     <span className='transition-transform duration-300 group-hover:translate-x-1'>
                       →
@@ -135,11 +135,11 @@ export function BlogShowcase() {
           ))}
         </ul>
 
-        <div className='mt-8 flex justify-center' data-reveal>
+        <div className='mt-6 flex justify-center' data-reveal>
           <MagneticButton strength={0.15}>
             <Link
               href='/blogs'
-              className='group inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full border border-teal-800/50 bg-teal-950/30 text-sm text-teal-300 hover:text-teal-200 hover:border-teal-700/70 hover:bg-teal-950/50 transition-colors'
+              className='group inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full border border-teal-800/50 bg-teal-950/30 text-sm text-teal-300 hover:text-teal-200 hover:border-teal-700/70 hover:bg-teal-950/50 transition-colors'
             >
               <span>View all blogs</span>
               <span className='text-xs group-hover:translate-x-1 transition-transform'>

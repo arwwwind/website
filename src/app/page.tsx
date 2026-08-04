@@ -184,9 +184,9 @@ export default function Home() {
 const capabilities = [
   {
     id: 'hybrid-rag-agents',
-    label: 'Hybrid RAG & agents',
+    label: 'Multi-agent workflows',
     title: 'Enterprise AI research — Perplexity for scientific teams',
-    lead: 'I architected and shipped a production-grade hybrid RAG + agentic research platform that became the primary AI interface for lab workflows — an enterprise Perplexity for scientific teams that significantly boosted researcher productivity and day-to-day usage across the organization.',
+    lead: 'I architected and shipped a production multi-agent AI research platform that became the primary AI interface for lab workflows — an enterprise Perplexity for scientific teams that significantly boosted researcher productivity and day-to-day usage across the organization.',
     detail:
       'The retrieval stack combines BM25/TF-IDF with dense embeddings, late fusion, and cross-encoder reranking for high recall on domain-specific queries over large chemical and biological corpora. A LIGHT-style memory subsystem scales to millions of tokens of conversational history via episodic retrieval, structured working memory, and a compressed scratchpad — so multi-session research stays context-aware. Domain agentic tools (toxicity lookup, molecular property prediction, structure normalization, ChEMBL & PubChem connectors) let the LLM invoke specialized ML models and databases as callable actions. Inference runs on self-hosted Qwen 2.5 27B on AWS SageMaker with SGLang for high-throughput, low-latency serving, with a modular path to swap in larger models plus evaluation harnesses and domain fine-tunes.',
     outcome: 'The daily AI research platform for scientific teams',
@@ -327,84 +327,113 @@ const stackCategories = [
     label: 'AI & LLMs',
     items: [
       { name: 'Python', src: '/py.png', href: 'https://www.python.org/' },
-      { name: 'PyTorch', src: null, href: '#' },
-      { name: 'Hugging Face', src: null, href: '#' },
-      { name: 'LangChain / LangGraph', src: null, href: '#' },
-      { name: 'SGLang', src: null, href: '#' },
-      { name: 'Qwen / Llama', src: null, href: '#' },
-      { name: 'Prompt Engineering', src: null, href: '#' },
-      { name: 'RLHF / Fine-Tuning', src: null, href: '#' },
+      { name: 'PyTorch', src: null, href: 'https://pytorch.org/' },
+      { name: 'Hugging Face', src: null, href: 'https://huggingface.co/' },
+      { name: 'LangChain', src: null, href: 'https://www.langchain.com/' },
+      { name: 'LangGraph', src: null, href: 'https://www.langchain.com/langgraph' },
+      { name: 'LangSmith', src: null, href: 'https://www.langchain.com/langsmith' },
+      { name: 'Langfuse', src: null, href: 'https://langfuse.com/' },
+      { name: 'LiteLLM', src: null, href: 'https://www.litellm.ai/' },
+      { name: 'SGLang', src: null, href: 'https://github.com/sgl-project/sglang' },
+      { name: 'Qwen / Llama', src: null, href: 'https://huggingface.co/Qwen' },
+      { name: 'Agentic AI', src: null, href: 'https://www.anthropic.com/research/building-effective-agents' },
+      { name: 'MCP', src: null, href: 'https://modelcontextprotocol.io/' },
+      { name: 'Graph RAG', src: null, href: 'https://microsoft.github.io/graphrag/' },
+      { name: 'Memory', src: null, href: 'https://python.langchain.com/docs/concepts/memory/' },
+      { name: 'Intent Classifier', src: null, href: '#' },
+      { name: 'Agent Registry', src: null, href: '#' },
+      { name: 'Evals', src: null, href: 'https://docs.smith.langchain.com/evaluation' },
+      { name: 'Guardrails', src: null, href: 'https://www.guardrailsai.com/' },
+      { name: 'Agent Security', src: null, href: 'https://owasp.org/www-project-top-10-for-large-language-model-applications/' },
+      { name: 'Prompt Engineering', src: null, href: 'https://www.promptingguide.ai/' },
+      { name: 'RLHF / Fine-Tuning', src: null, href: 'https://huggingface.co/docs/trl' },
     ],
   },
   {
     label: 'ML Engineering',
     items: [
-      { name: 'scikit-learn', src: null, href: '#' },
-      { name: 'XGBoost / LightGBM', src: null, href: '#' },
-      { name: 'GNNs (PyG)', src: null, href: '#' },
+      { name: 'scikit-learn', src: null, href: 'https://scikit-learn.org/' },
+      { name: 'XGBoost / LightGBM', src: null, href: 'https://xgboost.readthedocs.io/' },
+      { name: 'GNNs (PyG)', src: null, href: 'https://pytorch-geometric.readthedocs.io/' },
+      { name: 'Optuna', src: null, href: 'https://optuna.org/' },
+      { name: 'SHAP / Explainability', src: null, href: 'https://shap.readthedocs.io/' },
+      { name: 'PCA / Dimensionality Reduction', src: null, href: 'https://scikit-learn.org/stable/modules/decomposition.html' },
+      { name: 'Ensembling', src: null, href: 'https://scikit-learn.org/stable/modules/ensemble.html' },
+      { name: 'Threshold Tuning', src: null, href: 'https://scikit-learn.org/stable/modules/calibration.html' },
+      { name: 'Calibration', src: null, href: 'https://scikit-learn.org/stable/modules/calibration.html' },
+      { name: 'Cross-Validation', src: null, href: 'https://scikit-learn.org/stable/modules/cross_validation.html' },
+      { name: 'Feature Selection', src: null, href: 'https://scikit-learn.org/stable/modules/feature_selection.html' },
       { name: 'EDA & Feature Analysis', src: null, href: '#' },
       { name: 'Model Evaluation & Ablation', src: null, href: '#' },
-      { name: 'SMOTE / Class Balancing', src: null, href: '#' },
+      { name: 'SMOTE / Class Balancing', src: null, href: 'https://imbalanced-learn.org/' },
     ],
   },
   {
     label: 'MLOps',
     items: [
-      { name: 'Experiment Tracking', src: null, href: '#' },
-      { name: 'Model Registry & Versioning', src: null, href: '#' },
+      { name: 'Experiment Tracking', src: null, href: 'https://mlflow.org/' },
+      { name: 'Model Registry & Versioning', src: null, href: 'https://mlflow.org/docs/latest/model-registry.html' },
       { name: 'CI/CD for ML', src: null, href: '#' },
       { name: 'Model Monitoring & Drift', src: null, href: '#' },
       { name: 'Reproducible Training', src: null, href: '#' },
       { name: 'Staged Rollouts & Canary', src: null, href: '#' },
-      { name: 'Feature Store Patterns', src: null, href: '#' },
+      { name: 'Feature Store Patterns', src: null, href: 'https://www.feast.dev/' },
     ],
   },
   {
     label: 'Data Engineering',
     items: [
+      { name: 'Databricks', src: null, href: 'https://www.databricks.com/' },
+      { name: 'Lakehouse', src: null, href: 'https://www.databricks.com/product/data-lakehouse' },
+      { name: 'Delta Lake', src: null, href: 'https://delta.io/' },
       { name: 'AWS Glue', src: null, href: 'https://aws.amazon.com/glue/' },
       { name: 'PySpark', src: null, href: 'https://spark.apache.org/' },
+      { name: 'Apache Airflow', src: null, href: 'https://airflow.apache.org/' },
+      { name: 'dbt', src: null, href: 'https://www.getdbt.com/' },
+      { name: 'Apache Kafka', src: null, href: 'https://kafka.apache.org/' },
       { name: 'Amazon Redshift', src: null, href: 'https://aws.amazon.com/redshift/' },
       { name: 'Amazon S3', src: null, href: 'https://aws.amazon.com/s3/' },
+      { name: 'Data Lake / ETL', src: null, href: '#' },
     ],
   },
   {
     label: 'Retrieval & Data Stores',
     items: [
-      { name: 'BM25 / TF-IDF', src: null, href: '#' },
-      { name: 'Dense Embeddings', src: null, href: '#' },
-      { name: 'Cross-Encoder Reranking', src: null, href: '#' },
-      { name: 'Pinecone', src: null, href: '#' },
-      { name: 'pgvector', src: null, href: '#' },
-      { name: 'Weaviate', src: null, href: '#' },
-      { name: 'Chroma', src: null, href: '#' },
+      { name: 'BM25 / TF-IDF', src: null, href: 'https://en.wikipedia.org/wiki/Okapi_BM25' },
+      { name: 'Dense Embeddings', src: null, href: 'https://www.sbert.net/' },
+      { name: 'Cross-Encoder Reranking', src: null, href: 'https://www.sbert.net/examples/applications/cross-encoder/README.html' },
+      { name: 'Pinecone', src: null, href: 'https://www.pinecone.io/' },
+      { name: 'pgvector', src: null, href: 'https://github.com/pgvector/pgvector' },
+      { name: 'Weaviate', src: null, href: 'https://weaviate.io/' },
+      { name: 'Chroma', src: null, href: 'https://www.trychroma.com/' },
       { name: 'PostgreSQL', src: '/pg.png', href: 'https://www.postgresql.org/' },
       { name: 'Redis', src: '/redis.svg', href: 'https://redis.io/' },
       { name: 'MongoDB', src: '/mongo.svg', href: 'https://www.mongodb.com/' },
-      { name: 'SQS / Event Pipelines', src: null, href: '#' },
+      { name: 'SQS / Event Pipelines', src: null, href: 'https://aws.amazon.com/sqs/' },
     ],
   },
   {
     label: 'Infrastructure & IaC',
     items: [
-      { name: 'Infrastructure as Code', src: null, href: '#' },
+      { name: 'Infrastructure as Code', src: null, href: 'https://www.terraform.io/' },
       { name: 'Terraform', src: null, href: 'https://www.terraform.io/' },
       { name: 'Kubernetes', src: null, href: 'https://kubernetes.io/' },
       { name: 'Helm', src: null, href: 'https://helm.sh/' },
       { name: 'Docker', src: null, href: 'https://www.docker.com/' },
-      { name: 'ELK Stack', src: null, href: '#' },
+      { name: 'Prometheus', src: null, href: 'https://prometheus.io/' },
+      { name: 'Grafana', src: null, href: 'https://grafana.com/' },
+      { name: 'ELK Stack', src: null, href: 'https://www.elastic.co/elastic-stack' },
     ],
   },
   {
     label: 'Cloud & APIs',
     items: [
       { name: 'AWS', src: '/aws.png', href: 'https://aws.amazon.com/' },
-      { name: 'SageMaker', src: null, href: '#' },
-      { name: 'LiteLLM', src: null, href: '#' },
-      { name: 'AWS Bedrock', src: null, href: '#' },
-      { name: 'FastAPI', src: null, href: '#' },
+      { name: 'SageMaker', src: null, href: 'https://aws.amazon.com/sagemaker/' },
+      { name: 'AWS Bedrock', src: null, href: 'https://aws.amazon.com/bedrock/' },
+      { name: 'FastAPI', src: null, href: 'https://fastapi.tiangolo.com/' },
       { name: 'Golang APIs', src: null, href: 'https://go.dev/' },
-      { name: 'GraphQL', src: null, href: '#' },
+      { name: 'GraphQL', src: null, href: 'https://graphql.org/' },
       { name: 'GPU Inference', src: null, href: '#' },
     ],
   },
@@ -412,10 +441,11 @@ const stackCategories = [
     label: 'Application Development',
     items: [
       { name: 'React', src: '/react.png', href: 'https://react.dev/' },
+      { name: 'React Native', src: null, href: 'https://reactnative.dev/' },
       { name: 'TypeScript', src: '/ts.svg', href: 'https://www.typescriptlang.org/' },
       { name: 'Node.js', src: '/node.png', href: 'https://nodejs.org/' },
       { name: 'Golang', src: null, href: 'https://go.dev/' },
-      { name: 'FastAPI', src: null, href: '#' },
+      { name: 'FastAPI', src: null, href: 'https://fastapi.tiangolo.com/' },
       { name: 'Tailwind CSS', src: null, href: 'https://tailwindcss.com/' },
       { name: 'shadcn/ui', src: null, href: 'https://ui.shadcn.com/' },
     ],
@@ -440,12 +470,12 @@ const exp = [
         {/* Project 1 */}
         <div className='mb-8 pl-4 border-l border-neutral-800'>
           <p className='text-rose-400 text-xs font-semibold tracking-widest uppercase mb-3'>
-            Hybrid RAG + Agentic Research Platform
+            Multi-Agent Workflows · Internal AI Research Platform
           </p>
           <p className='text-neutral-400 text-xs md:text-sm font-normal mb-3'>
-            Built an{' '}
+            Built a{' '}
             <span className='text-white font-medium'>
-              enterprise AI research platform (think Perplexity, but for
+              multi-agent AI research platform (think Perplexity, but for
               science)
             </span>{' '}
             — used daily by lab teams to search the scientific literature, look
@@ -692,6 +722,38 @@ const exp = [
           </div>
         </div>
 
+        {/* Retail ML */}
+        <div className='mb-8 pl-4 border-l border-neutral-800'>
+          <p className='text-rose-400 text-xs font-semibold tracking-widest uppercase mb-3'>
+            Retail ML · Ahold Delhaize USA
+          </p>
+          <p className='text-neutral-400 text-xs md:text-sm font-normal mb-3'>
+            Delivered production ML for{' '}
+            <span className='text-white font-medium'>Ahold Delhaize USA</span>{' '}
+            and its retail brands — Food Lion, Giant, Stop &amp; Shop,
+            Hannaford, and others — covering demand, pricing, and customer
+            analytics across large multi-banner grocery operations.
+          </p>
+          <p className='text-neutral-400 text-xs md:text-sm font-normal mb-4'>
+            Partnered with client data and merchandising teams on feature
+            pipelines, model validation, and rollout so recommendations stayed
+            usable at store and banner scale.
+          </p>
+          <div className='flex flex-wrap gap-2'>
+            {[
+              'Python',
+              'XGBoost',
+              'Retail Analytics',
+              'Demand Forecasting',
+              'Feature Engineering',
+            ].map((t) => (
+              <Badge key={t} variant='secondary'>
+                {t}
+              </Badge>
+            ))}
+          </div>
+        </div>
+
         {/* Data Engineering */}
         <div className='mb-8 pl-4 border-l border-neutral-800'>
           <p className='text-rose-400 text-xs font-semibold tracking-widest uppercase mb-3'>
@@ -702,7 +764,7 @@ const exp = [
             <span className='text-white font-medium'>
               batch data pipelines and analytics warehouses
             </span>{' '}
-            that feed underwriting and pricing models — landing raw data in{' '}
+            that feed underwriting, pricing, and retail models — landing raw data in{' '}
             <span className='text-rose-400 font-medium'>Amazon S3</span>,
             orchestrating transforms with{' '}
             <span className='text-rose-400 font-medium'>AWS Glue</span> and{' '}
@@ -924,23 +986,32 @@ const exp = [
         {/* Test platform */}
         <div className='mb-8 pl-4 border-l border-neutral-800'>
           <p className='text-rose-400 text-xs font-semibold tracking-widest uppercase mb-3'>
-            Assessments & Test Platform
+            Assessments & Quiz Platform
           </p>
           <p className='text-neutral-400 text-xs md:text-sm font-normal mb-3'>
-            Revamped the{' '}
+            Built the{' '}
             <a
               href='https://tests.upgrad.com'
               className='text-teal-400 underline underline-offset-2 hover:text-teal-300 transition-colors'
             >
-              online assessment and test platform
+              online test-taking and quiz-authoring platform
             </a>{' '}
-            used for proctored exams and skills validation at scale. Rebuilt
-            critical paths for faster item load, more stable delivery under
-            spike traffic, and clearer observability for the ops team — with{' '}
-            <span className='text-rose-400 font-semibold'>
-              up to ~40% performance gains
+            for large-scale peak load —{' '}
+            <span className='text-white font-medium'>
+              50–60k concurrent test-takers
             </span>{' '}
-            on slow-device profiles in lab tests.
+            at peak hour, while off-peak traffic was mostly teachers authoring
+            quizzes.
+          </p>
+          <p className='text-neutral-400 text-xs md:text-sm font-normal mb-3'>
+            Teacher side: question bank with search, test creation and invitation
+            flows, plus a live demo mode to preview how assessments work
+            end-to-end. Student side: quiz mode with proctoring controls —{' '}
+            <span className='text-rose-400 font-medium'>
+              tab-switch detection, webcam-based facial distraction checks, and
+              copy-paste restrictions
+            </span>{' '}
+            — for secure high-stakes exams.
           </p>
           <p className='text-neutral-400 text-xs md:text-sm font-normal mb-4'>
             Same React / TypeScript / Node stack as the LMS program, extended to
@@ -961,7 +1032,9 @@ const exp = [
               'React',
               'TypeScript',
               'Node.js',
-              'Load Optimization',
+              'Proctoring',
+              'Question Bank',
+              'Peak Load',
               'Observability',
             ].map((t) => (
               <Badge key={t} variant='secondary'>
@@ -1136,13 +1209,6 @@ const exp = [
               height={500}
               className={imgClass}
             />
-            <Image
-              src='/adapp.png'
-              alt='Yahoo advertising mobile'
-              width={1400}
-              height={500}
-              className={imgClass}
-            />
           </div>
           <div className='flex flex-wrap gap-2'>
             {[
@@ -1150,6 +1216,47 @@ const exp = [
               'Campaign Automation',
               'NLP',
               'Python',
+            ].map((t) => (
+              <Badge key={t} variant='secondary'>
+                {t}
+              </Badge>
+            ))}
+          </div>
+        </div>
+
+        {/* React Native mobile */}
+        <div className='mb-8 pl-4 border-l border-neutral-800'>
+          <p className='text-rose-400 text-xs font-semibold tracking-widest uppercase mb-3'>
+            Yahoo Ad.com Mobile · React Native (ex-Yahoo Gemini)
+          </p>
+          <p className='text-neutral-400 text-xs md:text-sm font-normal mb-3'>
+            Shipped the{' '}
+            <span className='text-white font-medium'>Ad.com mobile app</span>{' '}
+            for iOS and Android in{' '}
+            <span className='text-rose-400 font-medium'>React Native</span> —
+            the same self-serve advertising product as Ad.com on the web,
+            previously launched as Yahoo Gemini for mobile.
+          </p>
+          <p className='text-neutral-400 text-xs md:text-sm font-normal mb-4'>
+            Delivered campaign creation and management flows on mobile so SMB
+            advertisers could run the full Ad.com workflow from their phones.
+          </p>
+          <div className='grid grid-cols-2 gap-4 mb-4'>
+            <Image
+              src='/adapp.png'
+              alt='Yahoo Ad.com React Native mobile app'
+              width={1400}
+              height={500}
+              className={imgClass}
+            />
+          </div>
+          <div className='flex flex-wrap gap-2'>
+            {[
+              'React Native',
+              'iOS',
+              'Android',
+              'Mobile Ads',
+              'SMB Self-Serve',
             ].map((t) => (
               <Badge key={t} variant='secondary'>
                 {t}
@@ -1196,45 +1303,6 @@ const exp = [
               </Badge>
             ))}
           </div>
-        </div>
-      </div>
-    ),
-  },
-  {
-    title: '2017',
-    content: (
-      <div>
-        <h3 className='text-lg md:text-2xl mb-1 text-teal-400 max-w-4xl font-bold'>
-          <a
-            href='https://www.fulfil.io/'
-            className='hover:text-teal-300 transition-colors'
-          >
-            Fulfil.io
-          </a>
-        </h3>
-        <p className='text-neutral-500 text-xs mb-6 font-normal'>
-          Engineering Intern · Fulfil.io
-        </p>
-        <p className='text-neutral-400 text-xs md:text-sm font-normal mb-3'>
-          Built the CMS infrastructure for Fulfil&apos;s marketing team —
-          enabling non-technical stakeholders to manage content, landing pages,
-          and product documentation independently without engineering
-          involvement.
-        </p>
-        <p className='text-neutral-400 text-xs md:text-sm font-normal mb-6'>
-          Led a product-wide UI redesign, modernizing the visual language of the
-          B2B ERP platform and improving consistency across core modules. First
-          exposure to production engineering, shipping cadences, and real-user
-          feedback loops at a venture-backed SaaS company.
-        </p>
-        <div className='grid grid-cols-2 gap-4'>
-          <Image
-            src='/fulfil.png'
-            alt='Fulfil.io'
-            width={1400}
-            height={500}
-            className={imgClass}
-          />
         </div>
       </div>
     ),

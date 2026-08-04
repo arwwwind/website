@@ -7,7 +7,9 @@ import { MagneticButton } from '@/components/ui/magnetic-button';
 import { HeroStats } from '@/components/HeroStats';
 import { StreamCell, useSequentialStream } from '@/components/ui/stream-in';
 
-const HERO_BIO = `I build AI systems that actually work in the real world — for biotech research labs, financial risk teams, and enterprise organizations. Currently at GATC Health, where the AI research tool I built is now the team's daily interface for scientific literature and drug discovery work. My ML models for drug property prediction achieve F1 ≈ 0.90, AUROC ≈ 0.92 — near state-of-the-art accuracy on biomedical benchmarks. Nine years shipping at Yahoo, upGrad, and Egen.ai.`;
+const HERO_BIO = `10 years, one recurring theme: teach the machines to handle the tedious 90% so a human can get on with the interesting 10%.
+I've inflicted this on advertising at Yahoo, education at upGrad, underwriting and finance at Egen.ai (car-loan risk models, mostly, taught to behave), and retail for Ahold Delhaize USA and its brands.
+Currently: Biotech, at GATC Health, where a multi-agent research platform I built gets used by scientists combing biomedical literature for actual drug candidates. The models we built predict molecular properties at an F1 of ≈0.90 and an AUROC near 0.92.`;
 
 function HeroActions({ active }: { active: boolean }) {
   // 0 Book a Call | 1 Email Me | 2 LinkedIn | 3 GitHub

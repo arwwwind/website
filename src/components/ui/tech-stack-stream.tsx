@@ -31,29 +31,36 @@ function buildSteps(categories: StackCategory[]): Step[] {
 }
 
 function StackChip({ item }: { item: StackItem }) {
-  if (item.src) {
+  const hasLink = Boolean(item.href && item.href !== '#');
+  const className =
+    'group flex items-center gap-2 px-3 py-2 rounded-lg border border-neutral-800 hover:border-teal-800/60 bg-neutral-950 hover:bg-teal-950/20 transition-all duration-200 text-xs text-neutral-500 hover:text-teal-400';
+
+  const content = (
+    <>
+      {item.src ? (
+        <div
+          style={{ backgroundImage: `url("${item.src}")` }}
+          className='w-4 h-4 bg-contain bg-center bg-no-repeat saturate-0 group-hover:saturate-100 transition-all duration-300'
+        />
+      ) : null}
+      <span className='transition-colors'>{item.name}</span>
+    </>
+  );
+
+  if (hasLink) {
     return (
       <a
         href={item.href}
         target='_blank'
         rel='noopener noreferrer'
-        className='group flex items-center gap-2 px-3 py-2 rounded-lg border border-neutral-800 hover:border-teal-800/60 bg-neutral-950 hover:bg-teal-950/20 transition-all duration-200'
+        className={className}
       >
-        <div
-          style={{ backgroundImage: `url("${item.src}")` }}
-          className='w-4 h-4 bg-contain bg-center bg-no-repeat saturate-0 group-hover:saturate-100 transition-all duration-300'
-        />
-        <span className='text-xs text-neutral-500 group-hover:text-teal-400 transition-colors'>
-          {item.name}
-        </span>
+        {content}
       </a>
     );
   }
-  return (
-    <span className='flex items-center px-3 py-2 rounded-lg border border-neutral-800 hover:border-teal-800/60 hover:bg-teal-950/20 bg-neutral-950 text-xs text-neutral-500 hover:text-teal-400 transition-all duration-200 cursor-default'>
-      {item.name}
-    </span>
-  );
+
+  return <span className={`${className} cursor-default`}>{content}</span>;
 }
 
 /**

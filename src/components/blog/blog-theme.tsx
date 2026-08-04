@@ -22,7 +22,7 @@ const BlogThemeContext = createContext<BlogThemeContextValue | null>(null);
 const STORAGE_KEY = 'arwwwind-blog-theme';
 
 function readStoredTheme(): BlogTheme {
-  if (typeof window === 'undefined') return 'dark';
+  if (typeof window === 'undefined') return 'light';
   try {
     const fromDom = document.documentElement.getAttribute('data-blog-theme');
     if (fromDom === 'light' || fromDom === 'dark') return fromDom;
@@ -31,7 +31,7 @@ function readStoredTheme(): BlogTheme {
   } catch {
     /* ignore */
   }
-  return 'dark';
+  return 'light';
 }
 
 function syncDom(theme: BlogTheme) {
@@ -65,7 +65,7 @@ const useIsoLayoutEffect =
   typeof window !== 'undefined' ? useLayoutEffect : useEffect;
 
 export function BlogThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setThemeState] = useState<BlogTheme>('dark');
+  const [theme, setThemeState] = useState<BlogTheme>('light');
   const [ready, setReady] = useState(false);
 
   useIsoLayoutEffect(() => {
