@@ -48,7 +48,6 @@ flowchart TB
         HYB["Hybrid retrieval<br/>dense + sparse<br/>ACL-filtered at query time"]
         FUSE["RRF fusion k=60"]
         RANK["Reranker — TEI<br/>Jina v3 / bge-reranker"]
-        GRAPHQ["Graph query service<br/>multi-hop — optional"]
     end
 
     subgraph EXEC["Execution Plane"]
@@ -73,7 +72,6 @@ flowchart TB
     subgraph DATA["Data Plane"]
         QDR[("Qdrant cluster<br/>dense + sparse vectors<br/>+ per-chunk ACL payload")]
         PG[("Postgres<br/>perm mirror, lineage,<br/>checkpoints, registry")]
-        NEO[("Neo4j — optional<br/>knowledge graph")]
         RED[("Redis<br/>semantic cache, rate limits,<br/>session state")]
         OBJ[("Object store S3/GCS<br/>raw documents")]
         CHDB[("ClickHouse<br/>Langfuse v3 traces")]
@@ -98,7 +96,6 @@ flowchart TB
     LG --> AREG
     LG --> MEM
     LG --> HYB --> FUSE --> RANK --> LG
-    LG --> GRAPHQ --> NEO
     HYB --> QDR
     HYB -->|ACL filter| PG
     HYB --> TEI
@@ -116,7 +113,6 @@ flowchart TB
     CONN --> MQ
     CEL --> PROC --> TEI
     PROC --> QDR
-    PROC --> NEO
     PROC --> OBJ
     CONN --> PSYNC --> PG
     BFF -.traces.-> OTEL
@@ -138,10 +134,8 @@ flowchart TD
     H --> I[(Vector DB - Qdrant<br/>+ per-chunk ACL)]
     C --> J[(Permission mirror - Postgres)]
     C --> K[(Object store - raw docs)]
-    H --> L[(Graph store - Neo4j<br/>optional)]
     B --> M[Lineage tracker - Postgres]
     M -.deletion propagation.-> I
-    M -.deletion propagation.-> L
 `;
 const CHART_2 = `
 flowchart TD
@@ -151,7 +145,7 @@ flowchart TD
     IC -->|medium| QR[Query understanding:<br/>rewrite + filters]
     IC -->|hard| P{Planning required?}
     P -->|no| QR
-    P -->|yes| PL[Build tool DAG<br/>fetch memory<br/>choose vector vs graph]
+    P -->|yes| PL[Build tool DAG<br/>fetch memory<br/>choose retrieval depth]
     QR --> RR[Retrieve → fuse → rerank]
     PL --> EX[Execute DAG<br/>sandboxed tools]
     RR --> CTX[Context manager assembles prompt]
@@ -400,9 +394,9 @@ export default function AnatomyOfAnAgenticAISystemPostPage() {
         <div className='blog-prose' itemProp='articleBody'>
           <div dangerouslySetInnerHTML={{ __html: `<p class="blog-prose__lede">A practical guide to building — or evaluating — an enterprise agentic workspace assistant in the age of agentic AI.</p><h2>TL;DR</h2>
 <ul>
-<li><strong>Build the boring parts first: permission-aware retrieval and identity are the product.</strong> A workspace assistant lives or dies on whether it enforces the source system’s ACLs at query time. The operating principle is simple: permissions are checked before any information ever reaches the LLM; only this pre-filtered, “safe” information is passed through; the LLM cannot leak information it never receives. Everything else — models, graphs, memory — is a differentiator layered on top of that non-negotiable foundation.</li>
-<li><strong>Make opinionated picks and defer the exotic ones.</strong> Default stack: <strong>Qdrant</strong> (vectors) + <strong>Postgres/pgvector</strong> for metadata and small-scale vectors + <strong>Neo4j/Graphiti</strong> only when multi-hop queries show up in your logs; <strong>Qwen3-Embedding</strong> or <strong>Gemini Embedding</strong> for embeddings; <strong>Cohere Rerank / Jina v3</strong> for reranking; <strong>recursive character chunking as the default</strong> with per-type escalation; <strong>LiteLLM</strong> as the gateway; <strong>LangGraph + Langfuse</strong>, dropping LangSmith unless you’re all-in on LangChain and want its eval maturity.</li>
-<li><strong>The intent classifier is the spine of the whole system.</strong> Route simple → direct LLM, medium/hard → plan+retrieve (hybrid vector, escalate to graph for relationship questions), bad → guardrails. Use an embedding router (sub-100ms, ~65x cheaper than an LLM call) with a cheap-LLM fallback, not a frontier model on every turn.</li>
+<li><strong>Build the boring parts first: permission-aware retrieval and identity are the product.</strong> A workspace assistant lives or dies on whether it enforces the source system’s ACLs at query time. The operating principle is simple: permissions are checked before any information ever reaches the LLM; only this pre-filtered, “safe” information is passed through; the LLM cannot leak information it never receives. Everything else — models, retrieval depth, memory — is a differentiator layered on top of that non-negotiable foundation.</li>
+<li><strong>Make opinionated picks and defer the exotic ones.</strong> Default stack: <strong>Qdrant</strong> (vectors) + <strong>Postgres/pgvector</strong> for metadata and small-scale vectors; <strong>Qwen3-Embedding</strong> or <strong>Gemini Embedding</strong> for embeddings; <strong>Cohere Rerank / Jina v3</strong> for reranking; <strong>recursive character chunking as the default</strong> with per-type escalation; <strong>LiteLLM</strong> as the gateway; <strong>LangGraph + Langfuse</strong>, dropping LangSmith unless you’re all-in on LangChain and want its eval maturity. Escalate to multi-hop / specialized retrieval only when your logs show hybrid vector failing.</li>
+<li><strong>The intent classifier is the spine of the whole system.</strong> Route simple → direct LLM, medium/hard → plan+retrieve (hybrid vector, deepen retrieval for relationship questions), bad → guardrails. Use an embedding router (sub-100ms, ~65x cheaper than an LLM call) with a cheap-LLM fallback, not a frontier model on every turn.</li>
 <li><strong>Cost-per-answer is a first-class design constraint, not a finance afterthought.</strong> A 3-step agent loop with accumulating context genuinely costs 50–70x a single cheap-tier call — the math is in Section 14. Tiered routing, budget guards, early exits, and permission-scoped caching are architecture, not optimization.</li>
 </ul>
 <h2>Key Findings</h2>
@@ -410,8 +404,8 @@ export default function AnatomyOfAnAgenticAISystemPostPage() {
 <li><strong>Permission-aware retrieval is architectural, not a filter.</strong> Enforce ACLs at retrieval time by mirroring source-system permissions into your index and trimming candidates to the user’s access <em>before</em> the LLM sees anything. Snapshotting permissions at index time or filtering after generation are both broken.</li>
 <li><strong>Recursive character chunking is the right default</strong> — the peer-reviewed NAACL 2025 Findings paper by Qu, Tu &amp; Bao, “Is Semantic Chunking Worth the Computational Cost?”, concludes verbatim that “the computational costs associated with semantic chunking are not justified by consistent performance gains” — but structure-aware chunking wins for code (AST), slides, spreadsheets, transcripts, and tickets.</li>
 <li><strong>Most “bad retrieval” is a badly understood question.</strong> Chunking, embeddings, and rerankers are commoditized; query understanding — conversational rewriting, filter extraction, decomposition — is the last unfixed layer of RAG and where the remaining gains live.</li>
-<li><strong>Hybrid (dense + sparse) retrieval fused with RRF is the production default</strong>; add a reranker; add a graph store <em>only</em> when multi-hop/relationship queries demonstrably fail on vectors. GraphRAG costs 10–40x more to index and adds ~2.3x query latency — earn it.</li>
-<li><strong>Of six candidate memory layers, two earn their latency budget:</strong> working memory (last N turns) and a compressed scratchpad. Episodic recall should be a tool the agent calls, not an always-on injection; temporal knowledge graphs are architecture theatre for most workloads.</li>
+<li><strong>Hybrid (dense + sparse) retrieval fused with RRF is the production default</strong>; add a reranker; add specialized multi-hop retrieval <em>only</em> when relationship queries demonstrably fail on vectors. Extra index cost and latency are real — earn them.</li>
+<li><strong>Of six candidate memory layers, two earn their latency budget:</strong> working memory (last N turns) and a compressed scratchpad. Episodic recall should be a tool the agent calls, not an always-on injection; exotic temporal/relational memory layers are architecture theatre for most workloads.</li>
 <li><strong>Agent-generated code must never run in-process.</strong> The minimum acceptable isolation for untrusted agent code is a Firecracker/Kata microVM or gVisor; standard Docker/runc shares the host kernel and is insufficient.</li>
 <li><strong>Agents need their own identity.</strong> Use OAuth 2.0 Token Exchange (RFC 8693) delegation semantics and workload identity (SPIFFE) so agents act <em>on behalf of</em> users with scoped, short-lived tokens — not the user’s raw credentials or a static API key.</li>
 <li><strong>Evals must be bootstrapped from real traffic, and you can build a 200-question golden set with zero human labels</strong> — mine and cluster query logs, generate questions from chunks for retrieval labels, use pairwise judging for generation. LLM-as-judge is systematically optimistic; calibrate against a human-labeled sample (target 75–90% agreement).</li>
@@ -546,12 +540,6 @@ export default function AnatomyOfAnAgenticAISystemPostPage() {
 <td>Semantic cache, rate limits, session, Celery results</td>
 <td>Stateful</td>
 <td>Sentinel/managed</td>
-</tr>
-<tr>
-<td>Neo4j</td>
-<td>Knowledge graph (only when earned)</td>
-<td>Stateful</td>
-<td>Causal cluster at scale</td>
 </tr>
 <tr>
 <td>ClickHouse</td>
@@ -717,7 +705,7 @@ export default function AnatomyOfAnAgenticAISystemPostPage() {
 - <strong>Source authority weighting</strong> — a per-source-type prior (published docs &gt; wiki &gt; tickets &gt; chat).
 - <strong>Freshness decay</strong> — exponential time-decay on a recency score; a 2024 runbook should lose to the 2026 one.
 - <strong>Deduplication</strong> — near-dup detection (MinHash/embedding cosine) so five copies of the same PDF don’t flood results.
-- <strong>Popularity/click signals</strong> — feed thumbs-up, click-through, and dwell back into ranking. Production knowledge graphs do exactly this with metadata, owners, and status fields.</p>
+- <strong>Popularity/click signals</strong> — feed thumbs-up, click-through, and dwell back into ranking. Mature enterprise search systems do exactly this with metadata, owners, and status fields.</p>
 <p>These are ranking features, not just retrieval — bake them into the reranking stage (Section 8).</p>
 <h4>3c. Data storage</h4>
 <p><strong>Vector DB — the choice matters most.</strong> My decision:</p>
@@ -751,7 +739,7 @@ export default function AnatomyOfAnAgenticAISystemPostPage() {
 </tr>
 <tr>
 <td>Weaviate</td>
-<td>Hybrid + graph-ish features</td>
+<td>Hybrid + modular features</td>
 <td>Not top on pure vector latency</td>
 <td>If you want built-in hybrid+modules</td>
 </tr>
@@ -782,7 +770,6 @@ export default function AnatomyOfAnAgenticAISystemPostPage() {
 </tbody>
 </table></div>
 <p><strong>Pick Qdrant</strong> for a dedicated store (permission filtering is exactly its strength, and permission-aware retrieval demands fast filtered search), or <strong>pgvector</strong> if you’re small or already Postgres-centric — its filtering and 5–8ms HNSW latency mean “the database query is not the bottleneck” until real scale. Migrate to a dedicated store around 50–100M vectors or when cloud costs cross a few hundred dollars/month.</p>
-<p><strong>Graph DB:</strong> Neo4j (mature, Cypher, Graphiti builds on it), FalkorDB (fast, Redis-based), Neptune (AWS-managed), Memgraph (in-memory, real-time). <strong>Pick Neo4j</strong> if you adopt GraphRAG/temporal memory (Graphiti/Zep target it first); FalkorDB if latency-critical and you want lighter ops. <strong>But don’t add a graph DB until Section 8’s trigger fires.</strong></p>
 <p><strong>Everything else:</strong> object store (S3/GCS) for raw docs and originals; <strong>Postgres</strong> for metadata, lineage, and permission mirror; <strong>Redis</strong> for cache (embeddings, hot retrievals, session state) and rate-limit counters.</p>
 <h4>3d. Data lineage &amp; embedding models</h4>
 <p><strong>Embedding model choice (verify current MTEB standings, which shifted hard in early 2026):</strong></p>
@@ -843,7 +830,7 @@ export default function AnatomyOfAnAgenticAISystemPostPage() {
 <li><strong>Incremental sync / CDC:</strong> don’t full-crawl. Use webhooks/change-logs to capture deltas every 1–5 minutes (mature enterprise connectors do this; eSapiens reports near-real-time via webhook/change-log triggers). Push delta changes, not re-crawls.</li>
 <li><strong>Permissions sync:</strong> ACL mirroring is a <em>continuous</em> job, not a one-time import. Re-sync group membership and per-object ACLs on a schedule and on change events; stale ACLs are a security incident waiting to happen.</li>
 <li><strong>PII detection/handling:</strong> run PII detection/classification at ingestion; mask or tag sensitive fields; support incognito/no-retention paths for sensitive conversations.</li>
-<li><strong>Deletion propagation (GDPR right-to-be-forgotten):</strong> a delete in the source must propagate to the index <em>and the embeddings</em> and any derived memory/graph. Track lineage (object → chunks → vectors → graph nodes) in Postgres so deletion is a graph traversal, not a hope.</li>
+<li><strong>Deletion propagation (GDPR right-to-be-forgotten):</strong> a delete in the source must propagate to the index <em>and the embeddings</em> and any derived memory. Track lineage (object → chunks → vectors) in Postgres so deletion is a deterministic cascade, not a hope.</li>
 <li><strong>Index versioning &amp; re-embedding:</strong> when you change embedding models you must re-embed. Version your index; dual-write and shadow-read the new index; cut over behind an eval gate. Immutable versioning (v1→v2 on re-chunk/re-index) gives rollback.</li>
 </ul>
 <p><strong>Ingestion pipeline diagram:</strong></p>` }} />
@@ -901,7 +888,7 @@ export default function AnatomyOfAnAgenticAISystemPostPage() {
 <ul>
 <li><strong>Simple</strong> (greeting, definition, chit-chat) → direct LLM answer, <strong>no retrieval</strong>.</li>
 <li><strong>Medium</strong> → single retrieval pass (hybrid vector) → answer. Usually no multi-step plan.</li>
-<li><strong>Hard</strong> (multi-hop, cross-source, analytical) → <strong>plan</strong>: build a tool DAG, fetch user memory, retrieve (escalate to graph for relationship questions), execute, synthesize.</li>
+<li><strong>Hard</strong> (multi-hop, cross-source, analytical) → <strong>plan</strong>: build a tool DAG, fetch user memory, retrieve (deepen retrieval for relationship questions), execute, synthesize.</li>
 <li><strong>Bad</strong> (adversarial, off-policy, prompt injection) → guardrails: refuse/deflect gracefully, log, and flag.</li>
 </ul>
 <p><strong>Classifier implementation tradeoffs:</strong></p>
@@ -1031,7 +1018,7 @@ export default function AnatomyOfAnAgenticAISystemPostPage() {
 </tr>
 <tr>
 <td><strong>Glossary/entity expansion</strong></td>
-<td>Expand org acronyms and codenames from a glossary mined from your knowledge graph/metadata</td>
+<td>Expand org acronyms and codenames from a glossary mined from your metadata</td>
 <td>Lookup, ~0ms</td>
 <td>Orgs with heavy internal jargon (all of them)</td>
 </tr>
@@ -1109,7 +1096,7 @@ export default function AnatomyOfAnAgenticAISystemPostPage() {
 </tbody>
 </table></div>
 <p><strong>Recommendation:</strong> <strong>Cohere Rerank 3.5</strong> if you want managed zero-ops; <strong>Jina Reranker v3</strong> if you self-host and need a strict sub-200ms budget. The latency/quality tradeoff: reranking adds 150–600ms but delivers 15–40% higher precision than embeddings alone — worth it for medium/hard queries, skip it for simple ones. One sobering benchmark truth: “the retriever sets the ceiling” — no reranker pushed Hit@10 above 88% because the missing 12% never entered the candidate pool. Invest in retrieval recall (and Section 8a) first.</p>
-<h4>8c. When graph beats vector (driven by the intent classifier)</h4>
+<h4>8c. When hybrid vector isn’t enough (driven by the intent classifier)</h4>
 <div aria-label="Comparison table" class="blog-table-wrap" role="region"><table>
 <thead>
 <tr>
@@ -1122,7 +1109,7 @@ export default function AnatomyOfAnAgenticAISystemPostPage() {
 <tr>
 <td>Lookup / single-hop fact</td>
 <td>Hybrid vector</td>
-<td>Per Han et al. (GraphRAG-Bench, <a href='https://arxiv.org/abs/2506.05690' target='_blank' rel='noopener noreferrer'>arXiv:2506.05690</a>, ICLR‘26), “GraphRAG achieves 13.4% lower accuracy on Natural Question compared to vanilla RAG”</td>
+<td>Vanilla RAG is competitive or better on single-hop factual QA; specialized multi-hop stacks often underperform here</td>
 </tr>
 <tr>
 <td>Semantic / paraphrase</td>
@@ -1131,23 +1118,23 @@ export default function AnatomyOfAnAgenticAISystemPostPage() {
 </tr>
 <tr>
 <td>Multi-hop / relationship (“which customers in Germany use a product from a company we acquired”)</td>
-<td><strong>Graph</strong></td>
-<td>GraphRAG-V +11pts recall on MultiHopRAG; Vector RAG relevancy collapses at multi-hop</td>
+<td><strong>Decomposed / multi-step retrieval</strong></td>
+<td>Single-pass vector relevancy collapses at multi-hop; query decomposition + iterative retrieve/reason recovers the chain</td>
 </tr>
 <tr>
 <td>Global summarization over a corpus</td>
-<td>GraphRAG community summaries</td>
-<td>Microsoft GraphRAG’s design point</td>
+<td>Map-reduce / hierarchical summarization</td>
+<td>Needs corpus-wide aggregation, not nearest-neighbor chunks</td>
 </tr>
 <tr>
 <td>Temporal (“who owned this account in February”)</td>
-<td>Temporal graph (Graphiti/Zep)</td>
-<td>Per the vectorize.io benchmark replicated in Rasmussen et al. (<a href='https://arxiv.org/abs/2501.13956' target='_blank' rel='noopener noreferrer'>arXiv:2501.13956</a>), Zep 63.8% vs Mem0 49.0% on LongMemEval</td>
+<td>Metadata filters + versioned docs; specialized memory if needed</td>
+<td>Time-scoped filters and lineage beat similarity alone; add a dedicated temporal memory layer only when filters fail</td>
 </tr>
 </tbody>
 </table></div>
-<p>GraphRAG costs 10–40x more to index ($50–200 vs $1–5 per corpus in one estimate) and ~2.3x query latency; it also drops ~16.6% accuracy on questions requiring real-time knowledge updates due to stale entity representations. <strong>Do not architect for hypothetical multi-hop queries — find the real ones in your logs first</strong>, then add a graph. LightRAG gives ~70–90% of GraphRAG quality at ~1/100th the cost as a middle ground.</p>
-<p><strong>Full pipeline:</strong> classify → understand/rewrite → (hybrid dense+sparse retrieve, ACL-filtered) → RRF fuse → rerank → [optional graph traversal for multi-hop] → assemble context → LLM → cite.</p>
+<p>Specialized multi-hop stacks cost more to index and add query latency; they can also lag on questions that need fresh knowledge when entity representations go stale. <strong>Do not architect for hypothetical multi-hop queries — find the real ones in your logs first</strong>, then deepen retrieval (decompose, iterate, or add a specialized index). Prefer the cheapest escalation that fixes the failure mode you actually measured.</p>
+<p><strong>Full pipeline:</strong> classify → understand/rewrite → (hybrid dense+sparse retrieve, ACL-filtered) → RRF fuse → rerank → [optional multi-step / decomposed retrieve for multi-hop] → assemble context → LLM → cite.</p>
 <h3>9. Context manager</h3>
 <p>Context is a scarce, actively-managed resource — this is Anthropic’s “context engineering”: find “the smallest possible set of high-signal tokens.” Techniques, and when to use each:</p>
 <ul>
@@ -1209,17 +1196,17 @@ export default function AnatomyOfAnAgenticAISystemPostPage() {
 </tr>
 <tr>
 <td>6</td>
-<td>Temporal knowledge graph</td>
-<td>Entity graph with time-validity edges</td>
-<td>A graph DB, an extraction pipeline, per-turn traversal latency</td>
-<td><strong>Theatre for most workloads.</strong> Adopt only when temporal-relational queries provably fail on layers 2+3+5 — same evidentiary bar as GraphRAG in 8c.</td>
+<td>Temporal / relational memory</td>
+<td>Entity history with time-validity and relationship edges</td>
+<td>An extraction pipeline, specialized store, per-turn traversal latency</td>
+<td><strong>Theatre for most workloads.</strong> Adopt only when temporal-relational queries provably fail on layers 2+3+5 — same evidentiary bar as Section 8c.</td>
 </tr>
 </tbody>
 </table></div>
-<p>The pattern behind the verdicts: <strong>layers that condense earn their keep; layers that recall speculatively don’t.</strong> Working memory and the scratchpad are dense-by-construction — every token in them was recently relevant or explicitly distilled. Episodic recall and temporal graphs inject on a <em>guess</em> about relevance, and the guess is usually wrong, so you pay latency and context pollution for occasional wins — which is exactly why the fix is making recall <em>deliberate</em> (a tool call) rather than <em>ambient</em> (always-on injection). The LIGHT framework’s three-store result (episodic + working + scratchpad, below) is consistent with this: even in the paper, the scratchpad does disproportionate work.</p>
+<p>The pattern behind the verdicts: <strong>layers that condense earn their keep; layers that recall speculatively don’t.</strong> Working memory and the scratchpad are dense-by-construction — every token in them was recently relevant or explicitly distilled. Episodic recall and exotic temporal layers inject on a <em>guess</em> about relevance, and the guess is usually wrong, so you pay latency and context pollution for occasional wins — which is exactly why the fix is making recall <em>deliberate</em> (a tool call) rather than <em>ambient</em> (always-on injection). The LIGHT framework’s three-store result (episodic + working + scratchpad, below) is consistent with this: even in the paper, the scratchpad does disproportionate work.</p>
 <h3>10. User memory</h3>
 <p>Anthropic shipped Claude memory in 2025: it “periodically summarizes your conversations and carries forward… the most relevant context,” auto-generates memories (“when Claude detects something worth remembering… it creates a memory entry automatically”), is account/project-scoped, user-viewable/editable/deletable, opt-in (with an Incognito no-retention mode), and is moving toward file-based “Memory Files.” The developer memory tool is <strong>client-side</strong> — your app executes storage, so you control where memories live. This is the model to emulate: a background “auto-dream” process that mines past chats for durable preferences and context.</p>
-<p><strong>Storage choice — graph vs .md files vs hybrid:</strong></p>
+<p><strong>Storage choice — .md files vs vector vs hybrid:</strong></p>
 <div aria-label="Comparison table" class="blog-table-wrap" role="region"><table>
 <thead>
 <tr>
@@ -1235,18 +1222,18 @@ export default function AnatomyOfAnAgenticAISystemPostPage() {
 <td>No temporal reasoning, weak at relationships</td>
 </tr>
 <tr>
-<td><strong>Graph</strong> (Graphiti/Zep)</td>
-<td>Temporal + relationship reasoning; Zep 63.8% vs Mem0 49.0% LongMemEval</td>
-<td>Operational weight (run a graph DB); expensive; post-ingest retrieval can lag</td>
-</tr>
-<tr>
-<td><strong>Vector</strong> (Mem0)</td>
+<td><strong>Vector</strong> (Mem0-style)</td>
 <td>Cheap, fast, token-efficient (Mem0 &lt;7k tokens/retrieval)</td>
 <td>Weak on temporal/contradiction</td>
 </tr>
+<tr>
+<td><strong>Specialized temporal store</strong></td>
+<td>Stronger temporal + relationship reasoning when the domain needs it</td>
+<td>Operational weight; expensive; post-ingest retrieval can lag</td>
+</tr>
 </tbody>
 </table></div>
-<p><strong>Recommendation: hybrid.</strong> A <strong>markdown vault for canonical, user-visible preferences</strong> (portable, editable, the source of truth the user controls) <strong>plus a vector layer (Mem0-style) for transient session memory</strong> — the pattern “most mid-market deployments end up” with. Add a <strong>temporal graph (Graphiti)</strong> only if your domain has entities that change ownership/state over time. Memory system landscape: Mem0 (personalization, token-efficient), Zep/Graphiti (temporal, SOC2/HIPAA/GDPR), Letta/MemGPT (OS-style self-managed tiers), Cognee (unstructured-doc knowledge graphs).</p>
+<p><strong>Recommendation: hybrid.</strong> A <strong>markdown vault for canonical, user-visible preferences</strong> (portable, editable, the source of truth the user controls) <strong>plus a vector layer (Mem0-style) for transient session memory</strong> — the pattern “most mid-market deployments end up” with. Add a <strong>specialized temporal memory layer</strong> only if your domain has entities that change ownership/state over time and filters + vectors demonstrably fail. Memory system landscape: Mem0 (personalization, token-efficient), Zep (temporal, SOC2/HIPAA/GDPR), Letta/MemGPT (OS-style self-managed tiers).</p>
 <p><em>(On the “LIGHT” framework: there is a genuine 2026 paper — “Beyond a Million Tokens,” <a href='https://arxiv.org/abs/2510.27246' target='_blank' rel='noopener noreferrer'>arXiv:2510.27246</a>, ICLR 2026 — presenting a memory framework named </em><em>LIGHT</em><em> that equips an LLM with three complementary systems: long-term </em><em>episodic</em><em> memory (FAISS-indexed), short-term </em><em>working</em><em> memory (recent turns), and a </em><em>scratchpad</em><em> of accumulated salient facts, improving memory-QA by 3.5–12.7% over strong baselines. Its three-store design maps directly onto layers 2–4 of the table above — validate against its BEAM benchmark if memory is central to your product. Note the name collides with Facebook’s unrelated LIGHT text-adventure environment.)</em></p>
 <p><strong>Memory governance (non-negotiable):</strong>
 - <strong>Write policy:</strong> only write high-confidence, durable facts (preferences, roles, recurring context) — not transcripts. Anthropic stores “preferences… not conversation transcripts.”
@@ -1610,12 +1597,12 @@ export default function AnatomyOfAnAgenticAISystemPostPage() {
 - Drift monitoring (embedding sentinels, Arize Phoenix/Evidently); non-technical signals (thumbs-down, reformulation, abandonment); management dashboard with unit economics.</p>
 <p><strong>Phase 3 — Enterprise-grade (scale, compliance, trust):</strong>
 - <strong>RFC 8693 token exchange</strong> delegation + <strong>SPIFFE</strong> agent workload identity + MCP OAuth 2.1 for tool servers; Biscuit/macaroon attenuation for sub-agent chains.
-- <strong>GraphRAG/Graphiti</strong> — added <em>because your logs proved</em> multi-hop/temporal queries fail on vectors, not speculatively. Same bar for temporal-graph memory.
+- Specialized multi-hop / temporal retrieval — added <em>because your logs proved</em> relationship or time-scoped queries fail on hybrid vectors, not speculatively. Same bar for exotic temporal memory.
 - Milvus if you cross billion-vector scale; Temporal if agent workflows span days with approval gates.
-- GDPR deletion propagation across index/embeddings/graph/memory; PII detection; index versioning + shadow re-embedding on model changes.
+- GDPR deletion propagation across index/embeddings/memory; PII detection; index versioning + shadow re-embedding on model changes.
 - SOC2/ISO-grade audit trails (every query, response, and document-access path logged); tenant isolation; incognito/no-retention paths.
 - Chargeback, model-tier entitlements, and cost governance enforced at the gateway; canary + online evals + A/B as the standard deploy path.</p>
-<p><strong>The one-sentence thesis:</strong> build the permission-aware retrieval and identity spine first, make the boring reliability parts (idempotency, sandboxing, evals-from-real-traffic, per-query cost budgets) non-negotiable, and add the exotic parts — graphs, temporal memory, multi-agent, attenuated delegation — only when your own production logs prove you need them.</p>
+<p><strong>The one-sentence thesis:</strong> build the permission-aware retrieval and identity spine first, make the boring reliability parts (idempotency, sandboxing, evals-from-real-traffic, per-query cost budgets) non-negotiable, and add the exotic parts — specialized multi-hop retrieval, temporal memory, multi-agent, attenuated delegation — only when your own production logs prove you need them.</p>
 <h2>Caveats</h2>
 <ul>
 <li><strong>Fast-moving landscape.</strong> MTEB standings, reranker leaderboards, and gateway features shifted materially in 2025–2026; several cited data points come from vendor blogs and aggregators — <strong>re-verify against primary leaderboards and benchmark on your own corpus</strong> before committing. The FinMTEB result (best general model drops ~8.5 points on-domain) is the reason.</li>
