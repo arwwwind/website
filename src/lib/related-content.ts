@@ -240,14 +240,26 @@ const RELATED_BY_SLUG: Record<
     ],
   },
   'anatomy-of-an-agentic-ai-system': {
+    series: {
+      id: 'agentic-ai-system',
+      label: 'Anatomy & Pathology',
+      part: 1,
+    },
     mid: {
       kind: 'blog',
-      slug: 'the-tree-not-the-titan',
-      eyebrow: 'Architecture take',
+      slug: 'pathology-of-an-agentic-ai-system',
+      eyebrow: 'Series · Part 2',
       blurb:
-        'Why trees of specialists beat monoliths — and when that intuition breaks.',
+        'The sequel — a field guide to production failures, differential diagnosis, and the order in which to escalate.',
     },
     end: [
+      {
+        kind: 'blog',
+        slug: 'pathology-of-an-agentic-ai-system',
+        eyebrow: 'Series · Part 2',
+        blurb:
+          'Symptoms, diagnoses, and why most teams escalate architecture before they fix the query.',
+      },
       {
         kind: 'blog',
         slug: 'an-exasperating-farrago-of-firewalls',
@@ -256,16 +268,47 @@ const RELATED_BY_SLUG: Record<
           'The security twin — identity, gateways, and the broker that keeps the agent honest.',
       },
       {
-        kind: 'blog',
-        slug: 'vibes-all-the-way-down',
-        eyebrow: 'Related essay',
-        blurb: 'The cultural failure mode when agentic systems replace intuition.',
-      },
-      {
         kind: 'work',
         slug: 'cohort-ai',
         eyebrow: 'Case study',
         blurb: 'Multi-agent recruitment pipeline — SPEC agents in production.',
+      },
+    ],
+  },
+  'pathology-of-an-agentic-ai-system': {
+    series: {
+      id: 'agentic-ai-system',
+      label: 'Anatomy & Pathology',
+      part: 2,
+    },
+    mid: {
+      kind: 'blog',
+      slug: 'anatomy-of-an-agentic-ai-system',
+      eyebrow: 'Series · Part 1',
+      blurb:
+        'Start here — the blueprint this essay performs autopsies upon: permission-aware retrieval, routing, and the boring spine.',
+    },
+    end: [
+      {
+        kind: 'blog',
+        slug: 'anatomy-of-an-agentic-ai-system',
+        eyebrow: 'Series · Part 1',
+        blurb:
+          'What to build before you learn how it dies — the parent essay.',
+      },
+      {
+        kind: 'blog',
+        slug: 'an-exasperating-farrago-of-firewalls',
+        eyebrow: 'Related essay',
+        blurb:
+          'When §23 whets the appetite — the defensive field guide for agentic systems.',
+      },
+      {
+        kind: 'blog',
+        slug: 'the-rope-sellers-buy-a-rope-machine',
+        eyebrow: 'Related essay',
+        blurb:
+          'What happens when the industry sells all of this without building it.',
       },
     ],
   },
@@ -345,6 +388,10 @@ const SERIES_SLUGS: Record<string, string[]> = {
   'middlemans-republic': [
     'the-middlemans-republic',
     'the-arranged-marriage-of-the-century',
+  ],
+  'agentic-ai-system': [
+    'anatomy-of-an-agentic-ai-system',
+    'pathology-of-an-agentic-ai-system',
   ],
 };
 

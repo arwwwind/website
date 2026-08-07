@@ -19,6 +19,31 @@ export type BlogPost = {
 
 export const blogPosts: BlogPost[] = [
   {
+    slug: 'pathology-of-an-agentic-ai-system',
+    title: 'The Pathology of an Agentic AI System',
+    metaTitle: 'Pathology of an Agentic AI System',
+    description:
+      'The sequel to the Anatomy — a field guide to production failures in RAG and agentic systems. Symptoms, diagnoses, and the order in which to escalate.',
+    date: '2026-08-07',
+    tags: [
+      'rag',
+      'agentic-ai',
+      'llm-ops',
+      'retrieval',
+      'evals',
+      'fine-tuning',
+      'graphrag',
+      'observability',
+      'architecture',
+    ],
+    coverAlt:
+      'Sepia Dalí-style line drawing of a reclining figure whose torso is a chest of drawers, propped by crutches, with a melting clock, marching ants, floating keys, and a solitary keyhole on a desert plain',
+    coverPath: '/blog/pathology-of-an-agentic-ai-system',
+    ogImage: '/blog/pathology-of-an-agentic-ai-system/og.jpg',
+    wordCount: 18549,
+    readingMinutes: 81,
+  },
+  {
     slug: 'the-arranged-marriage-of-the-century',
     title: 'The Arranged Marriage of the Century',
     metaTitle: 'Arranged Marriage of the Century',

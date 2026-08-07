@@ -5,6 +5,7 @@ import { BlogHook } from '@/components/blog/blog-hook';
 import {
   BlogContinueReading,
   BlogRelatedAd,
+  BlogSeriesBanner,
 } from '@/components/blog/blog-related';
 import { MermaidDiagram } from '@/components/blog/mermaid-diagram';
 import {
@@ -390,6 +391,8 @@ export default function AnatomyOfAnAgenticAISystemPostPage() {
           />
           <figcaption className='sr-only'>{post.coverAlt}</figcaption>
         </figure>
+
+        <BlogSeriesBanner slug={SLUG} />
 
         <div className='blog-prose' itemProp='articleBody'>
           <div dangerouslySetInnerHTML={{ __html: `<p class="blog-prose__lede">A practical guide to building — or evaluating — an enterprise agentic workspace assistant in the age of agentic AI.</p><h2>TL;DR</h2>
@@ -1615,6 +1618,13 @@ export default function AnatomyOfAnAgenticAISystemPostPage() {
         
           <h2>Further reading on this site</h2>
           <ul className='blog-prose__refs'>
+            <li>
+              <Link href='/blogs/pathology-of-an-agentic-ai-system'>
+                The Pathology of an Agentic AI System
+              </Link>{' '}
+              — the sequel: production failures, differential diagnosis, and
+              the order in which to escalate.
+            </li>
             <li>
               <Link href='/blogs/an-exasperating-farrago-of-firewalls'>
                 An Exasperating Farrago of Firewalls
